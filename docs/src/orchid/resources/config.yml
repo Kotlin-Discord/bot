@@ -1,5 +1,5 @@
 site:
-  baseUrl: "https://docs.kotlindiscord.com/bot/"
+  baseUrl: "https://bot.docs.kotlindiscord.com/"
   theme: "Editorial"
 
   about:
@@ -30,8 +30,6 @@ kotlindoc:
 
 allPages:
   metaComponents:
-    - type: "kotlinPlayground"
-      selector: "pre code[class='language-run-kotlin']"
     - type: "prism"
       languages:
         - "kotlin"
