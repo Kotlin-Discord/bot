@@ -14,7 +14,11 @@ class VerificationExtension(kdBot: KDBot) : Extension(kdBot) {
     override val name: String = "verification"
 
     override suspend fun setup() {
-        event<MessageCreateEvent>(DefaultCheck(), RoleCheck(Roles.DEVELOPER, CheckOperation.NOT_EQUAL)) {
+        event<MessageCreateEvent>(
+            DefaultCheck(),
+            RoleCheck(Roles.DEVELOPER, CheckOperation.NOT_CONTAINS),
+            RoleCheck(Roles.ADMIN, CheckOperation.HIGHER_OR_EQUAL)
+        ) {
             if (message.content.matches("^!verify(\\s.*|$)".toRegex())) {
                 return@event  // They're verifying themselves, this is fine
             }
@@ -30,7 +34,9 @@ class VerificationExtension(kdBot: KDBot) : Extension(kdBot) {
 
         command(
             "verify",
-            checks = *arrayOf(DefaultCheck(), RoleCheck(Roles.DEVELOPER, CheckOperation.NOT_EQUAL))
+            aliases = arrayOf("accept", "verified", "accepted"),
+            hidden = true,
+            checks = *arrayOf(DefaultCheck(), RoleCheck(Roles.DEVELOPER, CheckOperation.NOT_CONTAINS))
         ) { _, message, _ ->
             message.author?.asMember(message.getGuild()!!.id)?.addRole(config.getRoleSnowflake(Roles.DEVELOPER))
         }

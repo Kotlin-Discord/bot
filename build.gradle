@@ -7,10 +7,11 @@ version '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
+    jcenter()
 
     maven {
-        name = "Kord"
-        url = "https://dl.bintray.com/kordlib/Kord"
+        name = 'Kord'
+        url = 'https://dl.bintray.com/kordlib/Kord'
     }
 }
 
@@ -20,14 +21,14 @@ dependencies {
     implementation 'com.uchuhimo:konf-toml:0.22.1'
     implementation 'io.github.microutils:kotlin-logging:1.7.9'
     implementation 'org.apache.commons:commons-text:1.8'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
-    implementation "org.jetbrains.kotlin:kotlin-reflect"
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
+    implementation 'org.jetbrains.kotlin:kotlin-reflect'
     implementation 'org.slf4j:slf4j-simple:1.7.29'
 }
 
 compileKotlin {
-    kotlinOptions.jvmTarget = "13"
+    kotlinOptions.jvmTarget = '13'
 }
 compileTestKotlin {
-    kotlinOptions.jvmTarget = "13"
+    kotlinOptions.jvmTarget = '13'
 }

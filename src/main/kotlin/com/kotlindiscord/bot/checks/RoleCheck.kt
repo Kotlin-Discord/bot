@@ -9,6 +9,9 @@ import com.kotlindiscord.bot.enums.CheckOperation
 import com.kotlindiscord.bot.enums.Roles
 import com.kotlindiscord.bot.getTopRole
 import kotlinx.coroutines.flow.toList
+import mu.KotlinLogging
+
+private val logger = KotlinLogging.logger {}
 
 class RoleCheck(var role: Role, val operation: CheckOperation = CheckOperation.CONTAINS) : Check {
     private fun compare(other: Role?): Boolean {
@@ -20,7 +23,7 @@ class RoleCheck(var role: Role, val operation: CheckOperation = CheckOperation.C
             return compare()
         }
 
-        return when (operation) {
+        val result = when (operation) {
             CheckOperation.HIGHER          -> role > other
             CheckOperation.HIGHER_OR_EQUAL -> role >= other
             CheckOperation.LOWER           -> role < other
@@ -30,6 +33,10 @@ class RoleCheck(var role: Role, val operation: CheckOperation = CheckOperation.C
 
             else                           -> false
         }
+
+        logger.debug { "${role.name} ${operation.value} ${other.name} -> $result" }
+
+        return result
     }
 
     private fun compare(): Boolean {
@@ -37,7 +44,7 @@ class RoleCheck(var role: Role, val operation: CheckOperation = CheckOperation.C
             throw UnsupportedOperationException("Given check (${operation.value}) is not valid for null values")
         }
 
-        return when (operation) {
+        val result = when (operation) {
             CheckOperation.HIGHER          -> false
             CheckOperation.HIGHER_OR_EQUAL -> false
             CheckOperation.LOWER           -> true
@@ -47,6 +54,10 @@ class RoleCheck(var role: Role, val operation: CheckOperation = CheckOperation.C
 
             else                           -> false
         }
+
+        logger.debug { "${role.name} ${operation.value} null -> $result" }
+
+        return result
     }
 
     private fun compare(others: List<Role>): Boolean {
@@ -54,12 +65,16 @@ class RoleCheck(var role: Role, val operation: CheckOperation = CheckOperation.C
             throw UnsupportedOperationException("Given check (${operation.value}) is not valid for multiple roles")
         }
 
-        return when (operation) {
+        val result = when (operation) {
             CheckOperation.CONTAINS     -> others.contains(role)
             CheckOperation.NOT_CONTAINS -> others.contains(role).not()
 
             else                        -> false
         }
+
+        logger.debug { "${role.name} ${operation.value} [${others.size} Roles]  -> $result" }
+
+        return result
     }
 
     override suspend fun check(event: MessageCreateEvent): Boolean {
