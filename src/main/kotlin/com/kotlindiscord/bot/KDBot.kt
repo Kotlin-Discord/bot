@@ -3,16 +3,22 @@ package com.kotlindiscord.bot
 import com.gitlab.kordlib.core.Kord
 import com.gitlab.kordlib.core.event.message.MessageCreateEvent
 import com.gitlab.kordlib.core.on
+import com.kotlindiscord.bot.api.Extension
 import com.kotlindiscord.bot.api.KDCommand
 import com.kotlindiscord.bot.config.config
 import com.kotlindiscord.bot.extensions.PingExtension
+import com.kotlindiscord.bot.extensions.VerificationExtension
 import com.uchuhimo.konf.UnsetValueException
 import mu.KotlinLogging
+import kotlin.reflect.KClass
+import kotlin.reflect.full.createInstance
+import kotlin.reflect.full.primaryConstructor
 
 private val logger = KotlinLogging.logger {}
 
 class KDBot {
     val commands: MutableList<KDCommand> = mutableListOf()
+    val extensions: MutableMap<String, Extension> = mutableMapOf()
     val prefix = "!"
 
     lateinit var bot: Kord
@@ -20,10 +26,24 @@ class KDBot {
     suspend fun start(token: String) {
         this.bot = Kord(token)
         this.registerListeners()
-
-        val ext = PingExtension(this)
+        this.addExtensions()
 
         this.bot.login()
+    }
+
+    suspend fun addExtensions() {
+        addExtension(PingExtension::class)
+        addExtension(VerificationExtension::class)
+    }
+
+    suspend fun addExtension(extension: KClass<out Extension>) {
+        val ctor = extension.primaryConstructor ?: throw InvalidExtensionException(extension, "No primary constructor")
+
+        val extensionObj = ctor.call(this)
+
+        extensionObj.setup()
+
+        extensions[extensionObj.name] = extensionObj
     }
 
     fun registerListeners() {
@@ -70,9 +90,9 @@ class KDBot {
     }
 }
 
-suspend fun main(args: Array<String>) {
-    val kdBot = KDBot()
+val kdBot = KDBot()
 
+suspend fun main(args: Array<String>) {
     try {
         kdBot.start(config.token)
     } catch (e: UnsetValueException) {

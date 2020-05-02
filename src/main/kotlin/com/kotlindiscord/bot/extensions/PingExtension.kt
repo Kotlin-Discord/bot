@@ -4,7 +4,9 @@ import com.kotlindiscord.bot.KDBot
 import com.kotlindiscord.bot.api.Extension
 
 class PingExtension(kdBot: KDBot) : Extension(kdBot) {
-    init {
+    override val name: String = "ping"
+
+    override suspend fun setup() {
         command("ping") { _, message, _ ->
             message.channel.createMessage("Pong!")
         }

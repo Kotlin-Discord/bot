@@ -2,9 +2,8 @@ package com.kotlindiscord.bot.api
 
 import com.gitlab.kordlib.core.entity.Message
 import com.gitlab.kordlib.core.event.message.MessageCreateEvent
+import mu.KotlinLogging
 import org.apache.commons.text.StringTokenizer
-import java.lang.Exception
-import kotlin.reflect.KClass
 
 class KDCommand(
     val action: suspend KDCommand.(MessageCreateEvent, Message, Array<String>) -> Unit,
@@ -12,7 +11,7 @@ class KDCommand(
     val name: String,
 
     val aliases: Array<String> = arrayOf(),
-    val checks: Array<(Message, Array<String>) -> Boolean> = arrayOf(),
+    vararg val checks: Check = arrayOf(),
     val help: String = "",
     val hidden: Boolean = false,
     var enabled: Boolean = true
@@ -21,7 +20,7 @@ class KDCommand(
         val parsedMessage = this.parseMessage(event.message)
 
         for (check in this.checks) {
-            if (!check(event.message, parsedMessage)) {
+            if (!check.check(event.message, parsedMessage)) {
                 return
             }
         }
@@ -29,7 +28,7 @@ class KDCommand(
         try {
             this.action(this, event, event.message, parsedMessage)
         } catch (e: Exception) {
-            // TODO: Log, etc
+            logger.error(e) { "Failed to run command $name ($event)" }
         }
     }
 
