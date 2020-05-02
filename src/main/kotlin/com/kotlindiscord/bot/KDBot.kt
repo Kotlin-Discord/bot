@@ -4,7 +4,9 @@ import com.gitlab.kordlib.core.Kord
 import com.gitlab.kordlib.core.event.message.MessageCreateEvent
 import com.gitlab.kordlib.core.on
 import com.kotlindiscord.bot.api.KDCommand
+import com.kotlindiscord.bot.config.config
 import com.kotlindiscord.bot.extensions.PingExtension
+import com.uchuhimo.konf.UnsetValueException
 import mu.KotlinLogging
 
 private val logger = KotlinLogging.logger {}
@@ -69,13 +71,11 @@ class KDBot {
 }
 
 suspend fun main(args: Array<String>) {
-    val token = System.getenv("TOKEN")
     val kdBot = KDBot()
 
-    if (token == null) {
-        logger.error { "No token found: Set the TOKEN env var" }
-        return
+    try {
+        kdBot.start(config.token)
+    } catch (e: UnsetValueException) {
+        println("Failed to load config: $e")
     }
-
-    kdBot.start(token)
 }
