@@ -39,7 +39,7 @@ abstract class Extension(val kdBot: KDBot) {
     }
 
     /**
-     * Convenience function for adding an event handler, with optional checks
+     * Convenience function for adding an event handler, with optional checks.
      */
     inline fun <reified T : Event> event(
         vararg checks: Check,

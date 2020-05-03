@@ -110,7 +110,6 @@ class RoleCheck(var role: Role, val operation: CheckOperation = CheckOperation.C
     override suspend fun check(message: Message, args: Array<String>): Boolean = check(message)
 }
 
-@Suppress("functionName")
-suspend fun RoleCheck(role: Roles, operation: CheckOperation = CheckOperation.CONTAINS): RoleCheck {
-    return RoleCheck(config.getRole(role), operation)
-}
+@Suppress("functionName", "FunctionNaming")
+suspend fun RoleCheck(role: Roles, operation: CheckOperation = CheckOperation.CONTAINS): RoleCheck =
+    RoleCheck(config.getRole(role), operation)

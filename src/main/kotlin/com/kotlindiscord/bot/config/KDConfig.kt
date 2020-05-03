@@ -56,9 +56,8 @@ class KDConfig {
     }
 
     @Throws(MissingGuildException::class)
-    suspend fun getGuild(): Guild {
-        return kdBot.bot.getGuild(guildSnowflake) ?: throw MissingGuildException(guildSnowflake.longValue)
-    }
+    suspend fun getGuild(): Guild =
+        kdBot.bot.getGuild(guildSnowflake) ?: throw MissingGuildException(guildSnowflake.longValue)
 }
 
 val config = KDConfig()

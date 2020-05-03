@@ -11,7 +11,6 @@ import com.kotlindiscord.bot.extensions.VerificationExtension
 import com.uchuhimo.konf.UnsetValueException
 import mu.KotlinLogging
 import kotlin.reflect.KClass
-import kotlin.reflect.full.createInstance
 import kotlin.reflect.full.primaryConstructor
 
 private val logger = KotlinLogging.logger {}

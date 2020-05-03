@@ -16,7 +16,7 @@ class DefaultCheck : Check {
                 logger.debug { "Failing check: Not in the correct guild" }
                 return false
             }
-            message.author?.id == kdBot.bot.getSelf().id          -> {
+            message.author?.id == kdBot.bot.getSelf().id   -> {
                 logger.debug { "Failing check: We sent this message" }
                 return false
             }

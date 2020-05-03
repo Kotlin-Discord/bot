@@ -16,6 +16,4 @@ fun Role.toEnum(): Roles? {
     return null
 }
 
-suspend fun Member.getTopRole(): Role? {
-    return this.roles.toList().max()
-}
+suspend fun Member.getTopRole(): Role? = this.roles.toList().max()

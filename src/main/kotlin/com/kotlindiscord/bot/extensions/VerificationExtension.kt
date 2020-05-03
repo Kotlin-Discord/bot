@@ -12,6 +12,8 @@ import com.kotlindiscord.bot.enums.CheckOperation
 import com.kotlindiscord.bot.enums.Roles
 import kotlinx.coroutines.delay
 
+const val DELETE_DELAY = 10_000L
+
 class VerificationExtension(kdBot: KDBot) : Extension(kdBot) {
     override val name: String = "verification"
 
@@ -31,7 +33,7 @@ class VerificationExtension(kdBot: KDBot) : Extension(kdBot) {
             )
             message.delete()
 
-            delay(1000)
+            delay(DELETE_DELAY)
             sentMessage.delete()
         }
 

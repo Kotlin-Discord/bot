@@ -2,7 +2,6 @@ package com.kotlindiscord.bot.api
 
 import com.gitlab.kordlib.core.entity.Message
 import com.gitlab.kordlib.core.event.message.MessageCreateEvent
-import mu.KotlinLogging
 import org.apache.commons.text.StringTokenizer
 
 class KDCommand(
@@ -25,6 +24,7 @@ class KDCommand(
             }
         }
 
+        @Suppress("TooGenericExceptionCaught")  // Anything could happen here
         try {
             this.action(this, event, event.message, parsedMessage)
         } catch (e: Exception) {

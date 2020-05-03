@@ -31,9 +31,19 @@ interface Check {
         throw NotImplementedError()
     }
 
-    suspend fun check(event: MessageCreateEvent): Boolean { throw NotImplementedError() }
-    suspend fun check(event: MessageCreateEvent, args: Array<String>): Boolean { throw NotImplementedError() }
+    suspend fun check(event: MessageCreateEvent): Boolean {
+        throw NotImplementedError()
+    }
 
-    suspend fun check(message: Message): Boolean { throw NotImplementedError() }
-    suspend fun check(message: Message, args: Array<String>): Boolean { throw NotImplementedError() }
+    suspend fun check(event: MessageCreateEvent, args: Array<String>): Boolean {
+        throw NotImplementedError()
+    }
+
+    suspend fun check(message: Message): Boolean {
+        throw NotImplementedError()
+    }
+
+    suspend fun check(message: Message, args: Array<String>): Boolean {
+        throw NotImplementedError()
+    }
 }
