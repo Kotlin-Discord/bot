@@ -23,13 +23,13 @@ jobs:
       - name: Gradle Build
         run: sh gradlew build
 
-      - name: Upload artifact (Slim JAR)
-        uses: actions/upload-artifact@v1.0.0
-
       - name: Rename Artifacts
         run: |
           mv build/libs/*-all.jar build/libs/KDBot.jar
           mv build/libs/*-*.*.jar build/libs/KDBot-slim.jar
+
+      - name: Upload artifact (Slim JAR)
+        uses: actions/upload-artifact@v1.0.0
 
         with:
           name: Slim JAR

@@ -24,13 +24,13 @@ jobs:
       - name: Gradle Deploy Docs
         run: sh gradlew docs:orchidDeploy -DgithubToken=${{ secrets.GITHUB_TOKEN }}
 
-      - name: Upload artifact (Slim JAR)
-        uses: actions/upload-artifact@v1.0.0
-
       - name: Rename Artifacts
         run: |
           mv build/libs/*-all.jar build/libs/KDBot.jar
           mv build/libs/*-*.*.jar build/libs/KDBot-slim.jar
+
+      - name: Upload artifact (Slim JAR)
+        uses: actions/upload-artifact@v1.0.0
 
         with:
           name: Slim JAR
