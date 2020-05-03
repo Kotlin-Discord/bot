@@ -2,8 +2,26 @@ package com.kotlindiscord.bot.api
 
 import com.gitlab.kordlib.core.entity.Message
 import com.gitlab.kordlib.core.event.message.MessageCreateEvent
+import mu.KotlinLogging
 import org.apache.commons.text.StringTokenizer
 
+private val logger = KotlinLogging.logger {}
+
+/**
+ * Class representing a command in our framework.
+ *
+ * You shouldn't need to use this class directly - instead, create an [Extension] and use the
+ * [Extension.command] function to register your command, by overriding the [Extension.setup]
+ * function.
+ *
+ * @param action The body of the command.
+ * @param extension The extension that registered this command.
+ * @param name The primary name of the command, for invocation and documentation.
+ * @param aliases An array of alternative names to be used for command invocation.
+ * @param checks An array of [Check] objects, used for pre-command filtering.
+ * @param help A short help string describing this command.
+ * @param hidden Whether to hide this command from the help listing.
+ */
 class KDCommand(
     val action: suspend KDCommand.(MessageCreateEvent, Message, Array<String>) -> Unit,
     val extension: Extension,
@@ -12,9 +30,20 @@ class KDCommand(
     val aliases: Array<String> = arrayOf(),
     vararg val checks: Check = arrayOf(),
     val help: String = "",
-    val hidden: Boolean = false,
-    var enabled: Boolean = true
+    val hidden: Boolean = false
 ) {
+    /**
+     * Execute this command, given a [MessageCreateEvent].
+     *
+     * This function takes a [MessageCreateEvent] (generated when a message is received), and
+     * processes it. Following this, the command's [Check]s are invoked and, assuming all of the
+     * checks passed, the [command body][action] is executed.
+     *
+     * If an exception is thrown by the [command body][action], it is caught and a traceback
+     * is printed.
+     *
+     * @param event The message creation event.
+     */
     suspend fun call(event: MessageCreateEvent) {
         val parsedMessage = this.parseMessage(event.message)
 
@@ -28,11 +57,23 @@ class KDCommand(
         try {
             this.action(this, event, event.message, parsedMessage)
         } catch (e: Exception) {
-            logger.error(e) { "Failed to run command $name ($event)" }
+            logger.error(e) { "Error while executing command $name ($event)" }
         }
     }
 
-    fun parseMessage(message: Message): Array<String> {
+    /**
+     * Takes a [Message] object and parses it using a [StringTokenizer].
+     *
+     * This tokenizes a string, splitting it into an array of strings, using whitespace as a
+     * delimiter but supporting quoted tokens (strings between quotes are treated as individual
+     * arguments).
+     *
+     * This is used to create an array of arguments for a command's input.
+     *
+     * @param message The message to parse
+     * @return An array of parsed arguments
+     */
+    private fun parseMessage(message: Message): Array<String> {
         val array = StringTokenizer(message.content).tokenArray
         return array.sliceArray(1 until array.size)
     }

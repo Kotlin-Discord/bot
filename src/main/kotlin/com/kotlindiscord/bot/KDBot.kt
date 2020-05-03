@@ -16,13 +16,29 @@ import kotlin.reflect.full.primaryConstructor
 
 private val logger = KotlinLogging.logger {}
 
+/**
+ * The core of the bot application, the almighty KDBot class.
+ *
+ * This class is in charge of setting up the bot and managing commands and extensions.
+ */
 class KDBot {
+    /** A list of all registered commands. **/
     val commands: MutableList<KDCommand> = mutableListOf()
+
+    /** A map of the names of all loaded [Extension]s to their instances. **/
     val extensions: MutableMap<String, Extension> = mutableMapOf()
+
+    /** The command prefix. **/
     val prefix = "!"
 
+    /** @suppress **/
     lateinit var bot: Kord
 
+    /**
+     * This function kicks of the process, by setting up the bot and having it login.
+     *
+     * @param token The bot login token.
+     */
     suspend fun start(token: String) {
         this.bot = Kord(token)
         this.registerListeners()
@@ -31,11 +47,24 @@ class KDBot {
         this.bot.login()
     }
 
+    /**
+     * This function adds all of the default extensions when the bot is being set up.
+     */
     suspend fun addExtensions() {
         addExtension(PingExtension::class)
         addExtension(VerificationExtension::class)
     }
 
+    /**
+     * Install an [Extension] to this bot.
+     *
+     * This function will instantiate the given extension class, call its [Extension.setup]
+     * function, and store it in the [extensions] map.
+     *
+     * @param extension The [Extension] class to install.
+     * @throws InvalidExtensionException Thrown if the extension has no primary constructor.
+     */
+    @Throws(InvalidExtensionException::class)
     suspend fun addExtension(extension: KClass<out Extension>) {
         val ctor = extension.primaryConstructor ?: throw InvalidExtensionException(extension, "No primary constructor")
 
@@ -46,6 +75,9 @@ class KDBot {
         extensions[extensionObj.name] = extensionObj
     }
 
+    /**
+     * This function sets up all of the bot's default event listeners.
+     */
     fun registerListeners() {
         this.bot.on<ReadyEvent> {
             logger.info { "Ready!" }
@@ -66,6 +98,17 @@ class KDBot {
         }
     }
 
+    /**
+     * Directly register a [KDCommand] on this bot.
+     *
+     * Generally speaking, you shouldn't call this directly - instead, create an [Exception] and
+     * call the [Extension.command] function in your [Extension.setup] function.
+     *
+     * @param command The command to be registered.
+     * @return Whether the command was registered. This may return `false` if the command was
+     * already registered, or if another command exists with the same name. Aliases are not
+     * checked.
+     */
     fun registerCommand(command: KDCommand): Boolean {
         val existingCommands = this.commands.filter { it.name == command.name }
 
@@ -81,21 +124,31 @@ class KDBot {
         return false
     }
 
+    /**
+     * Given the name of a command and a [MessageCreateEvent], invoke that command.
+     *
+     * The name of the command does not have to match anything given in the [MessageCreateEvent].
+     *
+     * @param name The name of the command to invoke.
+     * @param event The [MessageCreateEvent] to pass to the command for checking.
+     */
     suspend fun invokeCommand(name: String, event: MessageCreateEvent) {
         if (event.message.author == this.bot.getSelf()) {
             return
         }
 
-        val command = this.commands.firstOrNull { it.name == name || it.aliases.contains(name) }
-
-        if (command != null && command.enabled) {
-            command.call(event)
-        }
+        commands.firstOrNull { it.name == name || it.aliases.contains(name) }?.call(event)
     }
 }
 
+/** The current instance of [KDBot]. **/
 val kdBot = KDBot()
 
+/**
+ * The main function. Every story has a beginning!
+ *
+ * @param args Array of command-line arguments. These are ignored.
+ */
 suspend fun main(args: Array<String>) {
     try {
         kdBot.start(config.token)
