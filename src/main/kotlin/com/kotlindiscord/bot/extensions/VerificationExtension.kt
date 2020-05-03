@@ -3,9 +3,11 @@ package com.kotlindiscord.bot.extensions
 import com.gitlab.kordlib.core.event.message.MessageCreateEvent
 import com.kotlindiscord.bot.KDBot
 import com.kotlindiscord.bot.api.Extension
+import com.kotlindiscord.bot.checks.ChannelCheck
 import com.kotlindiscord.bot.checks.DefaultCheck
 import com.kotlindiscord.bot.checks.RoleCheck
 import com.kotlindiscord.bot.config.config
+import com.kotlindiscord.bot.enums.Channels
 import com.kotlindiscord.bot.enums.CheckOperation
 import com.kotlindiscord.bot.enums.Roles
 import kotlinx.coroutines.delay
@@ -16,6 +18,7 @@ class VerificationExtension(kdBot: KDBot) : Extension(kdBot) {
     override suspend fun setup() {
         event<MessageCreateEvent>(
             DefaultCheck(),
+            ChannelCheck(Channels.VERIFICATION),
             RoleCheck(Roles.DEVELOPER, CheckOperation.NOT_CONTAINS),
             RoleCheck(Roles.ADMIN, CheckOperation.HIGHER_OR_EQUAL)
         ) {
@@ -36,7 +39,11 @@ class VerificationExtension(kdBot: KDBot) : Extension(kdBot) {
             "verify",
             aliases = arrayOf("accept", "verified", "accepted"),
             hidden = true,
-            checks = *arrayOf(DefaultCheck(), RoleCheck(Roles.DEVELOPER, CheckOperation.NOT_CONTAINS))
+            checks = *arrayOf(
+                DefaultCheck(),
+                ChannelCheck(Channels.VERIFICATION),
+                RoleCheck(Roles.DEVELOPER, CheckOperation.NOT_CONTAINS)
+            )
         ) { _, message, _ ->
             message.author?.asMember(message.getGuild()!!.id)?.addRole(config.getRoleSnowflake(Roles.DEVELOPER))
         }
