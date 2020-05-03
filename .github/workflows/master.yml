@@ -22,7 +22,7 @@ jobs:
         run: sh gradlew build docs:build
 
       - name: Gradle Deploy Docs
-        run: sh gradlew docs:orchidDeploy -DgithubToken=${{ secrets.GITHUB_TOKEN }}
+        run: sh gradlew docs:orchidDeploy -Dorg.gradle.project.githubToken=${{ secrets.GITHUB_TOKEN }}
 
       - name: Rename Artifacts
         run: |
