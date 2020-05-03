@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Set up Java
+        uses: actions/setup-java@v1.0.0
+
+        with:
+          version: 1.11
+
+      - name: Gradle Build
+        run: sh gradlew build docs:build
+
+      - name: Gradle Deploy Docs
+        run: sh gradlew docs:orchidDeploy -DgithubToken=${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload artifact (Slim JAR)
+        uses: actions/upload-artifact@v1.0.0
+
+      - name: Rename Artifacts
+        run: |
+          mv build/libs/*-all.jar build/libs/KDBot.jar
+          mv build/libs/*-*.*.jar build/libs/KDBot-slim.jar
+
+        with:
+          name: Slim JAR
+          path: build/libs/KDBot-slim.jar
+
+      - name: Upload artifact (Production JAR)
+        uses: actions/upload-artifact@v1.0.0
+
+        with:
+          name: Production JAR
+          path: build/libs/KDBot.jar
