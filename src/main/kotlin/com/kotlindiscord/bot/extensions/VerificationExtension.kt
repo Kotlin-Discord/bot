@@ -12,9 +12,7 @@ import com.kotlindiscord.bot.enums.CheckOperation
 import com.kotlindiscord.bot.enums.Roles
 import kotlinx.coroutines.delay
 
-/**
- * How long to wait before removing irrelevant messages - 10 seconds.
- */
+/** How long to wait before removing irrelevant messages - 10 seconds. **/
 const val DELETE_DELAY = 10_000L
 
 /**

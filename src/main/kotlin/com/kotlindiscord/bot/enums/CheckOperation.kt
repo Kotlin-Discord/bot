@@ -13,13 +13,21 @@ package com.kotlindiscord.bot.enums
  * values, rather than a single value.
  */
 enum class CheckOperation(val value: String, val forCollection: Boolean = false) {
+    /** `x > y`. **/
     HIGHER(">"),
+    /** `x >= y`. **/
     HIGHER_OR_EQUAL(">="),
+    /** `x == y`. **/
     EQUAL("=="),
+    /** `x != y`. **/
     NOT_EQUAL("!="),
+    /** `x < y`. **/
     LOWER("<"),
+    /** `x <= y`. **/
     LOWER_OR_EQUAL("<="),
 
+    /** `x.contains(y)`. **/
     CONTAINS("in", forCollection = true),
+    /** `x.contains(y).not()`. **/
     NOT_CONTAINS("!in", forCollection = true);
 }

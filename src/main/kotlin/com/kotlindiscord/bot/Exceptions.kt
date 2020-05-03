@@ -3,9 +3,7 @@ package com.kotlindiscord.bot
 import com.kotlindiscord.bot.api.Extension
 import kotlin.reflect.KClass
 
-/**
- * A base class for all custom exceptions in our bot framework.
- */
+/** A base class for all custom exceptions in our bot framework. **/
 open class KDException : Exception()
 
 /**
@@ -35,23 +33,17 @@ open class MissingObjectException(val id: Long) : KDException() {
     override fun toString(): String = "Unable to find object with ID: $id"
 }
 
-/**
- * Thrown when a configured role cannot be found.
- */
+/** Thrown when a configured role cannot be found. **/
 class MissingRoleException(id: Long) : MissingObjectException(id) {
     override fun toString(): String = "Unable to find role with ID: $id"
 }
 
-/**
- * Thrown when a configured guild cannot be found.
- */
+/** Thrown when a configured guild cannot be found. **/
 class MissingGuildException(id: Long) : MissingObjectException(id) {
     override fun toString(): String = "Unable to find guild with ID: $id"
 }
 
-/**
- * Thrown when a configured channel cannot be found.
- */
+/** Thrown when a configured channel cannot be found. **/
 class MissingChannelException(id: Long) : MissingObjectException(id) {
     override fun toString(): String = "Unable to find channel with ID: $id"
 }

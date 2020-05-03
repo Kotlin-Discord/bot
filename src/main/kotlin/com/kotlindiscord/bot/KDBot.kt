@@ -47,9 +47,7 @@ class KDBot {
         this.bot.login()
     }
 
-    /**
-     * This function adds all of the default extensions when the bot is being set up.
-     */
+    /** This function adds all of the default extensions when the bot is being set up. **/
     suspend fun addExtensions() {
         addExtension(PingExtension::class)
         addExtension(VerificationExtension::class)
@@ -75,9 +73,7 @@ class KDBot {
         extensions[extensionObj.name] = extensionObj
     }
 
-    /**
-     * This function sets up all of the bot's default event listeners.
-     */
+    /** his function sets up all of the bot's default event listeners. **/
     fun registerListeners() {
         this.bot.on<ReadyEvent> {
             logger.info { "Ready!" }

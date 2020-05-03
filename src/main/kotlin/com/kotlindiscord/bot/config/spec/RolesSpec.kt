@@ -6,33 +6,23 @@ import com.uchuhimo.konf.ConfigSpec
  * A class representing the `roles` section of the configuration.
  *
  * This is used by Konf, and will not need to be accessed externally.
- *
- * ```toml
- * [bot]
- * admin = 0
- * developer = 0
- * helper = 0
- * mod = 0
- * muted = 0
- * owner = 0
- * ```
  */
 object RolesSpec : ConfigSpec() {
-    /* Configured admin role ID */
+    /** Configured admin role ID. **/
     val admin by required<Long>()
 
-    /* Configured developer (verified user) role ID */
+    /** Configured developer (verified user) role ID. **/
     val developer by required<Long>()
 
-    /* Configured helper role ID */
+    /** Configured helper role ID. **/
     val helper by required<Long>()
 
-    /* Configured mod role ID */
+    /** Configured mod role ID. **/
     val mod by required<Long>()
 
-    /* Configured muted role ID */
+    /** Configured muted role ID. **/
     val muted by required<Long>()
 
-    /* Configured owner role ID */
+    /** Configured owner role ID. **/
     val owner by required<Long>()
 }
