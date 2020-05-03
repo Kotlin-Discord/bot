@@ -1,6 +1,7 @@
 package com.kotlindiscord.bot
 
 import com.gitlab.kordlib.core.Kord
+import com.gitlab.kordlib.core.event.gateway.ReadyEvent
 import com.gitlab.kordlib.core.event.message.MessageCreateEvent
 import com.gitlab.kordlib.core.on
 import com.kotlindiscord.bot.api.Extension
@@ -46,6 +47,10 @@ class KDBot {
     }
 
     fun registerListeners() {
+        this.bot.on<ReadyEvent> {
+            logger.info { "Ready!" }
+        }
+
         this.bot.on<MessageCreateEvent> {
             logger.debug { "${message.author?.username}#${message.author?.discriminator} -> ${message.content}" }
 
