@@ -47,6 +47,7 @@ class VerificationExtension(kdBot: KDBot) : Extension(kdBot) {
                 RoleCheck(Roles.DEVELOPER, CheckOperation.NOT_CONTAINS)
             )
         ) { _, message, _ ->
+            message.delete()
             message.author?.asMember(message.getGuild()!!.id)?.addRole(config.getRoleSnowflake(Roles.DEVELOPER))
         }
     }
