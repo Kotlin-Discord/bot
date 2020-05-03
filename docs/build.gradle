@@ -19,7 +19,10 @@ repositories {
 orchid {
     args = ["--experimentalSourceDoc"]
     baseUrl = "https://docs.kotlindiscord.com/bot"
-    githubToken = project.property("githubToken")
     theme = "Editorial"
     version = rootProject.version
+
+    if (project.hasProperty("githubToken")) {
+        githubToken = project.property("githubToken")
+    }
 }
