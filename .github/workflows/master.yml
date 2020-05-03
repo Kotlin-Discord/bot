@@ -18,16 +18,25 @@ jobs:
         with:
           version: 1.11
 
-      - name: Gradle Build
+      - name: Set up Gradle properties
+        run: |
+          mkdir -p ~/.gradle
+          echo "githubToken=${{ secrets.GITHUB_TOKEN }}" >> ~/.gradle/gradle.properties
+
+      - name: Gradle (Build)
         run: sh gradlew build docs:build
 
-      - name: Gradle Deploy Docs
-        run: sh gradlew docs:orchidDeploy -PgithubToken=${{ secrets.GITHUB_TOKEN }}
+      - name: Gradle (Deploy docs)
+        run: sh gradlew docs:orchidDeploy
 
       - name: Rename Artifacts
         run: |
           mv build/libs/*-all.jar build/libs/KDBot.jar
           mv build/libs/*-*.*.jar build/libs/KDBot-slim.jar
+
+      - name: Create Docs Zip
+        run: |
+          zip -r build/docs.zip docs/build/docs/orchid/*
 
       - name: Upload artifact (Slim JAR)
         uses: actions/upload-artifact@v1.0.0
@@ -42,3 +51,10 @@ jobs:
         with:
           name: Production JAR
           path: build/libs/KDBot.jar
+
+      - name: Upload artifact (Docs)
+        uses: actions/upload-artifact@v1.0.0
+
+        with:
+          name: Docs Zip
+          path: build/docs.zip
