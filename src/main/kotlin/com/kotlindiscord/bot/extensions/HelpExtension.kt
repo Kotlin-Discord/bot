@@ -25,6 +25,7 @@ class HelpExtension(kdBot: KDBot) : Extension(kdBot) {
             help = "Get help.\n\nLet's just pretend we have a lot of things to say here"
         ) { _, message, messageArray ->
             logger.debug { "Message length : ${messageArray.size}" }
+
             if (messageArray.isEmpty()) {
                 message.channel.createEmbed {
                     title = "Command Help"

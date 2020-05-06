@@ -8,20 +8,20 @@ import org.apache.commons.text.StringTokenizer
 private val logger = KotlinLogging.logger {}
 
 /**
- * Dataclass representing a command metadata.
+ * Dataclass representing command metadata.
  *
- * @param name the name of the command
- * @param help command help text
- * @param signature command signature
+ * @param name The name of the command.
+ * @param help Command help text.
+ * @param signature Command signature.
  */
 data class CommandInfo(val name: String, val help: String, val signature: String) {
     /**
-     * Sort help used inside the main help command.
+     * Short help used inside the main help command.
      */
     val shortHelp = "**${name.capitalize()}**\n**`$signature`**\n*${help.substringBefore("\n")}*"
 
     /**
-     * Long help command used inside the command-specific help.
+     * Longer help used inside the command-specific help.
      */
     val longHelp = "**`$signature`**\n\n*$help*"
 }
