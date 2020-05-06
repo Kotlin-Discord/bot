@@ -2,6 +2,7 @@ package com.kotlindiscord.bot.api
 
 import com.gitlab.kordlib.core.entity.Message
 import com.gitlab.kordlib.core.event.message.MessageCreateEvent
+import com.kotlindiscord.bot.kdBot
 import mu.KotlinLogging
 import org.apache.commons.text.StringTokenizer
 
@@ -18,12 +19,12 @@ data class CommandInfo(val name: String, val help: String, val signature: String
     /**
      * Short help used inside the main help command.
      */
-    val shortHelp = "**${name.capitalize()}**\n**`$signature`**\n*${help.substringBefore("\n")}*"
+    val shortHelp = "**${name.capitalize()}**\n**`${kdBot.prefix}$signature`**\n*${help.substringBefore("\n")}*"
 
     /**
      * Longer help used inside the command-specific help.
      */
-    val longHelp = "**`$signature`**\n\n*$help*"
+    val longHelp = "**`${kdBot.prefix}$signature`**\n\n*$help*"
 }
 
 /**

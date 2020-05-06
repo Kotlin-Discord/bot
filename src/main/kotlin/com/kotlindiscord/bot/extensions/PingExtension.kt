@@ -10,7 +10,7 @@ class PingExtension(kdBot: KDBot) : Extension(kdBot) {
     override val name: String = "ping"
 
     override suspend fun setup() {
-        command("ping") { _, message, _ ->
+        command("ping", signature = "ping") { _, message, _ ->
             message.channel.createMessage("Pong!")
         }
     }

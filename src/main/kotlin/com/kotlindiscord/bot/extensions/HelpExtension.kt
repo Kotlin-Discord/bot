@@ -21,7 +21,7 @@ class HelpExtension(kdBot: KDBot) : Extension(kdBot) {
         command(
             "help",
             aliases = arrayOf("h"),
-            signature = "!help <command>",
+            signature = "help <command>",
             help = "Get help.\n\nLet's just pretend we have a lot of things to say here"
         ) { _, message, messageArray ->
             logger.debug { "Message length : ${messageArray.size}" }
