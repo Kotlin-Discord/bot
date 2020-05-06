@@ -24,7 +24,7 @@ jobs:
           echo "githubToken=${{ secrets.GITHUB_TOKEN }}" >> ~/.gradle/gradle.properties
 
       - name: Gradle (Build)
-        run: sh gradlew build docs:build
+        run: sh gradlew build docs:orchidBuild
 
       - name: Gradle (Deploy docs)
         run: sh gradlew docs:orchidDeploy

@@ -21,7 +21,7 @@ jobs:
           version: 1.11
 
       - name: Gradle (Build)
-        run: sh gradlew build docs:build
+        run: sh gradlew build docs:orchidBuild
 
       - name: Rename Artifacts
         run: |
