@@ -7,6 +7,7 @@ import com.gitlab.kordlib.core.on
 import com.kotlindiscord.bot.api.Extension
 import com.kotlindiscord.bot.api.KDCommand
 import com.kotlindiscord.bot.config.config
+import com.kotlindiscord.bot.extensions.HelpExtension
 import com.kotlindiscord.bot.extensions.PingExtension
 import com.kotlindiscord.bot.extensions.VerificationExtension
 import com.uchuhimo.konf.UnsetValueException
@@ -49,6 +50,7 @@ class KDBot {
 
     /** This function adds all of the default extensions when the bot is being set up. **/
     suspend fun addExtensions() {
+        addExtension(HelpExtension::class)
         addExtension(PingExtension::class)
         addExtension(VerificationExtension::class)
     }

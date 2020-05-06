@@ -2,11 +2,11 @@ package com.kotlindiscord.bot.api
 
 import com.gitlab.kordlib.core.entity.Message
 import com.gitlab.kordlib.core.event.message.MessageCreateEvent
+import com.kotlindiscord.bot.kdBot
 import mu.KotlinLogging
 import org.apache.commons.text.StringTokenizer
 
 private val logger = KotlinLogging.logger {}
-
 /**
  * Class representing a command in our framework.
  *
@@ -20,6 +20,7 @@ private val logger = KotlinLogging.logger {}
  * @param aliases An array of alternative names to be used for command invocation.
  * @param checks An array of [Check] objects, used for pre-command filtering.
  * @param help A short help string describing this command.
+ * @param signature Command signature.
  * @param hidden Whether to hide this command from the help listing.
  */
 class KDCommand(
@@ -29,9 +30,20 @@ class KDCommand(
 
     val aliases: Array<String> = arrayOf(),
     vararg val checks: Check = arrayOf(),
-    val help: String = "",
+    val help: String = "No help provided.",
+    val signature: String = "Unknown signature.",
     val hidden: Boolean = false
 ) {
+    /**
+     * Short help used inside the main help command.
+     */
+    val shortHelp = "**${name.capitalize()}**\n**`${kdBot.prefix}$signature`**\n*${help.substringBefore("\n")}*"
+
+    /**
+     * Longer help used inside the command-specific help.
+     */
+    val longHelp = "**`${kdBot.prefix}$signature`**\n\n*$help*"
+
     /**
      * Execute this command, given a [MessageCreateEvent].
      *
