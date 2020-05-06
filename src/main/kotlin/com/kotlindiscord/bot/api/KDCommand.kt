@@ -7,26 +7,6 @@ import mu.KotlinLogging
 import org.apache.commons.text.StringTokenizer
 
 private val logger = KotlinLogging.logger {}
-
-/**
- * Dataclass representing command metadata.
- *
- * @param name The name of the command.
- * @param help Command help text.
- * @param signature Command signature.
- */
-data class CommandInfo(val name: String, val help: String, val signature: String) {
-    /**
-     * Short help used inside the main help command.
-     */
-    val shortHelp = "**${name.capitalize()}**\n**`${kdBot.prefix}$signature`**\n*${help.substringBefore("\n")}*"
-
-    /**
-     * Longer help used inside the command-specific help.
-     */
-    val longHelp = "**`${kdBot.prefix}$signature`**\n\n*$help*"
-}
-
 /**
  * Class representing a command in our framework.
  *
@@ -55,9 +35,14 @@ class KDCommand(
     val hidden: Boolean = false
 ) {
     /**
-     * Object representing the command metadata.
+     * Short help used inside the main help command.
      */
-    val commandInfo = CommandInfo(name, help, signature)
+    val shortHelp = "**${name.capitalize()}**\n**`${kdBot.prefix}$signature`**\n*${help.substringBefore("\n")}*"
+
+    /**
+     * Longer help used inside the command-specific help.
+     */
+    val longHelp = "**`${kdBot.prefix}$signature`**\n\n*$help*"
 
     /**
      * Execute this command, given a [MessageCreateEvent].

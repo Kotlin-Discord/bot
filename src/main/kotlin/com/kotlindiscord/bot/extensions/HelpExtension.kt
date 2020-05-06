@@ -2,8 +2,8 @@ package com.kotlindiscord.bot.extensions
 
 import com.gitlab.kordlib.core.behavior.channel.createEmbed
 import com.kotlindiscord.bot.KDBot
-import com.kotlindiscord.bot.api.CommandInfo
 import com.kotlindiscord.bot.api.Extension
+import com.kotlindiscord.bot.api.KDCommand
 import mu.KotlinLogging
 
 private val logger = KotlinLogging.logger {}
@@ -34,29 +34,28 @@ class HelpExtension(kdBot: KDBot) : Extension(kdBot) {
             } else {
                 message.channel.createEmbed {
                     title = "Command Help"
-                    description = getCommandInfo(messageArray[0])?.longHelp ?: "Unknown command."
+                    description = getCommand(messageArray[0])?.longHelp ?: "Unknown command."
                 }
             }
         }
     }
 
     /**
-     * Gather all available commands from the bot, and return them as an array of [CommandInfo].
+     * Gather all available commands from the bot, and return them as an array of [KDCommand].
      */
-    fun gatherCommands(): List<CommandInfo> {
+    fun gatherCommands(): List<KDCommand> {
         return kdBot.commands
             .filter { !it.hidden }
-            .map { it.commandInfo }
     }
 
     /**
-     * Generate help message by formatting a [List] of [CommandInfo] objects.
+     * Generate help message by formatting a [List] of [KDCommand] objects.
      */
-    fun formatMainHelp(commands: List<CommandInfo>) = commands.joinToString(separator = "\n\n") { it.shortHelp }
+    fun formatMainHelp(commands: List<KDCommand>) = commands.joinToString(separator = "\n\n") { it.shortHelp }
 
     /**
-     * Return the [CommandInfo] of the associated command, or null if it cannot be found.
+     * Return the [KDCommand] of the associated name, or null if it cannot be found.
      */
-    fun getCommandInfo(command: String) =
-        kdBot.commands.firstOrNull { it.name == command || it.aliases.contains(command) }?.commandInfo
+    fun getCommand(command: String) =
+        kdBot.commands.firstOrNull { it.name == command || it.aliases.contains(command) }
 }
