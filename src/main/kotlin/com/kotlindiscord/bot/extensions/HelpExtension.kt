@@ -50,7 +50,7 @@ class HelpExtension(kdBot: KDBot) : Extension(kdBot) {
     }
 
     /**
-     * Format a [List] of [CommandInfo] into the main help message.
+     * Generate help message by formatting a [List] of [CommandInfo] objects.
      */
     fun formatMainHelp(commands: List<CommandInfo>) = commands.joinToString(separator = "\n\n") { it.shortHelp }
 
