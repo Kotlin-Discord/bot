@@ -57,7 +57,8 @@ abstract class Extension(val kdBot: KDBot) {
         name: String,
         aliases: Array<String> = arrayOf(),
         vararg checks: Check = arrayOf(),
-        help: String = "",
+        help: String = "No help provided.",
+        signature: String = "Unknown signature.",
         hidden: Boolean = false,
         action: suspend KDCommand.(MessageCreateEvent, Message, Array<String>) -> Unit
     ) {
@@ -66,7 +67,7 @@ abstract class Extension(val kdBot: KDBot) {
                 action = action, extension = this, name = name,
 
                 aliases = aliases, checks = *checks,
-                help = help, hidden = hidden
+                help = help, signature = signature, hidden = hidden
             )
         )
     }
