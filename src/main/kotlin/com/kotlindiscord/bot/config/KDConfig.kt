@@ -7,12 +7,12 @@ import com.gitlab.kordlib.core.entity.channel.Channel
 import com.kotlindiscord.bot.MissingChannelException
 import com.kotlindiscord.bot.MissingGuildException
 import com.kotlindiscord.bot.MissingRoleException
+import com.kotlindiscord.bot.bot
 import com.kotlindiscord.bot.config.spec.BotSpec
 import com.kotlindiscord.bot.config.spec.ChannelsSpec
 import com.kotlindiscord.bot.config.spec.RolesSpec
 import com.kotlindiscord.bot.enums.Channels
 import com.kotlindiscord.bot.enums.Roles
-import com.kotlindiscord.bot.kdBot
 import com.uchuhimo.konf.Config
 import com.uchuhimo.konf.Feature
 import com.uchuhimo.konf.source.toml
@@ -44,6 +44,11 @@ class KDConfig {
     val token: String get() = config[BotSpec.token]
 
     /**
+     * The bot's command prefix.
+     */
+    val prefix: String get() = config[BotSpec.commandPrefix]
+
+    /**
      * The [Snowflake] object representing the bot's configured primary guild.
      */
     val guildSnowflake: Snowflake get() = Snowflake(config[BotSpec.guild])
@@ -63,7 +68,7 @@ class KDConfig {
             Channels.VERIFICATION -> Snowflake(config[ChannelsSpec.verification])
         }
 
-        return kdBot.bot.getChannel(snowflake) ?: throw MissingChannelException(snowflake.longValue)
+        return bot.kord.getChannel(snowflake) ?: throw MissingChannelException(snowflake.longValue)
     }
 
     /**
@@ -95,7 +100,7 @@ class KDConfig {
     suspend fun getRole(role: Roles): Role {
         val snowflake = getRoleSnowflake(role)
 
-        return kdBot.bot.getRole(guildSnowflake, snowflake) ?: throw MissingRoleException(snowflake.longValue)
+        return bot.kord.getRole(guildSnowflake, snowflake) ?: throw MissingRoleException(snowflake.longValue)
     }
 
     /**
@@ -106,7 +111,7 @@ class KDConfig {
      */
     @Throws(MissingGuildException::class)
     suspend fun getGuild(): Guild =
-        kdBot.bot.getGuild(guildSnowflake) ?: throw MissingGuildException(guildSnowflake.longValue)
+        bot.kord.getGuild(guildSnowflake) ?: throw MissingGuildException(guildSnowflake.longValue)
 }
 
 /**

@@ -13,4 +13,7 @@ object BotSpec : ConfigSpec() {
 
     /** Configured bot login token. **/
     val token by required<String>(description = "Bot login token")
+
+    /** Character/s required before command names. **/
+    val commandPrefix by required<String>(name = "prefix", description = "Command prefix character")
 }
