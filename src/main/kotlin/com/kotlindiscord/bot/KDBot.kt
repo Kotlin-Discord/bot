@@ -7,7 +7,7 @@ import com.kotlindiscord.bot.extensions.VerificationExtension
 import com.kotlindiscord.kord.extensions.ExtensibleBot
 
 /** The current instance of the bot. **/
-val bot = ExtensibleBot(config.prefix, config.token)
+val bot = ExtensibleBot(prefix = config.prefix, token = config.token)
 
 /**
  * The main function. Every story has a beginning!

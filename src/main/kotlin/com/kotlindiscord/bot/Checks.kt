@@ -15,7 +15,7 @@ import mu.KotlinLogging
  * @param event The event to run this check against.
  */
 suspend fun defaultCheck(event: MessageCreateEvent): Boolean {
-    val logger = KotlinLogging.logger {}
+    val logger = KotlinLogging.logger("defaultCheck")
 
     with(event) {
         return when {

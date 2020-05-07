@@ -1,6 +1,7 @@
 package com.kotlindiscord.bot.extensions
 
 import com.gitlab.kordlib.core.event.message.MessageCreateEvent
+import com.gitlab.kordlib.rest.request.KtorRequestException
 import com.kotlindiscord.bot.config.config
 import com.kotlindiscord.bot.defaultCheck
 import com.kotlindiscord.bot.enums.Channels
@@ -11,9 +12,12 @@ import com.kotlindiscord.kord.extensions.checks.notHasRole
 import com.kotlindiscord.kord.extensions.checks.topRoleLower
 import com.kotlindiscord.kord.extensions.extensions.Extension
 import kotlinx.coroutines.delay
+import mu.KotlinLogging
 
 /** How long to wait before removing irrelevant messages - 10 seconds. **/
 const val DELETE_DELAY = 10_000L
+
+private val logger = KotlinLogging.logger {}
 
 /**
  * New user verification extension.
@@ -68,10 +72,19 @@ class VerificationExtension(bot: ExtensibleBot) : Extension(bot) {
                         "${message.author!!.mention} Please send `!verify` to gain access to the rest of the server."
                     )
 
-                    message.delete()
+                    try {
+                        message.delete()
+                    } catch (e: KtorRequestException) {
+                        logger.warn(e) { "Failed to delete user's message." }
+                    }
 
                     delay(DELETE_DELAY)
-                    sentMessage.delete()
+
+                    try {
+                        sentMessage.delete()
+                    } catch (e: KtorRequestException) {
+                        logger.warn(e) { "Failed to delete our message." }
+                    }
                 }
             }
         }
