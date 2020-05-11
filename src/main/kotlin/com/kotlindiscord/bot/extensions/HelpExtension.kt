@@ -2,9 +2,13 @@ package com.kotlindiscord.bot.extensions
 
 import com.gitlab.kordlib.core.behavior.channel.createEmbed
 import com.kotlindiscord.bot.KDBot
+import com.kotlindiscord.bot.Paginator
 import com.kotlindiscord.bot.api.Extension
 import com.kotlindiscord.bot.api.KDCommand
 import mu.KotlinLogging
+
+/** Number of command help displayed per page. **/
+const val HELP_PER_PAGES = 4
 
 private val logger = KotlinLogging.logger {}
 
@@ -27,13 +31,17 @@ class HelpExtension(kdBot: KDBot) : Extension(kdBot) {
             logger.debug { "Message length : ${messageArray.size}" }
 
             if (messageArray.isEmpty()) {
-                message.channel.createEmbed {
-                    title = "Command Help"
-                    description = formatMainHelp(gatherCommands())
-                }
+                Paginator(
+                    kdBot,
+                    message.channel,
+                    "Get Help",
+                    formatMainHelp(gatherCommands()),
+                    timeout = 10_000L,
+                    keepEmbed = true
+                ).send()
             } else {
                 message.channel.createEmbed {
-                    title = "Command Help"
+                    title = "Get Help"
                     description = getCommand(messageArray[0])?.longHelp ?: "Unknown command."
                 }
             }
@@ -51,7 +59,8 @@ class HelpExtension(kdBot: KDBot) : Extension(kdBot) {
     /**
      * Generate help message by formatting a [List] of [KDCommand] objects.
      */
-    fun formatMainHelp(commands: List<KDCommand>) = commands.joinToString(separator = "\n\n") { it.shortHelp }
+    fun formatMainHelp(commands: List<KDCommand>) =
+        commands.chunked(HELP_PER_PAGES).map { list -> list.joinToString(separator = "\n\n") { it.shortHelp } }
 
     /**
      * Return the [KDCommand] of the associated name, or null if it cannot be found.
