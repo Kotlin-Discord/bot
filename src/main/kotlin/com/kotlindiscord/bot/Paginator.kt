@@ -107,6 +107,9 @@ class Paginator(
      * @param page Page number to display.
      */
     suspend fun goToPage(page: Int) {
+        if (page == currentPage) {
+            return
+        }
         if (page < 0 || page > pages.size - 1) {
             return
         }
