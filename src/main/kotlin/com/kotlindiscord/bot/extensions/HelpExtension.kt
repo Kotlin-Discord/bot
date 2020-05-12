@@ -34,14 +34,14 @@ class HelpExtension(kdBot: KDBot) : Extension(kdBot) {
                 Paginator(
                     kdBot,
                     message.channel,
-                    "Get Help",
+                    "Command Help",
                     formatMainHelp(gatherCommands()),
                     timeout = 10_000L,
                     keepEmbed = true
                 ).send()
             } else {
                 message.channel.createEmbed {
-                    title = "Get Help"
+                    title = "Command Help"
                     description = getCommand(messageArray[0])?.longHelp ?: "Unknown command."
                 }
             }
@@ -59,12 +59,18 @@ class HelpExtension(kdBot: KDBot) : Extension(kdBot) {
     /**
      * Generate help message by formatting a [List] of [KDCommand] objects.
      */
-    fun formatMainHelp(commands: List<KDCommand>) =
-        commands.chunked(HELP_PER_PAGES).map { list -> list.joinToString(separator = "\n\n") { it.shortHelp } }
+    @Suppress("ExpressionBodySyntax")
+    fun formatMainHelp(commands: List<KDCommand>): List<String> {
+        return commands.chunked(HELP_PER_PAGES).map { list -> list.joinToString(separator = "\n\n") { it.shortHelp } }
+    }
 
     /**
      * Return the [KDCommand] of the associated name, or null if it cannot be found.
+     *
+     * @suppress
      */
-    fun getCommand(command: String) =
-        kdBot.commands.firstOrNull { it.name == command || it.aliases.contains(command) }
+    @Suppress("ExpressionBodySyntax")
+    fun getCommand(command: String): KDCommand? {
+        return kdBot.commands.firstOrNull { it.name == command || it.aliases.contains(command) }
+    }
 }

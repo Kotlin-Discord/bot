@@ -45,30 +45,39 @@ class Paginator(
     var message: Message? = null
     /** Current page of the paginator. **/
     var currentPage: Int = 0
-    /** Should the paginator still process reaction events. **/
+    /** Whether the paginator still process reaction events. **/
     var doesProcessEvents: Boolean = true
 
-    /** Send the embed to the predefined channel parameter. **/
+    /** Send the embed to the channel given in the constructor. **/
     suspend fun send() {
         val myFooter = EmbedBuilder.Footer()
         myFooter.text = "Page 1/${pages.size}"
+
         message = channel.createEmbed {
             title = name
             description = pages[0]
             footer = myFooter
         }
+
         EMOJIS.forEach { message!!.addReaction(it) }
+
         kdBot.bot.on<ReactionAddEvent> {
             if (this@Paginator.message!!.id == this.messageId && this.userId != kdBot.bot.selfId && doesProcessEvents) {
                 processEvent(this)
             }
         }
+
         if (timeout > 0) {
             delay(timeout)
             destroy()
         }
     }
-    /** Paginator [ReactionAddEvent] handler. **/
+
+    /**
+     * Paginator [ReactionAddEvent] handler.
+     *
+     * @param event [ReactionAddEvent] to process.
+     */
     suspend fun processEvent(event: ReactionAddEvent) {
         logger.debug { "Paginator received emoji ${event.emoji.name}" }
         event.message.deleteReaction(event.userId, event.emoji)
@@ -81,6 +90,7 @@ class Paginator(
             else                     -> return
         }
     }
+
     /** Display the provided page number.
      *
      * @param page Page number to display.
@@ -89,9 +99,12 @@ class Paginator(
         if (page < 0 || page > pages.size - 1) {
             return
         }
+
         currentPage = page
+
         val myFooter = EmbedBuilder.Footer()
         myFooter.text = "Page ${page + 1}/${pages.size}"
+
         message?.edit { embed {
             title = name
             description = pages[page]
