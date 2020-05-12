@@ -36,6 +36,7 @@ class HelpExtension(kdBot: KDBot) : Extension(kdBot) {
                     message.channel,
                     "Command Help",
                     formatMainHelp(gatherCommands()),
+                    owner = message.author,
                     timeout = 10_000L,
                     keepEmbed = true
                 ).send()

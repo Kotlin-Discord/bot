@@ -6,6 +6,7 @@ import com.gitlab.kordlib.core.behavior.channel.createEmbed
 import com.gitlab.kordlib.core.behavior.edit
 import com.gitlab.kordlib.core.entity.Message
 import com.gitlab.kordlib.core.entity.ReactionEmoji
+import com.gitlab.kordlib.core.entity.User
 import com.gitlab.kordlib.core.event.message.ReactionAddEvent
 import com.gitlab.kordlib.core.live.live
 import com.gitlab.kordlib.core.live.on
@@ -32,6 +33,7 @@ private val logger = KotlinLogging.logger {}
  * @param channel Channel to send the embed to.
  * @param name Title of the embed.
  * @param pages List of the embed pages.
+ * @param owner Only user capable of interacting with the paginator. Everyone is able to if it is set to null.
  * @param timeout Milliseconds before automatically deleting the embed. Set to a negative value to disable it.
  * @param keepEmbed Keep the embed and only remove the reaction when the paginator is destroyed.
  */
@@ -40,6 +42,7 @@ class Paginator(
     val channel: MessageChannelBehavior,
     val name: String,
     val pages: List<String>,
+    val owner: User? = null,
     val timeout: Long = -1L,
     val keepEmbed: Boolean = false
 ) {
@@ -65,7 +68,12 @@ class Paginator(
         EMOJIS.forEach { message!!.addReaction(it) }
 
         message?.live()?.on<ReactionAddEvent> {
-            if (message!!.id == it.messageId && it.userId != kdBot.bot.selfId && doesProcessEvents) {
+            if (
+                message!!.id == it.messageId &&
+                it.userId != kdBot.bot.selfId &&
+                (owner?.id == it.userId || owner == null) &&
+                doesProcessEvents
+            ) {
                 processEvent(it)
             }
         }
