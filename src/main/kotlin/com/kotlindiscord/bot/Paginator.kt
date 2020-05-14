@@ -48,7 +48,7 @@ class Paginator(
     var message: Message? = null
     /** Current page of the paginator. **/
     var currentPage: Int = 0
-    /** Whether the paginator still process reaction events. **/
+    /** Whether the paginator still processes reaction events. **/
     var doesProcessEvents: Boolean = true
 
     /** Send the embed to the channel given in the constructor. **/
@@ -72,6 +72,7 @@ class Paginator(
                 (owner?.id == this.userId || owner == null) &&
                 doesProcessEvents
             } ?: break
+
             processEvent(event)
         }
 
@@ -89,6 +90,7 @@ class Paginator(
     suspend fun processEvent(event: ReactionAddEvent) {
         logger.debug { "Paginator received emoji ${event.emoji.name}" }
         event.message.deleteReaction(event.userId, event.emoji)
+
         when (event.emoji.name) {
             FIRST_PAGE_EMOJI.name    -> goToPage(0)
             LEFT_EMOJI.name          -> goToPage(currentPage - 1)
