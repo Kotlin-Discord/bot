@@ -8,8 +8,6 @@ import com.gitlab.kordlib.core.entity.Message
 import com.gitlab.kordlib.core.entity.ReactionEmoji
 import com.gitlab.kordlib.core.entity.User
 import com.gitlab.kordlib.core.event.message.ReactionAddEvent
-import com.gitlab.kordlib.core.live.live
-import com.gitlab.kordlib.core.live.on
 import com.gitlab.kordlib.rest.builder.message.EmbedBuilder
 import kotlinx.coroutines.delay
 import mu.KotlinLogging
@@ -67,15 +65,14 @@ class Paginator(
 
         EMOJIS.forEach { message!!.addReaction(it) }
 
-        message?.live()?.on<ReactionAddEvent> {
-            if (
-                message!!.id == it.messageId &&
-                it.userId != kdBot.bot.selfId &&
-                (owner?.id == it.userId || owner == null) &&
+        while (true) {
+            val event = kdBot.bot.waitFor<ReactionAddEvent>(timeout = timeout) {
+                message.id == this.messageId &&
+                this.userId != kdBot.bot.selfId &&
+                (owner?.id == this.userId || owner == null) &&
                 doesProcessEvents
-            ) {
-                processEvent(it)
-            }
+            } ?: break
+            processEvent(event)
         }
 
         if (timeout > 0) {
