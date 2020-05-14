@@ -42,7 +42,8 @@ class VerificationExtension(bot: ExtensibleBot) : Extension(bot) {
                 topRoleLower(config.getRole(Roles.ADMIN))
             )
 
-            action { _, message, _ ->
+            action {
+                // TODO: DM with info (after policy decisions)
                 message.delete()
                 message.getAuthorAsMember()!!.addRole(config.getRoleSnowflake(Roles.DEVELOPER))
             }

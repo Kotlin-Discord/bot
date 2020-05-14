@@ -26,7 +26,7 @@ class HelpExtension(bot: ExtensibleBot) : Extension(bot) {
                     "Let's just pretend we have a lot of things to say here"
             signature = "[command]"
 
-            action { _, message, args ->
+            action {
                 if (args.isEmpty()) {
                     message.channel.createEmbed {
                         title = "Command Help"
@@ -56,7 +56,11 @@ class HelpExtension(bot: ExtensibleBot) : Extension(bot) {
     /**
      * Generate help message by formatting a [List] of [Command] objects.
      */
-    fun formatMainHelp(commands: List<Command>) = commands.joinToString(separator = "\n\n") { it.description }
+    fun formatMainHelp(commands: List<Command>) = commands.sortedBy { it.name }.joinToString(separator = "\n\n") {
+        with(it) {
+            "**${bot.prefix}$name $signature**\n$description"
+        }
+    }
 
     /**
      * Return the [Command] of the associated name, or null if it cannot be found.
@@ -72,9 +76,7 @@ class HelpExtension(bot: ExtensibleBot) : Extension(bot) {
         val name = command.name.capitalize()
         val description = command.description.substringBefore("\n")
 
-        return "**$name**\n" +
-                "${bot.prefix}${command.signature}**\n" +
-                description
+        return "${bot.prefix}$name${command.signature}**\n$description"
     }
 
     /**
@@ -83,7 +85,7 @@ class HelpExtension(bot: ExtensibleBot) : Extension(bot) {
      * @param command The command to format the description of.
      */
     fun formatLongHelp(command: Command): String {
-        return "**${bot.prefix}${command.signature}**\n\n" +
+        return "**${bot.prefix}${command.name} ${command.signature}**\n\n" +
                 "*${command.description}*"
     }
 }
