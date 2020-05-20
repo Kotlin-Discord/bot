@@ -64,7 +64,10 @@ class KDConfig {
     @Throws(MissingChannelException::class)
     suspend fun getChannel(channel: Channels): Channel {
         val snowflake = when (channel) {
+            Channels.ACTION_LOG -> Snowflake(config[ChannelsSpec.actionLog])
+            Channels.ALERTS -> Snowflake(config[ChannelsSpec.alerts])
             Channels.BOT_COMMANDS -> Snowflake(config[ChannelsSpec.botCommands])
+            Channels.MODERATOR_LOG -> Snowflake(config[ChannelsSpec.moderatorLog])
             Channels.VERIFICATION -> Snowflake(config[ChannelsSpec.verification])
         }
 
