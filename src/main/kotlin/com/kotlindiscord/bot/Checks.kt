@@ -24,7 +24,12 @@ suspend fun defaultCheck(event: MessageCreateEvent): Boolean {
                 false
             }
 
-            message.author?.id == bot.kord.getSelf().id -> {
+            message.author == null -> {
+                logger.debug { "Failing check: Message sent by a webhook or system message" }
+                false
+            }
+
+            message.author!!.id == bot.kord.getSelf().id -> {
                 logger.debug { "Failing check: We sent this message" }
                 false
             }

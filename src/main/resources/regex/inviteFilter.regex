@@ -1,0 +1,6 @@
+(?:discord(?:[.,]|dot)gg|
+discord(?:[.,]|dot)com(?:/|slash)invite|
+discordapp(?:[.,]|dot)com(?:/|slash)invite|
+discord(?:[.,]|dot)me|
+discord(?:[.,]|dot)io)
+(?:[/]|slash)([a-zA-Z0-9]+)
