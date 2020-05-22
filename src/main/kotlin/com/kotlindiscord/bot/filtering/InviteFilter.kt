@@ -73,6 +73,12 @@ class InviteFilter(bot: ExtensibleBot) : Filter(bot) {
         val invites = regex.findAll(content)
         val inviteData: MutableMap<String, GuildInfo> = mutableMapOf()
 
+        if (invites.count() > 1) {
+            logger.debug { "Deleting user's message." }
+
+            event.message.delete()
+        }
+
         for (match in invites) {
             val code = match.groups[1]!!.value
             val info = getGuildInfo(code) ?: continue
@@ -84,10 +90,6 @@ class InviteFilter(bot: ExtensibleBot) : Filter(bot) {
         }
 
         if (inviteData.isNotEmpty()) {
-            logger.debug { "Deleting user's message." }
-
-            event.message.delete()
-
             logger.debug { "Sending alert message." }
 
             sendAlert {
