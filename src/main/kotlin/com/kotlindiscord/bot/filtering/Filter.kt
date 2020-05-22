@@ -23,6 +23,9 @@ import io.ktor.http.HttpStatusCode
  * @param bot Current bot instance
  */
 abstract class Filter(val bot: ExtensibleBot) {
+    /** Message appended to notification reasons sent to users. **/
+    val mistakeMessage = "If you feel that this was a mistake, please feel free to contact a member of staff."
+
     /**
      * Check whether a message should be actioned, action it, and return a value based on
      * whether we should continue processing filters.
@@ -41,7 +44,7 @@ abstract class Filter(val bot: ExtensibleBot) {
      */
     suspend fun sendAlert(mention: Boolean = true, builder: suspend MessageCreateBuilder.() -> Unit): Message {
         val channel = config.getChannel(Channels.ALERTS) as TextChannel
-        val moderatorRole = config.getRole(Roles.MOD)
+        val moderatorRole = config.getRole(Roles.MODERATOR)
 
         return channel.createMessage {
             builder()
@@ -63,13 +66,15 @@ abstract class Filter(val bot: ExtensibleBot) {
      * @param reason Human-readable reason to send to the user
      */
     suspend fun sendNotification(event: MessageCreateEvent, reason: String): Message {
+        val message = "$reason\n\n$mistakeMessage"
+
         try {
             val channel = event.message.author!!.getDmChannel()
 
-            return channel.createMessage(reason)
+            return channel.createMessage(message)
         } catch (e: RequestException) {
             if (e.code == HttpStatusCode.Forbidden.value) {
-                return event.message.channel.createMessage("${event.message.author!!.mention} $reason")
+                return event.message.channel.createMessage("${event.message.author!!.mention} $message")
             }
 
             throw e

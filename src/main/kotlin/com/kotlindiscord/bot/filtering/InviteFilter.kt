@@ -73,10 +73,27 @@ class InviteFilter(bot: ExtensibleBot) : Filter(bot) {
         val invites = regex.findAll(content)
         val inviteData: MutableMap<String, GuildInfo> = mutableMapOf()
 
-        if (invites.count() > 1) {
+        if (invites.count() > 0) {
             logger.debug { "Deleting user's message." }
 
             event.message.delete()
+
+            logger.debug { "Sending alert message." }
+
+            sendAlert {
+                embed {
+                    title = "Invite filter triggered!"
+                    description = getMessage(event.message.author!!, event.message, event.message.channel.asChannel())
+                }
+            }
+
+            logger.debug { "Sending notification message." }
+
+            sendNotification(
+                event,
+                "Your link has been removed, as it violates **rule 7**. For more information, see here: " +
+                        "https://kotlindiscord.com/docs/rules"
+            )
         }
 
         for (match in invites) {
@@ -90,15 +107,6 @@ class InviteFilter(bot: ExtensibleBot) : Filter(bot) {
         }
 
         if (inviteData.isNotEmpty()) {
-            logger.debug { "Sending alert message." }
-
-            sendAlert {
-                embed {
-                    title = "Invite filter triggered!"
-                    description = getMessage(event.message.author!!, event.message, event.message.channel.asChannel())
-                }
-            }
-
             for ((code, info) in inviteData) {
                 logger.debug { "Sending additional guild info embed: $code" }
 

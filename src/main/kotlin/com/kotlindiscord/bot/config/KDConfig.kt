@@ -84,7 +84,7 @@ class KDConfig {
         return when (role) {
             Roles.OWNER     -> Snowflake(config[RolesSpec.owner])
             Roles.ADMIN     -> Snowflake(config[RolesSpec.admin])
-            Roles.MOD       -> Snowflake(config[RolesSpec.mod])
+            Roles.MODERATOR -> Snowflake(config[RolesSpec.mod])
             Roles.HELPER    -> Snowflake(config[RolesSpec.helper])
             Roles.DEVELOPER -> Snowflake(config[RolesSpec.developer])
             Roles.MUTED     -> Snowflake(config[RolesSpec.muted])
