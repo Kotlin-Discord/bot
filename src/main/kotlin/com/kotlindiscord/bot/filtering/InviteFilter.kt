@@ -7,6 +7,7 @@ import com.gitlab.kordlib.core.entity.Message
 import com.gitlab.kordlib.core.entity.User
 import com.gitlab.kordlib.core.entity.channel.Channel
 import com.gitlab.kordlib.core.event.message.MessageCreateEvent
+import com.gitlab.kordlib.core.event.message.MessageUpdateEvent
 import com.kotlindiscord.kord.extensions.ExtensibleBot
 import mu.KotlinLogging
 
@@ -23,6 +24,80 @@ class InviteFilter(bot: ExtensibleBot) : Filter(bot) {
      * Invite-matching regular expression.
      */
     val regex = loadRegex()
+
+    override val concerns = arrayOf(FilterConcerns.CONTENT)
+
+    override suspend fun checkCreate(event: MessageCreateEvent, content: String): Boolean =
+        doFilter(content, event.message)
+
+    override suspend fun checkEdit(event: MessageUpdateEvent, content: String): Boolean =
+        doFilter(content, event.getMessage())
+
+    private suspend fun doFilter(content: String, message: Message): Boolean {
+        val invites = regex.findAll(content)
+        val inviteData: MutableMap<String, GuildInfo> = mutableMapOf()
+
+        if (invites.count() > 0) {
+            logger.debug { "Deleting user's message." }
+
+            message.delete()
+
+            logger.debug { "Sending alert message." }
+
+            sendAlert {
+                embed {
+                    title = "Invite filter triggered!"
+                    description = getMessage(message.author!!, message, message.channel.asChannel())
+                }
+            }
+
+            logger.debug { "Sending notification message." }
+
+            sendNotification(
+                message,
+                "Your link has been removed, as it violates **rule 7**. For more information, see here: " +
+                        "https://kotlindiscord.com/docs/rules"
+            )
+        }
+
+        for (match in invites) {
+            val code = match.groups[1]!!.value
+            val info = getGuildInfo(code) ?: continue
+
+            // TODO: Whitelisted guilds
+
+            logger.debug { "Found match: ${match.groups[0]}" }
+            inviteData[code] = info
+        }
+
+        if (inviteData.isNotEmpty()) {
+            for ((code, info) in inviteData) {
+                logger.debug { "Sending additional guild info embed: $code" }
+
+                sendAlert(false) {
+                    embed {
+                        field { name = "Members"; value = info.members.toString() }
+                        field { name = "Active"; value = info.active.toString() }
+
+                        author { name = info.guildName }
+                        footer { text = "Invite code: $code" }
+
+                        if (info.guildIcon.isNotEmpty()) {
+                            thumbnail {
+                                this.url = "https://cdn.discordapp.com/icons/" +
+                                        "${info.invite.guildId.value}/${info.guildIcon}.png?size=512"
+                            }
+                        }
+                    }
+                }
+            }
+
+            return false
+        } else {
+            logger.debug { "No matches: $content" }
+            return true
+        }
+    }
 
     private fun loadRegex(): Regex {
         val resource = InviteFilter::class.java.getResource("/regex/inviteFilter.regex")
@@ -68,72 +143,6 @@ class InviteFilter(bot: ExtensibleBot) : Filter(bot) {
             invite.approximateMemberCount!!,
             invite.approximatePresenceCount!!
         )
-    }
-
-    override suspend fun check(event: MessageCreateEvent, content: String): Boolean {
-        val invites = regex.findAll(content)
-        val inviteData: MutableMap<String, GuildInfo> = mutableMapOf()
-
-        if (invites.count() > 0) {
-            logger.debug { "Deleting user's message." }
-
-            event.message.delete()
-
-            logger.debug { "Sending alert message." }
-
-            sendAlert {
-                embed {
-                    title = "Invite filter triggered!"
-                    description = getMessage(event.message.author!!, event.message, event.message.channel.asChannel())
-                }
-            }
-
-            logger.debug { "Sending notification message." }
-
-            sendNotification(
-                event,
-                "Your link has been removed, as it violates **rule 7**. For more information, see here: " +
-                        "https://kotlindiscord.com/docs/rules"
-            )
-        }
-
-        for (match in invites) {
-            val code = match.groups[1]!!.value
-            val info = getGuildInfo(code) ?: continue
-
-            // TODO: Whitelisted guilds
-
-            logger.debug { "Found match: ${match.groups[0]}" }
-            inviteData[code] = info
-        }
-
-        if (inviteData.isNotEmpty()) {
-            for ((code, info) in inviteData) {
-                logger.debug { "Sending additional guild info embed: $code" }
-
-                sendAlert(false) {
-                    embed {
-                        field { name = "Members"; value = info.members.toString() }
-                        field { name = "Active"; value = info.active.toString() }
-
-                        author { name = info.guildName }
-                        footer { text = "Invite code: $code" }
-
-                        if (info.guildIcon.isNotEmpty()) {
-                            thumbnail {
-                                this.url = "https://cdn.discordapp.com/icons/" +
-                                        "${info.invite.guildId.value}/${info.guildIcon}.png?size=512"
-                            }
-                        }
-                    }
-                }
-            }
-
-            return false
-        } else {
-            logger.debug { "No matches: ${event.message.content}" }
-            return true
-        }
     }
 
     private data class GuildInfo(

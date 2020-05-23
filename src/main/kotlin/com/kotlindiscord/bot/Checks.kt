@@ -1,11 +1,12 @@
 package com.kotlindiscord.bot
 
-import com.gitlab.kordlib.core.event.message.MessageCreateEvent
+import com.gitlab.kordlib.core.event.Event
 import com.kotlindiscord.bot.config.config
+import com.kotlindiscord.kord.extensions.checks.messageFor
 import mu.KotlinLogging
 
 /**
- * Default check we do for almost every event and command.
+ * Default check we do for almost every event and command, message creation flavour.
  *
  * Ensures:
  * * That the message was sent to the configured primary guild
@@ -14,35 +15,40 @@ import mu.KotlinLogging
  *
  * @param event The event to run this check against.
  */
-suspend fun defaultCheck(event: MessageCreateEvent): Boolean {
+suspend fun defaultCheck(event: Event): Boolean {
     val logger = KotlinLogging.logger("defaultCheck")
 
-    with(event) {
-        return when {
-            message.getGuild()?.id != config.getGuild().id -> {
-                logger.debug { "Failing check: Not in the correct guild" }
-                false
-            }
+    val message = messageFor(event)?.asMessage()
 
-            message.author == null -> {
-                logger.debug { "Failing check: Message sent by a webhook or system message" }
-                false
-            }
+    return when {
+        message == null                                -> {
+            logger.debug { "Failing check: Message for event $event is null. This type of event may not be supported." }
+            false
+        }
 
-            message.author!!.id == bot.kord.getSelf().id -> {
-                logger.debug { "Failing check: We sent this message" }
-                false
-            }
+        message.getGuild()?.id != config.getGuild().id -> {
+            logger.debug { "Failing check: Not in the correct guild" }
+            false
+        }
 
-            message.author!!.isBot == true -> {
-                logger.debug { "Failing check: This message was sent by another bot" }
-                false
-            }
+        message.author == null                         -> {
+            logger.debug { "Failing check: Message sent by a webhook or system message" }
+            false
+        }
 
-            else -> {
-                logger.debug { "Passing check" }
-                true
-            }
+        message.author!!.id == bot.kord.getSelf().id   -> {
+            logger.debug { "Failing check: We sent this message" }
+            false
+        }
+
+        message.author!!.isBot == true                 -> {
+            logger.debug { "Failing check: This message was sent by another bot" }
+            false
+        }
+
+        else                                           -> {
+            logger.debug { "Passing check" }
+            true
         }
     }
 }

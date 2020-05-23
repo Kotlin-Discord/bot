@@ -1,10 +1,12 @@
 package com.kotlindiscord.bot.extensions
 
 import com.gitlab.kordlib.core.event.message.MessageCreateEvent
+import com.gitlab.kordlib.core.event.message.MessageUpdateEvent
 import com.kotlindiscord.bot.config.config
 import com.kotlindiscord.bot.defaultCheck
 import com.kotlindiscord.bot.enums.Roles
 import com.kotlindiscord.bot.filtering.Filter
+import com.kotlindiscord.bot.filtering.FilterConcerns
 import com.kotlindiscord.bot.filtering.InviteFilter
 import com.kotlindiscord.kord.extensions.ExtensibleBot
 import com.kotlindiscord.kord.extensions.checks.topRoleLower
@@ -50,7 +52,75 @@ class FilterExtension(bot: ExtensibleBot) : Extension(bot) {
                 with(it) {
                     for (filter in filters) {
                         // TODO: Error handling
-                        if (!filter.check(this, sanitizeMessage(message.content))) {
+
+                        var matchedConcerns = 0
+
+                        if (filter.concerns.contains(FilterConcerns.CONTENT) &&
+                            this.message.content.isNotEmpty()
+                        ) {
+                            matchedConcerns += 1
+                        }
+
+                        if (filter.concerns.contains(FilterConcerns.EMBEDS) &&
+                            this.message.embeds.isNotEmpty()
+                        ) {
+                            matchedConcerns += 1
+                        }
+
+                        if (filter.concerns.contains(FilterConcerns.ATTACHMENTS) &&
+                            this.message.attachments.isNotEmpty()
+                        ) {
+                            matchedConcerns += 1
+                        }
+
+                        if (matchedConcerns < 1) {
+                            continue
+                        }
+
+                        if (!filter.checkCreate(this, sanitizeMessage(message.content))) {
+                            break
+                        }
+                    }
+                }
+            }
+        }
+
+        event<MessageUpdateEvent> {
+            check(
+                ::defaultCheck,
+                topRoleLower(config.getRole(Roles.MODERATOR))
+            )
+
+            action {
+                with(it) {
+                    for (filter in filters) {
+                        // TODO: Error handling
+
+                        var matchedConcerns = 0
+
+                        if (filter.concerns.contains(FilterConcerns.CONTENT) &&
+                            this.new.content?.isNotEmpty() == true
+                        ) {
+                            matchedConcerns += 1
+                        }
+
+                        if (filter.concerns.contains(FilterConcerns.EMBEDS) &&
+                            this.new.embeds?.isNotEmpty() == true
+                        ) {
+                            matchedConcerns += 1
+                        }
+
+                        if (filter.concerns.contains(FilterConcerns.ATTACHMENTS) &&
+                            this.new.attachments?.isNotEmpty() == true
+                        ) {
+                            matchedConcerns += 1
+                        }
+
+                        if (matchedConcerns < 1) {
+                            continue
+                        }
+
+                        if (!filter.checkEdit(this, sanitizeMessage(new.content ?: ""))) {
                             break
                         }
                     }

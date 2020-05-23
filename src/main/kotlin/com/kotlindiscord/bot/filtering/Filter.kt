@@ -4,6 +4,7 @@ import com.gitlab.kordlib.core.behavior.channel.createMessage
 import com.gitlab.kordlib.core.entity.Message
 import com.gitlab.kordlib.core.entity.channel.TextChannel
 import com.gitlab.kordlib.core.event.message.MessageCreateEvent
+import com.gitlab.kordlib.core.event.message.MessageUpdateEvent
 import com.gitlab.kordlib.rest.builder.message.MessageCreateBuilder
 import com.gitlab.kordlib.rest.request.RequestException
 import com.kotlindiscord.bot.config.config
@@ -16,7 +17,7 @@ import io.ktor.http.HttpStatusCode
  * Class representing a single type of message filter.
  *
  * Subclasses are expected to implement exactly one type of message filter, and they must implement
- * the [check] function. This function should check whether a message is problematic, action it
+ * the [checkCreate] function. This function should check whether a message is problematic, action it
  * appropriately, and return `false` if processing should stop here, or `true` if other filters
  * should be checked.
  *
@@ -27,15 +28,37 @@ abstract class Filter(val bot: ExtensibleBot) {
     val mistakeMessage = "If you feel that this was a mistake, please feel free to contact a member of staff."
 
     /**
+     * An array of [FilterConcerns] - filters won't be executed if their concerns aren't met.
+     *
+     * This means that we don't waste time executing filters when the data they filter against isn't present.
+     **/
+    abstract val concerns: Array<FilterConcerns>
+
+    /**
      * Check whether a message should be actioned, action it, and return a value based on
      * whether we should continue processing filters.
+     *
+     * This function is only executed on message creation.
      *
      * @param event The event containing the message to be checked against
      * @param content Sanitized message content (eg, with spoilers removed)
      *
      * @return `false` if processing should stop here, `true` if other filters should be checked
      */
-    abstract suspend fun check(event: MessageCreateEvent, content: String): Boolean
+    abstract suspend fun checkCreate(event: MessageCreateEvent, content: String): Boolean
+
+    /**
+     * Check whether a message should be actioned, action it, and return a value based on
+     * whether we should continue processing filters.
+     *
+     * This function is only executed on message edits.
+     *
+     * @param event The event containing the message to be checked against
+     * @param content Sanitized message content (eg, with spoilers removed)
+     *
+     * @return `false` if processing should stop here, `true` if other filters should be checked
+     */
+    abstract suspend fun checkEdit(event: MessageUpdateEvent, content: String): Boolean
 
     /**
      * Send an alert to the alerts channel.
@@ -62,19 +85,19 @@ abstract class Filter(val bot: ExtensibleBot) {
     /**
      * Send a notification to a user - attempting to DM first, and then using a channel.
      *
-     * @param event Message creation event corresponding with this filtering attempt
+     * @param eventMessage Message object from the event corresponding with this filtering attempt
      * @param reason Human-readable reason to send to the user
      */
-    suspend fun sendNotification(event: MessageCreateEvent, reason: String): Message {
+    suspend fun sendNotification(eventMessage: Message, reason: String): Message {
         val message = "$reason\n\n$mistakeMessage"
 
         try {
-            val channel = event.message.author!!.getDmChannel()
+            val channel = eventMessage.author!!.getDmChannel()
 
             return channel.createMessage(message)
         } catch (e: RequestException) {
             if (e.code == HttpStatusCode.Forbidden.value) {
-                return event.message.channel.createMessage("${event.message.author!!.mention} $message")
+                return eventMessage.channel.createMessage("${eventMessage.author!!.mention} $message")
             }
 
             throw e
