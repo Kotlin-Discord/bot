@@ -26,9 +26,10 @@ class InviteFilter(bot: ExtensibleBot) : Filter(bot) {
 
     private fun loadRegex(): Regex {
         val resource = InviteFilter::class.java.getResource("/regex/inviteFilter.regex")
-        val regex = resource.readText().replace(" ", "").replace("\n", "").replace("\r", "")
-
-        return Regex(regex)
+        return resource.readText()
+            .replace("\r", "")
+            .replace("\n", "")
+            .toRegex(RegexOption.IGNORE_CASE)
     }
 
     private suspend fun getMessage(user: User, message: Message, channel: Channel): String {
