@@ -1,5 +1,6 @@
 package com.kotlindiscord.bot
 
+import com.gitlab.kordlib.core.cache.data.MessageData
 import com.gitlab.kordlib.core.entity.Role
 import com.kotlindiscord.bot.config.config
 import com.kotlindiscord.bot.enums.Roles
@@ -19,3 +20,5 @@ fun Role.toEnum(): Roles? {
 
     return null
 }
+
+val MessageData.authorId: Long? get() = author?.id

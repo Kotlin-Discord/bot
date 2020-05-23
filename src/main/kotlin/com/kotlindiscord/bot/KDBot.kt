@@ -1,6 +1,7 @@
 package com.kotlindiscord.bot
 
 import com.kotlindiscord.bot.config.config
+import com.kotlindiscord.bot.extensions.AntispamExtension
 import com.kotlindiscord.bot.extensions.TestExtension
 import com.kotlindiscord.bot.extensions.VerificationExtension
 import com.kotlindiscord.kord.extensions.ExtensibleBot
@@ -14,6 +15,7 @@ val bot = ExtensibleBot(prefix = config.prefix, token = config.token)
  * @param args Array of command-line arguments. These are ignored.
  */
 suspend fun main(args: Array<String>) {
+    bot.addExtension(AntispamExtension::class)
     bot.addExtension(TestExtension::class)
     bot.addExtension(VerificationExtension::class)
     bot.start()
