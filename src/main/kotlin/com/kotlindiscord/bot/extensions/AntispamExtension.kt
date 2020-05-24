@@ -18,7 +18,7 @@ private val logger = KotlinLogging.logger {}
 const val ALERT_MESSAGE = ":warning: **Antispam:** %s %s"
 
 /** Array of all available filters. **/
-val filters: Array<Antispam> = arrayOf(
+val filters: Array<AntispamRule> = arrayOf(
     MessagesAntispam(),
     DuplicatesAntispam(),
     MentionsAntispam(),

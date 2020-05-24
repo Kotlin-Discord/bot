@@ -6,7 +6,7 @@ import com.gitlab.kordlib.core.entity.Message
 val EMOJIS_REGEX = Regex("<:\\w+:\\d+>")
 
 /** Check that the user haven't sent more than [MAX_EMOJIS] emojis in 5 seconds. **/
-class EmojisAntispam : Antispam {
+class EmojisAntispam : AntispamRule {
     @Suppress("MagicNumber")
     override val pastMessagesTime = 5L
 

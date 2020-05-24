@@ -6,7 +6,7 @@ import com.gitlab.kordlib.core.entity.Message
 val LINK_REGEX = Regex("https?://[^\\s]+")
 
 /** Check that the user haven't sent more than [MAX_LINKS] links in 5 seconds. **/
-class LinksAntispam : Antispam {
+class LinksAntispam : AntispamRule {
     @Suppress("MagicNumber")
     override val pastMessagesTime = 5L
 

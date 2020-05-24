@@ -5,7 +5,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.count
 
 /** Check that the user haven't mentioned more than [MAX_MENTIONS] users or roles in 5 seconds. **/
-class MentionsAntispam : Antispam {
+class MentionsAntispam : AntispamRule {
     @Suppress("MagicNumber")
     override val pastMessagesTime = 5L
 

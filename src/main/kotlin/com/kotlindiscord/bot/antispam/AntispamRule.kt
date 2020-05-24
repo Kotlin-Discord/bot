@@ -3,7 +3,7 @@ package com.kotlindiscord.bot.antispam
 import com.gitlab.kordlib.core.entity.Message
 
 /** Abstract class representing an antispam filter. **/
-interface Antispam {
+interface AntispamRule {
     /** Attribute defining how old the collected messages are, in seconds. **/
     val pastMessagesTime: Long
 

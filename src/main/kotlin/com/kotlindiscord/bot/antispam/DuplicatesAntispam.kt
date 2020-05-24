@@ -3,7 +3,7 @@ package com.kotlindiscord.bot.antispam
 import com.gitlab.kordlib.core.entity.Message
 
 /** Check that the user haven't sent more than [MAX_DUPLICATES] times the same message in 10 seconds. **/
-class DuplicatesAntispam : Antispam {
+class DuplicatesAntispam : AntispamRule {
     @Suppress("MagicNumber")
     override val pastMessagesTime = 10L
 
