@@ -3,6 +3,7 @@ package com.kotlindiscord.bot.extensions
 import com.gitlab.kordlib.cache.api.query
 import com.gitlab.kordlib.core.cache.data.MessageData
 import com.gitlab.kordlib.core.entity.Message
+import com.gitlab.kordlib.core.entity.channel.GuildMessageChannel
 import com.gitlab.kordlib.core.event.message.MessageCreateEvent
 import com.kotlindiscord.bot.antispam.*
 import com.kotlindiscord.bot.authorId
@@ -59,6 +60,10 @@ class AntispamExtension(bot: ExtensibleBot) : Extension(bot) {
                                 result
                             )
                         )
+                        val channel = messageCreateEvent.message.channel.asChannel()
+                        if (channel is GuildMessageChannel) {
+                            channel.bulkDelete(messages.map { it.id })
+                        }
                     }
                 }
             }
