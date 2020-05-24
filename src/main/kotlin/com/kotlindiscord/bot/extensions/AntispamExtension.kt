@@ -4,8 +4,7 @@ import com.gitlab.kordlib.cache.api.query
 import com.gitlab.kordlib.core.cache.data.MessageData
 import com.gitlab.kordlib.core.entity.Message
 import com.gitlab.kordlib.core.event.message.MessageCreateEvent
-import com.kotlindiscord.bot.antispam.Antispam
-import com.kotlindiscord.bot.antispam.MessagesAntispam
+import com.kotlindiscord.bot.antispam.*
 import com.kotlindiscord.bot.authorId
 import com.kotlindiscord.bot.defaultCheck
 import com.kotlindiscord.kord.extensions.ExtensibleBot
@@ -18,8 +17,12 @@ private val logger = KotlinLogging.logger {}
 const val ALERT_MESSAGE = ":warning: **Antispam:** %s %s"
 
 val filters: Array<Antispam> = arrayOf(
-        MessagesAntispam()
-    )
+    MessagesAntispam(),
+    DuplicatesAntispam(),
+    MentionsAntispam(),
+    LinksAntispam(),
+    EmojisAntispam()
+)
 
 class AntispamExtension(bot: ExtensibleBot) : Extension(bot) {
     override val name = "antispam"
