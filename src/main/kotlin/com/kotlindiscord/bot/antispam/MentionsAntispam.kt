@@ -4,7 +4,8 @@ import com.gitlab.kordlib.core.entity.Message
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.count
 
-class MentionsAntispam : Antispam() {
+/** Check that the user haven't mentioned more than [MAX_MENTIONS] users or roles in 5 seconds. **/
+class MentionsAntispam : Antispam {
     @Suppress("MagicNumber")
     override val pastMessagesTime = 5L
 

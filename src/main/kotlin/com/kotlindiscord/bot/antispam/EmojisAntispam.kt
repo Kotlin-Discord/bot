@@ -2,11 +2,13 @@ package com.kotlindiscord.bot.antispam
 
 import com.gitlab.kordlib.core.entity.Message
 
+/** Regex in charge of matching discord custom emojis. **/
 val EMOJIS_REGEX = Regex("<:\\w+:\\d+>")
 
-class EmojisAntispam : Antispam() {
+/** Check that the user haven't sent more than [MAX_EMOJIS] emojis in 5 seconds. **/
+class EmojisAntispam : Antispam {
     @Suppress("MagicNumber")
-    override val pastMessagesTime = 10L
+    override val pastMessagesTime = 5L
 
     override suspend fun check(pastMessages: List<Message>): String? {
         val result = pastMessages

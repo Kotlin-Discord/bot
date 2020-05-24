@@ -2,9 +2,11 @@ package com.kotlindiscord.bot.antispam
 
 import com.gitlab.kordlib.core.entity.Message
 
+/** Regex in charge of matching http and https urls. **/
 val LINK_REGEX = Regex("https?://[^\\s]+")
 
-class LinksAntispam : Antispam() {
+/** Check that the user haven't sent more than [MAX_LINKS] links in 5 seconds. **/
+class LinksAntispam : Antispam {
     @Suppress("MagicNumber")
     override val pastMessagesTime = 5L
 

@@ -21,4 +21,5 @@ fun Role.toEnum(): Roles? {
     return null
 }
 
+/** ID of the message author. **/
 val MessageData.authorId: Long? get() = author?.id
