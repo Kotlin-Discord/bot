@@ -5,10 +5,7 @@ import com.gitlab.kordlib.core.event.message.MessageUpdateEvent
 import com.kotlindiscord.bot.config.config
 import com.kotlindiscord.bot.defaultCheck
 import com.kotlindiscord.bot.enums.Roles
-import com.kotlindiscord.bot.filtering.EmbedFilter
-import com.kotlindiscord.bot.filtering.Filter
-import com.kotlindiscord.bot.filtering.FilterConcerns
-import com.kotlindiscord.bot.filtering.InviteFilter
+import com.kotlindiscord.bot.filtering.*
 import com.kotlindiscord.kord.extensions.ExtensibleBot
 import com.kotlindiscord.kord.extensions.checks.topRoleLower
 import com.kotlindiscord.kord.extensions.extensions.Extension
@@ -32,7 +29,8 @@ class FilterExtension(bot: ExtensibleBot) : Extension(bot) {
         InviteFilter(bot),
 
         // Non-actioning filters come last, in case a message was already removed.
-        EmbedFilter(bot)
+        EmbedFilter(bot),
+        RegexFilter(bot)
     )
 
     /**
@@ -91,8 +89,8 @@ class FilterExtension(bot: ExtensibleBot) : Extension(bot) {
 
         event<MessageUpdateEvent> {
             check(
-                ::defaultCheck,
-                topRoleLower(config.getRole(Roles.MODERATOR))
+                ::defaultCheck
+//                topRoleLower(config.getRole(Roles.MODERATOR))
             )
 
             action {

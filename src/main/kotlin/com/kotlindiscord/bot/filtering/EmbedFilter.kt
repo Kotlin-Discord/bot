@@ -27,7 +27,7 @@ class EmbedFilter(bot: ExtensibleBot) : Filter(bot) {
     }
 
     private suspend fun doCheck(message: Message) {
-        val embeds = message.embeds.filter { it.provider == null && it.video == null }
+        val embeds = message.embeds.filter { it.provider == null && it.video == null && it.url == null }
 
         if (embeds.isNotEmpty()) {
             sendAlert {
