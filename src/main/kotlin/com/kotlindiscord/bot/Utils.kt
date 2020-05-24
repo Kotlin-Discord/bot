@@ -1,8 +1,11 @@
 package com.kotlindiscord.bot
 
+import com.gitlab.kordlib.core.entity.Message
 import com.gitlab.kordlib.core.entity.Role
+import com.gitlab.kordlib.rest.request.RequestException
 import com.kotlindiscord.bot.config.config
 import com.kotlindiscord.bot.enums.Roles
+import io.ktor.http.HttpStatusCode
 
 /**
  * Convenience function to convert a [Role] object to a [Roles] enum value.
@@ -18,4 +21,17 @@ fun Role.toEnum(): Roles? {
     }
 
     return null
+}
+
+/**
+ * Deletes a message, catching and ignoring a HTTP 404 (Not Found) exception.
+ */
+suspend fun Message.deleteIgnoringNotFound() {
+    try {
+        this.delete()
+    } catch (e: RequestException) {
+        if (e.code != HttpStatusCode.NotFound.value) {
+            throw e
+        }
+    }
 }

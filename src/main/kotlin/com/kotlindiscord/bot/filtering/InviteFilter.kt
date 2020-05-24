@@ -8,6 +8,7 @@ import com.gitlab.kordlib.core.entity.User
 import com.gitlab.kordlib.core.entity.channel.Channel
 import com.gitlab.kordlib.core.event.message.MessageCreateEvent
 import com.gitlab.kordlib.core.event.message.MessageUpdateEvent
+import com.kotlindiscord.bot.deleteIgnoringNotFound
 import com.kotlindiscord.kord.extensions.ExtensibleBot
 import mu.KotlinLogging
 
@@ -38,7 +39,7 @@ class InviteFilter(bot: ExtensibleBot) : Filter(bot) {
         val inviteData: MutableMap<String, GuildInfo> = mutableMapOf()
 
         if (invites.count() > 0) {
-            message.delete()
+            message.deleteIgnoringNotFound()
 
             sendAlert {
                 embed {

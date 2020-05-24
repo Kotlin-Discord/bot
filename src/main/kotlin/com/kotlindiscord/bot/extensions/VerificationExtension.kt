@@ -1,9 +1,10 @@
 package com.kotlindiscord.bot.extensions
 
 import com.gitlab.kordlib.core.event.message.MessageCreateEvent
-import com.gitlab.kordlib.rest.request.KtorRequestException
+import com.gitlab.kordlib.rest.request.RequestException
 import com.kotlindiscord.bot.config.config
 import com.kotlindiscord.bot.defaultCheck
+import com.kotlindiscord.bot.deleteIgnoringNotFound
 import com.kotlindiscord.bot.enums.Channels
 import com.kotlindiscord.bot.enums.Roles
 import com.kotlindiscord.kord.extensions.ExtensibleBot
@@ -44,7 +45,7 @@ class VerificationExtension(bot: ExtensibleBot) : Extension(bot) {
 
             action {
                 // TODO: DM with info (after policy decisions)
-                message.delete()
+                message.deleteIgnoringNotFound()
                 message.getAuthorAsMember()!!.addRole(config.getRoleSnowflake(Roles.DEVELOPER))
             }
         }
@@ -74,16 +75,16 @@ class VerificationExtension(bot: ExtensibleBot) : Extension(bot) {
                     )
 
                     try {
-                        message.delete()
-                    } catch (e: KtorRequestException) {
+                        message.deleteIgnoringNotFound()
+                    } catch (e: RequestException) {
                         logger.warn(e) { "Failed to delete user's message." }
                     }
 
                     delay(DELETE_DELAY)
 
                     try {
-                        sentMessage.delete()
-                    } catch (e: KtorRequestException) {
+                        sentMessage.deleteIgnoringNotFound()
+                    } catch (e: RequestException) {
                         logger.warn(e) { "Failed to delete our message." }
                     }
                 }
