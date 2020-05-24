@@ -14,8 +14,10 @@ import java.time.Instant
 
 private val logger = KotlinLogging.logger {}
 
+/** Message used when an user infringe a filter.  **/
 const val ALERT_MESSAGE = ":warning: **Antispam:** %s %s"
 
+/** Array of all available filters. **/
 val filters: Array<Antispam> = arrayOf(
     MessagesAntispam(),
     DuplicatesAntispam(),
@@ -24,9 +26,11 @@ val filters: Array<Antispam> = arrayOf(
     EmojisAntispam()
 )
 
+/** Extension in charge of running antispam filters listed in [filters] and warn users if they infringe one. **/
 class AntispamExtension(bot: ExtensibleBot) : Extension(bot) {
     override val name = "antispam"
 
+    /** Setup the antispam event handler. **/
     override suspend fun setup() {
         event<MessageCreateEvent> {
             check(::defaultCheck) // TODO: ignore appropriate roles.
