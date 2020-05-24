@@ -11,8 +11,7 @@ import com.kotlindiscord.kord.extensions.ExtensibleBot
  * You can find their bot code here: https://github.com/python-discord/bot
  */
 class RegexFilter(bot: ExtensibleBot) : Filter(bot) {
-    override val concerns: Array<FilterConcerns>
-        get() = TODO("Not yet implemented")
+    override val concerns = arrayOf(FilterConcerns.CONTENT, FilterConcerns.EMBEDS)
 
     override suspend fun checkCreate(event: MessageCreateEvent, content: String): Boolean {
         TODO("Not yet implemented")

@@ -38,11 +38,7 @@ class InviteFilter(bot: ExtensibleBot) : Filter(bot) {
         val inviteData: MutableMap<String, GuildInfo> = mutableMapOf()
 
         if (invites.count() > 0) {
-            logger.debug { "Deleting user's message." }
-
             message.delete()
-
-            logger.debug { "Sending alert message." }
 
             sendAlert {
                 embed {
@@ -50,8 +46,6 @@ class InviteFilter(bot: ExtensibleBot) : Filter(bot) {
                     description = getMessage(message.author!!, message, message.channel.asChannel())
                 }
             }
-
-            logger.debug { "Sending notification message." }
 
             sendNotification(
                 message,

@@ -5,6 +5,7 @@ import com.gitlab.kordlib.core.event.message.MessageUpdateEvent
 import com.kotlindiscord.bot.config.config
 import com.kotlindiscord.bot.defaultCheck
 import com.kotlindiscord.bot.enums.Roles
+import com.kotlindiscord.bot.filtering.EmbedFilter
 import com.kotlindiscord.bot.filtering.Filter
 import com.kotlindiscord.bot.filtering.FilterConcerns
 import com.kotlindiscord.bot.filtering.InviteFilter
@@ -28,7 +29,10 @@ class FilterExtension(bot: ExtensibleBot) : Extension(bot) {
     override val name: String = "filter"
 
     private val filters: Array<Filter> = arrayOf(
-        InviteFilter(bot)
+        InviteFilter(bot),
+
+        // Non-actioning filters come last, in case a message was already removed.
+        EmbedFilter(bot)
     )
 
     /**
