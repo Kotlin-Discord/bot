@@ -3,6 +3,7 @@ package com.kotlindiscord.bot.antispam
 import com.gitlab.kordlib.core.entity.Message
 
 class DuplicatesAntispam : Antispam() {
+    @Suppress("MagicNumber")
     override val pastMessagesTime = 10L
 
     override suspend fun check(pastMessages: List<Message>): String? {
@@ -11,7 +12,7 @@ class DuplicatesAntispam : Antispam() {
             .filter { it.isNotEmpty() }  // messages with only attachments are empty.
             .count { it == contents.last() }
 
-        if (result > 3) {
+        if (result > MAX_DUPLICATES) {
             return "sent $result of the same message in $pastMessagesTime seconds."
         }
         return null

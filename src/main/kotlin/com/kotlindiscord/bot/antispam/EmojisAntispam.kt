@@ -5,6 +5,7 @@ import com.gitlab.kordlib.core.entity.Message
 val EMOJIS_REGEX = Regex("<:\\w+:\\d+>")
 
 class EmojisAntispam : Antispam() {
+    @Suppress("MagicNumber")
     override val pastMessagesTime = 10L
 
     override suspend fun check(pastMessages: List<Message>): String? {
@@ -12,7 +13,7 @@ class EmojisAntispam : Antispam() {
             .map { it.content }
             .map { EMOJIS_REGEX.findAll(it).count() }
             .sum()
-        if (result > 9) {
+        if (result > MAX_EMOJIS) {
             return "sent $result emojis in $pastMessagesTime seconds."
         }
         return null
