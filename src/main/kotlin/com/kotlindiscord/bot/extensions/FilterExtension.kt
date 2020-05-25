@@ -43,7 +43,7 @@ class FilterExtension(bot: ExtensibleBot) : Extension(bot) {
      * @return Sanitized message content.
      */
     fun sanitizeMessage(content: String): String =
-        content.replace("||", "")
+        content.replace("|", "")
             .replace("\\", "")
             .replace("*", "")
             .replace("_", "")
