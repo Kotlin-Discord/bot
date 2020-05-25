@@ -1,23 +1,148 @@
 package com.kotlindiscord.bot.filtering
 
+import com.gitlab.kordlib.common.entity.ChannelType
+import com.gitlab.kordlib.core.entity.Message
+import com.gitlab.kordlib.core.entity.User
+import com.gitlab.kordlib.core.entity.channel.Channel
 import com.gitlab.kordlib.core.event.message.MessageCreateEvent
 import com.gitlab.kordlib.core.event.message.MessageUpdateEvent
+import com.kotlindiscord.bot.deleteIgnoringNotFound
 import com.kotlindiscord.kord.extensions.ExtensibleBot
+import org.nibor.autolink.LinkExtractor
+import org.nibor.autolink.LinkType
+
+private val blacklist = setOf(
+    // Adult domains
+    "e621.net", "kink.com", "motherless.com", "paheal.net", "pornhub.com", "redtube.com",
+    "wince.st", "xhamster.com", "xnxx.com", "youjizz.com", "youporn.com",
+
+    // Piracy - not an exhaustive list, just what's popular.
+    "1337x.to", "baybea.net", "beatpb.club", "blue247.pw", "demonoid.is", "eztv.io",
+    "fitgirl-repacks.site", "limetorrents.info", "nyaa.eu", "nyaa.net", "nyaa.si",
+    "pantsu.cat", "piratebay.life", "piratebay.live", "piratebay.tech", "piratebaylist.com",
+    "pirateproxy-bay.com", "pirateproxy.space", "proxydltpb.club", "rarbg.to", "tamilrockers.ws",
+    "tbp-mirror.com", "thehiddenbay.com", "thepiratebay.fail", "thepiratebay.fyi", "thepiratebay.org",
+    "thepiratebay.rocks", "thepiratebay.vin", "thepiratebay.zone", "torrentz2.eu", "tpb.party",
+    "tpbaysproxy.com", "tpbproxypirate.com", "yts.lt", "yts.mx",
+
+    // Shocking content/gore/etc
+    "liveleak.com",
+
+    // Phishing/typo-squatting
+    "discord.gift", "ssteam.site", "steamwalletgift.com", "yourtube.site", "youtubeshort.watch",
+
+    // IP loggers (Grabify)
+    "bmwforum.co", "canadianlumberjacks.online", "catsnthing.com", "catsnthings.fun", "crabrave.pw",
+    "curiouscat.club", "discörd.com", "disçordapp.com", "fortnight.space", "fortnitechat.site",
+    "freegiftcards.co", "grabify.link", "joinmy.site", "leancoding.co", "minecräft.com",
+    "poweredbydialup.club", "poweredbydialup.online", "poweredbysecurity.online", "poweredbysecurity.org",
+    "quickmessage.us", "spottyfly.com", "stopify.co", "särahah.eu", "särahah.pl",
+    "xda-developers.us", "youshouldclick.us", "youtubeshort.pro", "yoütu.be"
+)
+
+private val extensionBlacklist = setOf(
+    // Domain extensions intended for the adult entertainment industry
+    // This isn't a full list, some of them are likely to be used for meme or vanity domains,
+    // so we shouldn't necessarily block them
+    "adult", "porn", "sex", "xxx"
+)
 
 /**
- * Filter class intended for finding, removing and alerting staff when banned domains are posted.
+ * Filter class intended for finding and removing messages, and alerting staff when banned domains
+ * are posted.
  *
  * This class is *heavily* inspired by the work done by the fine folks at Python Discord.
  * You can find their bot code here: https://github.com/python-discord/bot
+ *
+ * Our filter differs a little - instead of checking whether the message has _some url_ and then
+ * checking that it contains _some blacklisted domain_ anywhere in the content, we extract all
+ * URLs with a protocol or domains starting with www., and check whether those end in any of
+ * our blacklisted domains and extensions. We also have a larger list of banned domains.
  */
 class DomainFilter(bot: ExtensibleBot) : Filter(bot) {
     override val concerns = arrayOf(FilterConcerns.CONTENT)
 
-    override suspend fun checkCreate(event: MessageCreateEvent, content: String): Boolean {
-        TODO("Not yet implemented")
+    private val extractor = LinkExtractor.builder()
+        .linkTypes(setOf(LinkType.URL, LinkType.WWW))
+        .build()
+
+    override suspend fun checkCreate(event: MessageCreateEvent, content: String): Boolean =
+        doCheck(event.message, content.replace("\\", ""))
+
+    override suspend fun checkEdit(event: MessageUpdateEvent, content: String): Boolean =
+        doCheck(event.getMessage(), content.replace("\\", ""))
+
+    private suspend fun doCheck(message: Message, content: String): Boolean {
+        val domains = extractDomains(content)
+
+        if (domains.isNotEmpty()) {
+            message.deleteIgnoringNotFound()
+
+            sendAlert {
+                embed {
+                    title = "Domain filter triggered!"
+                    description = getMessage(message.author!!, message, message.channel.asChannel())
+                }
+            }
+
+            sendNotification(
+                message,
+                "Your link has been removed, as it references a blacklisted domain or domain extension."
+            )
+
+            return false
+        }
+
+        return true
     }
 
-    override suspend fun checkEdit(event: MessageUpdateEvent, content: String): Boolean {
-        TODO("Not yet implemented")
+    private suspend fun getMessage(user: User, message: Message, channel: Channel): String {
+        val channelMessage = if (channel.type == ChannelType.GuildText) {
+            "in ${channel.mention}"
+        } else {
+            "in a DM"
+        }
+
+        val jumpMessage = if (channel.type == ChannelType.GuildText) {
+            "[the following message](https://discordapp.com/channels/" +
+                    "${message.getGuild()!!.id.value}/${channel.id}/${message.id})"
+        } else {
+            "the following message"
+        }
+
+        return "Domain filter triggered by " +
+                "**${user.username}#${user.discriminator}** (`${user.id.value}`) $channelMessage, " +
+                "with $jumpMessage:\n\n" +
+                message.content
+    }
+
+    private fun extractDomains(content: String): Set<String> {
+        val links = extractor.extractLinks(content)
+        val badDomains: MutableList<String> = mutableListOf()
+        val foundDomains: MutableList<String> = mutableListOf()
+
+        for (link in links) {
+            var domain = content.substring(link.beginIndex, link.endIndex)
+
+            if ("://" in domain) {
+                domain = domain.split("://")[1]
+            }
+
+            if ("/" in domain) {
+                domain = domain.split("/").last()
+            }
+
+            foundDomains += domain
+        }
+
+        for (ending in blacklist + extensionBlacklist) {
+            for (found in foundDomains) {
+                if (found.endsWith(ending)) {
+                    badDomains += found
+                }
+            }
+        }
+
+        return badDomains.toSet()
     }
 }

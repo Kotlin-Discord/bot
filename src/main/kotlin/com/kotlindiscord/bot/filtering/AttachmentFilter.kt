@@ -26,9 +26,11 @@ private val whitelist = setOf(
 private val whitelistString = whitelist.joinToString(", ") { "`$it`" }
 
 /**
- * Filter class intended for finding, removing and alerting staff when banned attachment types are uploaded.
+ * Filter class intended for finding and removing messages, and alerting staff when banned attachment
+ * types are uploaded.
  *
- * We mostly filter files based on extensions that Discord can't preview natively.
+ * We mostly filter files based on extensions that Discord can't preview natively, but we also allow
+ * a few other formats in the interest of making branding work possible on Discord.
  *
  * This class is *heavily* inspired by the work done by the fine folks at Python Discord.
  * You can find their bot code here: https://github.com/python-discord/bot

@@ -28,6 +28,7 @@ class FilterExtension(bot: ExtensibleBot) : Extension(bot) {
     private val filters: Array<Filter> = arrayOf(
         InviteFilter(bot),
         AttachmentFilter(bot),
+        DomainFilter(bot),
 
         // Non-actioning filters come last, in case a message was already removed.
         EmbedFilter(bot),
@@ -47,8 +48,8 @@ class FilterExtension(bot: ExtensibleBot) : Extension(bot) {
     override suspend fun setup() {
         event<MessageCreateEvent> {
             check(
-                ::defaultCheck,
-                topRoleLower(config.getRole(Roles.MODERATOR))
+                ::defaultCheck
+//                topRoleLower(config.getRole(Roles.MODERATOR))
             )
 
             action {

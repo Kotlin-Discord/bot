@@ -15,7 +15,7 @@ import mu.KotlinLogging
 private val logger = KotlinLogging.logger {}
 
 /**
- * Filter class intended for finding, removing and alerting staff when invites are posted.
+ * Filter class intended for finding and removing messages, and alerting staff when invites are posted.
  *
  * This class is *heavily* inspired by the work done by the fine folks at Python Discord.
  * You can find their bot code here: https://github.com/python-discord/bot
@@ -29,10 +29,10 @@ class InviteFilter(bot: ExtensibleBot) : Filter(bot) {
     override val concerns = arrayOf(FilterConcerns.CONTENT)
 
     override suspend fun checkCreate(event: MessageCreateEvent, content: String): Boolean =
-        doFilter(content, event.message)
+        doFilter(content.replace("\\", ""), event.message)
 
     override suspend fun checkEdit(event: MessageUpdateEvent, content: String): Boolean =
-        doFilter(content, event.getMessage())
+        doFilter(content.replace("\\", ""), event.getMessage())
 
     private suspend fun doFilter(content: String, message: Message): Boolean {
         val invites = regex.findAll(content)

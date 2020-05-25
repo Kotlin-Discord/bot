@@ -9,7 +9,8 @@ import com.gitlab.kordlib.core.event.message.MessageUpdateEvent
 import com.kotlindiscord.kord.extensions.ExtensibleBot
 
 /**
- * Filter class intended for finding, removing and alerting staff when selfbots and modded clients post embeds.
+ * Filter class intended for finding removing messages, and alerting staff when selfbots and
+ * modded clients post embeds.
  */
 class EmbedFilter(bot: ExtensibleBot) : Filter(bot) {
     override val concerns = arrayOf(FilterConcerns.EMBEDS)
