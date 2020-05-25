@@ -19,7 +19,7 @@ class ${CLASS_NAME}(bot: ExtensibleBot) : Extension(bot) {
 
         command { // Define your command here
             name = "name"
-            description = "Does something. Soon."
+            description = "Does something. Soon™."
 
             aliases = arrayOf("n", "names")
 
