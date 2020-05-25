@@ -12,7 +12,6 @@ import com.kotlindiscord.kord.extensions.extensions.Extension
 import mu.KotlinLogging
 
 private val logger = KotlinLogging.logger {}
-private val spoilerRegex = Regex("""(\|\|)(.*?)(\|\|)""", RegexOption.DOT_MATCHES_ALL)
 
 /**
  * Filter extension, for filtering messages and alerting staff based on message content.
@@ -38,12 +37,17 @@ class FilterExtension(bot: ExtensibleBot) : Extension(bot) {
     /**
      * Sanitize message content for filtering.
      *
-     * This currently removes the pipes from spoilered text.
+     * This currently removes most Markdown formatting.
      *
      * @param content Message content to sanitize.
      * @return Sanitized message content.
      */
-    fun sanitizeMessage(content: String): String = spoilerRegex.replace(content, "$2")
+    fun sanitizeMessage(content: String): String =
+        content.replace("||", "")
+            .replace("\\", "")
+            .replace("*", "")
+            .replace("_", "")
+            .replace("`", "")
 
     override suspend fun setup() {
         event<MessageCreateEvent> {

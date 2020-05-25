@@ -42,10 +42,10 @@ class InviteFilter(bot: ExtensibleBot) : Filter(bot) {
     override val concerns = arrayOf(FilterConcerns.CONTENT)
 
     override suspend fun checkCreate(event: MessageCreateEvent, content: String): Boolean =
-        doFilter(content.replace("\\", ""), event.message)
+        doFilter(content, event.message)
 
     override suspend fun checkEdit(event: MessageUpdateEvent, content: String): Boolean =
-        doFilter(content.replace("\\", ""), event.getMessage())
+        doFilter(content, event.getMessage())
 
     private suspend fun doFilter(content: String, message: Message): Boolean {
         val invites = regex.findAll(content)

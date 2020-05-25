@@ -67,10 +67,10 @@ class DomainFilter(bot: ExtensibleBot) : Filter(bot) {
         .build()
 
     override suspend fun checkCreate(event: MessageCreateEvent, content: String): Boolean =
-        doCheck(event.message, content.replace("\\", ""))
+        doCheck(event.message, content)
 
     override suspend fun checkEdit(event: MessageUpdateEvent, content: String): Boolean =
-        doCheck(event.getMessage(), content.replace("\\", ""))
+        doCheck(event.getMessage(), content)
 
     private suspend fun doCheck(message: Message, content: String): Boolean {
         val domains = extractDomains(content)
