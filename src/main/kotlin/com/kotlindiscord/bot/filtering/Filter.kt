@@ -8,14 +8,11 @@ import com.gitlab.kordlib.core.event.message.MessageUpdateEvent
 import com.gitlab.kordlib.rest.builder.message.MessageCreateBuilder
 import com.gitlab.kordlib.rest.request.RequestException
 import com.kotlindiscord.bot.config.config
-import com.kotlindiscord.bot.deleteIgnoringNotFound
+import com.kotlindiscord.bot.deleteWithDelay
 import com.kotlindiscord.bot.enums.Channels
 import com.kotlindiscord.bot.enums.Roles
 import com.kotlindiscord.kord.extensions.ExtensibleBot
 import io.ktor.http.HttpStatusCode
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 /** How long to wait before removing notification messages in channels - 10 seconds. **/
 const val DELETE_DELAY = 10_000L
@@ -111,13 +108,7 @@ abstract class Filter(val bot: ExtensibleBot) {
                 val notificationMessage =
                     eventMessage.channel.createMessage("${eventMessage.author!!.mention} $message")
 
-                coroutineScope {
-                    launch {
-                        delay(DELETE_DELAY)
-
-                        notificationMessage.deleteIgnoringNotFound()
-                    }
-                }
+                notificationMessage.deleteWithDelay(DELETE_DELAY)
 
                 return notificationMessage
             }

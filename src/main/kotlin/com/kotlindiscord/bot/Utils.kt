@@ -6,6 +6,9 @@ import com.gitlab.kordlib.rest.request.RequestException
 import com.kotlindiscord.bot.config.config
 import com.kotlindiscord.bot.enums.Roles
 import io.ktor.http.HttpStatusCode
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 /**
  * Convenience function to convert a [Role] object to a [Roles] enum value.
@@ -33,5 +36,20 @@ suspend fun Message.deleteIgnoringNotFound() {
         if (e.code != HttpStatusCode.NotFound.value) {
             throw e
         }
+    }
+}
+
+/**
+ * Deletes a message after a delay.
+ *
+ * This function **does not block**.
+ *
+ * @param millis The delay before deleting the message, in milliseconds.
+ * @return Job spawned by the CoroutineScope.
+ */
+fun Message.deleteWithDelay(millis: Long): Job {
+    return this.kord.launch {
+        delay(millis)
+        this@deleteWithDelay.deleteIgnoringNotFound()
     }
 }
