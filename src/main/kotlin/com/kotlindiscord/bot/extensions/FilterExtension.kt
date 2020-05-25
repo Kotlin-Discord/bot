@@ -55,8 +55,6 @@ class FilterExtension(bot: ExtensibleBot) : Extension(bot) {
             action {
                 with(it) {
                     for (filter in filters) {
-                        // TODO: Error handling
-
                         var matchedConcerns = false
 
                         if (filter.concerns.contains(FilterConcerns.CONTENT) &&
@@ -72,7 +70,13 @@ class FilterExtension(bot: ExtensibleBot) : Extension(bot) {
                         ) matchedConcerns = true
 
                         if (!matchedConcerns) continue
-                        if (!filter.checkCreate(this, sanitizeMessage(message.content))) break
+
+                        @Suppress("TooGenericExceptionCaught")  // Anything could happen here.
+                        try {
+                            if (!filter.checkCreate(this, sanitizeMessage(message.content))) break
+                        } catch (e: Exception) {
+                            logger.catching(e)
+                        }
                     }
                 }
             }
@@ -87,8 +91,6 @@ class FilterExtension(bot: ExtensibleBot) : Extension(bot) {
             action {
                 with(it) {
                     for (filter in filters) {
-                        // TODO: Error handling
-
                         var matchedConcerns = false
 
                         if (filter.concerns.contains(FilterConcerns.CONTENT) &&
@@ -104,7 +106,13 @@ class FilterExtension(bot: ExtensibleBot) : Extension(bot) {
                         ) matchedConcerns = true
 
                         if (!matchedConcerns) continue
-                        if (!filter.checkEdit(this, sanitizeMessage(new.content ?: ""))) break
+
+                        @Suppress("TooGenericExceptionCaught")  // Anything could happen here.
+                        try {
+                            if (!filter.checkEdit(this, sanitizeMessage(new.content ?: ""))) break
+                        } catch (e: Exception) {
+                            logger.catching(e)
+                        }
                     }
                 }
             }

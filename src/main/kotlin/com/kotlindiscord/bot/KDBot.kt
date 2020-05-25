@@ -15,8 +15,8 @@ val bot = ExtensibleBot(prefix = config.prefix, token = config.token)
  * @param args Array of command-line arguments. These are ignored.
  */
 suspend fun main(args: Array<String>) {
-    bot.addExtension(TestExtension::class)
     bot.addExtension(FilterExtension::class)
+    bot.addExtension(TestExtension::class)
     bot.addExtension(VerificationExtension::class)
     bot.start()
 }

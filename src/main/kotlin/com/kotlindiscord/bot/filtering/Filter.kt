@@ -21,6 +21,10 @@ import io.ktor.http.HttpStatusCode
  * appropriately, and return `false` if processing should stop here, or `true` if other filters
  * should be checked.
  *
+ * If your filter doesn't delete or otherwise action the message (that is to say, it's only for alerting),
+ * then it may be best to return `true` so the rest of the filters can be executed. Whether this is
+ * truly the case will depend on what exactly your filter is doing, though.
+ *
  * @param bot Current bot instance
  */
 abstract class Filter(val bot: ExtensibleBot) {

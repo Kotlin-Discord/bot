@@ -18,6 +18,9 @@ import mu.KotlinLogging
 /** How long to wait before removing irrelevant messages - 10 seconds. **/
 const val DELETE_DELAY = 10_000L
 
+/** How long to wait before retrying message removal on error - 2 seconds. **/
+const val RETRY_DELAY = 2_000L
+
 private val logger = KotlinLogging.logger {}
 
 /**
@@ -77,7 +80,15 @@ class VerificationExtension(bot: ExtensibleBot) : Extension(bot) {
                     try {
                         message.deleteIgnoringNotFound()
                     } catch (e: RequestException) {
-                        logger.warn(e) { "Failed to delete user's message." }
+                        logger.warn(e) { "Failed to delete user's message, retrying in two seconds." }
+
+                        delay(RETRY_DELAY)
+
+                        try {
+                            message.deleteIgnoringNotFound()
+                        } catch (e: RequestException) {
+                            logger.warn(e) { "Failed to delete user's message on the second attempt." }
+                        }
                     }
 
                     delay(DELETE_DELAY)
@@ -85,7 +96,15 @@ class VerificationExtension(bot: ExtensibleBot) : Extension(bot) {
                     try {
                         sentMessage.deleteIgnoringNotFound()
                     } catch (e: RequestException) {
-                        logger.warn(e) { "Failed to delete our message." }
+                        logger.warn(e) { "Failed to delete our message, retrying in two seconds." }
+
+                        delay(RETRY_DELAY)
+
+                        try {
+                            sentMessage.deleteIgnoringNotFound()
+                        } catch (e: RequestException) {
+                            logger.warn(e) { "Failed to delete our message on the second attempt." }
+                        }
                     }
                 }
             }
