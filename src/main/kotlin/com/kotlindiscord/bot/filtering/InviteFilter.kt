@@ -1,6 +1,7 @@
 package com.kotlindiscord.bot.filtering
 
 import com.gitlab.kordlib.common.entity.ChannelType
+import com.gitlab.kordlib.common.entity.Snowflake
 import com.gitlab.kordlib.core.cache.data.InviteData
 import com.gitlab.kordlib.core.entity.Invite
 import com.gitlab.kordlib.core.entity.Message
@@ -13,6 +14,18 @@ import com.kotlindiscord.kord.extensions.ExtensibleBot
 import mu.KotlinLogging
 
 private val logger = KotlinLogging.logger {}
+
+@Suppress("MagicNumber", "UnderscoresInNumericLiterals")  // They're guild IDs
+private val whitelist = setOf(  // Guilds we allow invites to
+    Snowflake(705370076248932402),  // Kotlin Discord
+    Snowflake(267624335836053506),  // Python Discord
+    Snowflake(280033776820813825),  // Functional Programming
+    Snowflake(273944235143593984),  // STEM
+    Snowflake(590806733924859943),  // Discord Hack Week
+    Snowflake(197038439483310086),  // Discord Testers
+    Snowflake(81384788765712384),   // Discord API
+    Snowflake(613425648685547541)   // Discord Developers
+)
 
 /**
  * Filter class intended for finding and removing messages, and alerting staff when invites are posted.
@@ -59,7 +72,7 @@ class InviteFilter(bot: ExtensibleBot) : Filter(bot) {
             val code = match.groups[1]!!.value
             val info = getGuildInfo(code) ?: continue
 
-            // TODO: Whitelisted guilds
+            if (info.invite.guildId in whitelist) continue
 
             logger.debug { "Found match: ${match.groups[0]}" }
             inviteData[code] = info

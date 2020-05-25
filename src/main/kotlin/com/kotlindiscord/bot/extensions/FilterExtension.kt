@@ -48,8 +48,8 @@ class FilterExtension(bot: ExtensibleBot) : Extension(bot) {
     override suspend fun setup() {
         event<MessageCreateEvent> {
             check(
-                ::defaultCheck
-//                topRoleLower(config.getRole(Roles.MODERATOR))
+                ::defaultCheck,
+                topRoleLower(config.getRole(Roles.MODERATOR))
             )
 
             action {
@@ -57,33 +57,22 @@ class FilterExtension(bot: ExtensibleBot) : Extension(bot) {
                     for (filter in filters) {
                         // TODO: Error handling
 
-                        var matchedConcerns = 0
+                        var matchedConcerns = false
 
                         if (filter.concerns.contains(FilterConcerns.CONTENT) &&
                             this.message.content.isNotEmpty()
-                        ) {
-                            matchedConcerns += 1
-                        }
+                        ) matchedConcerns = true
 
                         if (filter.concerns.contains(FilterConcerns.EMBEDS) &&
                             this.message.embeds.isNotEmpty()
-                        ) {
-                            matchedConcerns += 1
-                        }
+                        ) matchedConcerns = true
 
                         if (filter.concerns.contains(FilterConcerns.ATTACHMENTS) &&
                             this.message.attachments.isNotEmpty()
-                        ) {
-                            matchedConcerns += 1
-                        }
+                        ) matchedConcerns = true
 
-                        if (matchedConcerns < 1) {
-                            continue
-                        }
-
-                        if (!filter.checkCreate(this, sanitizeMessage(message.content))) {
-                            break
-                        }
+                        if (!matchedConcerns) continue
+                        if (!filter.checkCreate(this, sanitizeMessage(message.content))) break
                     }
                 }
             }
@@ -100,33 +89,22 @@ class FilterExtension(bot: ExtensibleBot) : Extension(bot) {
                     for (filter in filters) {
                         // TODO: Error handling
 
-                        var matchedConcerns = 0
+                        var matchedConcerns = false
 
                         if (filter.concerns.contains(FilterConcerns.CONTENT) &&
-                            this.new.content?.isNotEmpty() == true
-                        ) {
-                            matchedConcerns += 1
-                        }
+                            getMessage().content.isNotEmpty()
+                        ) matchedConcerns = true
 
                         if (filter.concerns.contains(FilterConcerns.EMBEDS) &&
-                            this.new.embeds?.isNotEmpty() == true
-                        ) {
-                            matchedConcerns += 1
-                        }
+                            getMessage().embeds.isNotEmpty()
+                        ) matchedConcerns = true
 
                         if (filter.concerns.contains(FilterConcerns.ATTACHMENTS) &&
-                            this.new.attachments?.isNotEmpty() == true
-                        ) {
-                            matchedConcerns += 1
-                        }
+                            getMessage().attachments.isNotEmpty()
+                        ) matchedConcerns = true
 
-                        if (matchedConcerns < 1) {
-                            continue
-                        }
-
-                        if (!filter.checkEdit(this, sanitizeMessage(new.content ?: ""))) {
-                            break
-                        }
+                        if (!matchedConcerns) continue
+                        if (!filter.checkEdit(this, sanitizeMessage(new.content ?: ""))) break
                     }
                 }
             }
