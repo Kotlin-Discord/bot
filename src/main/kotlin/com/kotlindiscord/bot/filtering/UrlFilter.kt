@@ -47,9 +47,17 @@ private val extensionBlacklist = setOf(
     "adult", "porn", "sex", "xxx"
 )
 
+private val schemeBlacklist = setOf(
+    // URL schemes that should be specifically blacklisted.
+    // Torrents tend to be problematic, but there are plenty of legal torrents out there.
+    // That said, most of those are distributed using .torrent files, whereas most pirate
+    // torrents seem to use magnet links.
+    "magnet"
+)
+
 /**
- * Filter class intended for finding and removing messages, and alerting staff when banned domains
- * are posted.
+ * Filter class intended for finding and removing messages, and alerting staff when problematic
+ * urls are posted.
  *
  * This class is *heavily* inspired by the work done by the fine folks at Python Discord.
  * You can find their bot code here: https://github.com/python-discord/bot
@@ -57,9 +65,10 @@ private val extensionBlacklist = setOf(
  * Our filter differs a little - instead of checking whether the message has _some url_ and then
  * checking that it contains _some blacklisted domain_ anywhere in the content, we extract all
  * URLs with a protocol or domains starting with www., and check whether those end in any of
- * our blacklisted domains and extensions. We also have a larger list of banned domains.
+ * our blacklisted domains and extensions. We also have a larger list of banned domains, and we
+ * deal with specific schemes and extensions.
  */
-class DomainFilter(bot: ExtensibleBot) : Filter(bot) {
+class UrlFilter(bot: ExtensibleBot) : Filter(bot) {
     override val concerns = arrayOf(FilterConcerns.CONTENT)
 
     private val extractor = LinkExtractor.builder()
@@ -73,7 +82,7 @@ class DomainFilter(bot: ExtensibleBot) : Filter(bot) {
         doCheck(event.getMessage(), content)
 
     private suspend fun doCheck(message: Message, content: String): Boolean {
-        val domains = extractDomains(content)
+        val domains = extractUrlInfo(content)
 
         if (domains.isNotEmpty()) {
             message.deleteIgnoringNotFound()
@@ -87,7 +96,7 @@ class DomainFilter(bot: ExtensibleBot) : Filter(bot) {
 
             sendNotification(
                 message,
-                "Your link has been removed, as it references a blacklisted domain or domain extension."
+                "Your link has been removed, as it references a blacklisted scheme, domain or domain extension."
             )
 
             return false
@@ -116,33 +125,43 @@ class DomainFilter(bot: ExtensibleBot) : Filter(bot) {
                 message.content
     }
 
-    private fun extractDomains(content: String): Set<String> {
+    private fun extractUrlInfo(content: String): Set<Pair<String?, String>> {  // Pair(scheme, domain)
         val links = extractor.extractLinks(content)
-        val badDomains: MutableList<String> = mutableListOf()
-        val foundDomains: MutableList<String> = mutableListOf()
+        val badPairs: MutableList<Pair<String?, String>> = mutableListOf()
+        val foundPairs: MutableList<Pair<String?, String>> = mutableListOf()
 
         for (link in links) {
             var domain = content.substring(link.beginIndex, link.endIndex)
+            var scheme: String? = null
 
             if ("://" in domain) {
-                domain = domain.split("://")[1]
+                val split = domain.split("://")
+
+                scheme = split[0]
+                domain = split[1]
             }
 
             if ("/" in domain) {
                 domain = domain.split("/").last()
             }
 
-            foundDomains += domain
+            foundPairs += Pair(scheme, domain)
         }
 
         for (ending in blacklist + extensionBlacklist) {
-            for (found in foundDomains) {
-                if (found.endsWith(ending)) {
-                    badDomains += found
+            for ((scheme, domain) in foundPairs) {
+                if (domain.endsWith(ending)) {
+                    badPairs += Pair(scheme, domain)
                 }
             }
         }
 
-        return badDomains.toSet()
+        for ((scheme, domain) in foundPairs) {
+            if (scheme in schemeBlacklist) {
+                badPairs += Pair(scheme, domain)
+            }
+        }
+
+        return badPairs.toSet()
     }
 }

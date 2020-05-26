@@ -27,7 +27,7 @@ class FilterExtension(bot: ExtensibleBot) : Extension(bot) {
     private val filters: Array<Filter> = arrayOf(
         InviteFilter(bot),
         AttachmentFilter(bot),
-        DomainFilter(bot),
+        UrlFilter(bot),
 
         // Non-actioning filters come last, in case a message was already removed.
         EmbedFilter(bot),
