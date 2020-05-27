@@ -31,8 +31,11 @@ jobs:
 
       - name: Rename Artifacts
         run: |
-          cp build/libs/*-all.jar build/libs/KDBot.jar
-          cp build/libs/*-*.*.jar build/libs/KDBot-slim.jar
+          mkdir build/artifacts
+
+          cp build/libs/* build/artifacts
+          mv build/artifacts/*-all.jar build/artifacts/KDBot.jar
+          mv build/artifacts/*-*.*.jar build/artifacts/KDBot-slim.jar
 
       - name: Create Docs Zip
         run: |
@@ -43,14 +46,14 @@ jobs:
 
         with:
           name: Slim JAR
-          path: build/libs/KDBot-slim.jar
+          path: build/artifacts/KDBot-slim.jar
 
       - name: Upload artifact (Production JAR)
         uses: actions/upload-artifact@v1.0.0
 
         with:
           name: Production JAR
-          path: build/libs/KDBot.jar
+          path: build/artifacts/KDBot.jar
 
       - name: Upload artifact (Docs)
         uses: actions/upload-artifact@v1.0.0
