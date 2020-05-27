@@ -14,4 +14,4 @@ COPY build/libs/bot-*-all.jar /app
 WORKDIR /app
 
 # Run it
-CMD ["java", "-jar", "bot-*-all.jar"]
+CMD ["/bin/sh" ,"-c", "java -jar /app/bot-*-all.jar"]
