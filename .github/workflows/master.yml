@@ -31,8 +31,8 @@ jobs:
 
       - name: Rename Artifacts
         run: |
-          mv build/libs/*-all.jar build/libs/KDBot.jar
-          mv build/libs/*-*.*.jar build/libs/KDBot-slim.jar
+          cp build/libs/*-all.jar build/libs/KDBot.jar
+          cp build/libs/*-*.*.jar build/libs/KDBot-slim.jar
 
       - name: Create Docs Zip
         run: |
