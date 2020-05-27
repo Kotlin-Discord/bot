@@ -15,7 +15,7 @@ class BuildInfo {
 
     /** @suppress **/
     fun load(): BuildInfo {
-        props.load(javaClass.classLoader.getResourceAsStream("build.properties"))
+        props.load(Thread.currentThread().contextClassLoader.getResourceAsStream("build.properties"))
         return this
     }
 }
