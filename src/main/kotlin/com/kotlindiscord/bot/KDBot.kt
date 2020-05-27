@@ -19,6 +19,7 @@ val bot = ExtensibleBot(prefix = config.prefix, token = config.token)
  */
 suspend fun main(args: Array<String>) {
     val logger = KotlinLogging.logger {}
+    val environment = System.getenv().getOrDefault("SENTRY_ENVIRONMENT", "dev")
 
     if (System.getenv().getOrDefault("SENTRY_DSN", null) != null) {
         val sentry = Sentry.init()
@@ -28,7 +29,11 @@ suspend fun main(args: Array<String>) {
     logger.info { "Starting KDBot version ${buildInfo.version}." }
 
     bot.addExtension(FilterExtension::class)
-    bot.addExtension(TestExtension::class)
     bot.addExtension(VerificationExtension::class)
+
+    if (environment == "dev") {
+        bot.addExtension(TestExtension::class)
+    }
+
     bot.start()
 }
