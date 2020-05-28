@@ -9,6 +9,7 @@ import io.ktor.http.HttpStatusCode
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import mu.KotlinLogging
 
 /**
  * Convenience function to convert a [Role] object to a [Roles] enum value.
@@ -47,9 +48,28 @@ suspend fun Message.deleteIgnoringNotFound() {
  * @param millis The delay before deleting the message, in milliseconds.
  * @return Job spawned by the CoroutineScope.
  */
-fun Message.deleteWithDelay(millis: Long): Job {
+fun Message.deleteWithDelay(millis: Long, retry: Boolean = true): Job {
+    val logger = KotlinLogging.logger {}
+
     return this.kord.launch {
         delay(millis)
-        this@deleteWithDelay.deleteIgnoringNotFound()
+
+        try {
+            this@deleteWithDelay.deleteIgnoringNotFound()
+        } catch (e: RequestException) {
+            val message = this@deleteWithDelay
+
+            if (retry) {
+                logger.debug(e) {
+                    "Failed to delete message, retrying: $message"
+                }
+
+                this@deleteWithDelay.deleteWithDelay(millis, false)
+            } else {
+                logger.error(e) {
+                    "Failed to delete message: $message"
+                }
+            }
+        }
     }
 }
