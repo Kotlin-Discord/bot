@@ -5,7 +5,6 @@ import io.sentry.logback.SentryAppender
 def environment = System.getenv().getOrDefault("SENTRY_ENVIRONMENT", "dev")
 def sentry_dsn = System.getenv().getOrDefault("SENTRY_DSN", null)
 
-def times = timestamp("yyyy-MM-dd HH:mm:ss:SSS Z")
 def defaultLevel = DEBUG
 
 if (environment == "production") {
@@ -26,7 +25,7 @@ if (environment == "production") {
 
 appender("CONSOLE", ConsoleAppender) {
     encoder(PatternLayoutEncoder) {
-        pattern = "${times} | %5level | %40.40logger{40} | %msg%n"
+        pattern = "%d{yyyy-MM-dd HH:mm:ss:SSS Z} | %5level | %40.40logger{40} | %msg%n"
     }
 
     target = ConsoleTarget.SystemErr

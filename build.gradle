@@ -1,6 +1,9 @@
 buildscript {
     repositories {
-        jcenter()
+        maven {
+            name = 'KotDis'
+            url = 'https://maven.kotlindiscord.com/repository/maven-public/'
+        }
     }
 }
 
@@ -95,8 +98,8 @@ task generateBuildInfo() {
     outputs.files "src/main/resources/build.properties"
 
     doLast {
-        new File("src/main/resources/build.properties").text = """\
-version=$project.version
-"""
+        new File("src/main/resources/build.properties").text = """
+            version=$project.version
+        """.stripIndent().strip()
     }
 }
