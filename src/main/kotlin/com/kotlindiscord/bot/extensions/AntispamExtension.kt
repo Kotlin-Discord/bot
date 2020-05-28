@@ -7,9 +7,16 @@ import com.gitlab.kordlib.core.entity.channel.GuildMessageChannel
 import com.gitlab.kordlib.core.event.message.MessageCreateEvent
 import com.kotlindiscord.bot.antispam.*
 import com.kotlindiscord.bot.authorId
+import com.kotlindiscord.bot.config.config
 import com.kotlindiscord.bot.defaultCheck
+import com.kotlindiscord.bot.enums.Roles
 import com.kotlindiscord.kord.extensions.ExtensibleBot
+import com.kotlindiscord.kord.extensions.checks.notHasRole
 import com.kotlindiscord.kord.extensions.extensions.Extension
+import kotlinx.coroutines.flow.count
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.toList
 import mu.KotlinLogging
 import java.time.Instant
 
@@ -52,7 +59,9 @@ class AntispamExtension(bot: ExtensibleBot) : Extension(bot) {
 
                     val result = filter.check(messages)
 
-                    if (!result.isNullOrEmpty()) {
+                    if (!result.isNullOrEmpty() &&
+                            message.getAuthorAsMember()?.roles?.toList()?.contains(config.getRole(Roles.MUTED)) == false
+                    ) {
                         // TODO: apply infraction.
                         // TODO: Notify #alerts.
                         message.channel.createMessage(ALERT_MESSAGE.format(
@@ -64,6 +73,7 @@ class AntispamExtension(bot: ExtensibleBot) : Extension(bot) {
                         if (channel is GuildMessageChannel) {
                             channel.bulkDelete(messages.map { it.id })
                         }
+                        messageCreateEvent.message.getAuthorAsMember()?.addRole(config.getRole(Roles.MUTED).id)
                     }
                 }
             }
