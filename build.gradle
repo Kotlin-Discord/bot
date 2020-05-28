@@ -85,12 +85,18 @@ jar {
     }
 }
 
+processResources {
+    dependsOn "generateBuildInfo"
+
+    from "src/main/resources/build.properties"
+}
+
 task generateBuildInfo() {
+    outputs.files "src/main/resources/build.properties"
+
     doLast {
         new File("src/main/resources/build.properties").text = """\
 version=$project.version
 """
     }
 }
-
-jar.dependsOn generateBuildInfo
