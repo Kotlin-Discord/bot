@@ -6,6 +6,7 @@ import com.gitlab.kordlib.core.entity.User
 import com.gitlab.kordlib.core.entity.channel.Channel
 import com.gitlab.kordlib.core.event.message.MessageCreateEvent
 import com.gitlab.kordlib.core.event.message.MessageUpdateEvent
+import com.kotlindiscord.bot.sendAlert
 import com.kotlindiscord.kord.extensions.ExtensibleBot
 
 /**

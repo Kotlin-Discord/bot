@@ -1,16 +1,10 @@
 package com.kotlindiscord.bot.filtering
 
-import com.gitlab.kordlib.core.behavior.channel.createMessage
 import com.gitlab.kordlib.core.entity.Message
-import com.gitlab.kordlib.core.entity.channel.TextChannel
 import com.gitlab.kordlib.core.event.message.MessageCreateEvent
 import com.gitlab.kordlib.core.event.message.MessageUpdateEvent
-import com.gitlab.kordlib.rest.builder.message.MessageCreateBuilder
 import com.gitlab.kordlib.rest.request.RequestException
-import com.kotlindiscord.bot.config.config
 import com.kotlindiscord.bot.deleteWithDelay
-import com.kotlindiscord.bot.enums.Channels
-import com.kotlindiscord.bot.enums.Roles
 import com.kotlindiscord.kord.extensions.ExtensibleBot
 import io.ktor.http.HttpStatusCode
 
@@ -67,28 +61,6 @@ abstract class Filter(val bot: ExtensibleBot) {
      * @return `false` if processing should stop here, `true` if other filters should be checked
      */
     abstract suspend fun checkEdit(event: MessageUpdateEvent, content: String): Boolean
-
-    /**
-     * Send an alert to the alerts channel.
-     *
-     * This function works just like the [TextChannel.createMessage] function.
-     */
-    suspend fun sendAlert(mention: Boolean = true, builder: suspend MessageCreateBuilder.() -> Unit): Message {
-        val channel = config.getChannel(Channels.ALERTS) as TextChannel
-        val moderatorRole = config.getRole(Roles.MODERATOR)
-
-        return channel.createMessage {
-            builder()
-
-            if (mention) {
-                content = if (content == null) {
-                    moderatorRole.mention
-                } else {
-                    "${moderatorRole.mention} $content"
-                }
-            }
-        }
-    }
 
     /**
      * Send a notification to a user - attempting to DM first, and then using a channel.

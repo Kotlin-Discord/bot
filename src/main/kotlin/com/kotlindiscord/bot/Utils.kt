@@ -1,10 +1,14 @@
 package com.kotlindiscord.bot
 
+import com.gitlab.kordlib.core.behavior.channel.createMessage
 import com.gitlab.kordlib.core.cache.data.MessageData
 import com.gitlab.kordlib.core.entity.Message
 import com.gitlab.kordlib.core.entity.Role
+import com.gitlab.kordlib.core.entity.channel.TextChannel
+import com.gitlab.kordlib.rest.builder.message.MessageCreateBuilder
 import com.gitlab.kordlib.rest.request.RequestException
 import com.kotlindiscord.bot.config.config
+import com.kotlindiscord.bot.enums.Channels
 import com.kotlindiscord.bot.enums.Roles
 import io.ktor.http.HttpStatusCode
 import kotlinx.coroutines.Job
@@ -77,3 +81,25 @@ fun Message.deleteWithDelay(millis: Long, retry: Boolean = true): Job {
         }
     }
 }
+
+    /**
+     * Send an alert to the alerts channel.
+     *
+     * This function works just like the [TextChannel.createMessage] function.
+     */
+    suspend fun sendAlert(mention: Boolean = true, builder: suspend MessageCreateBuilder.() -> Unit): Message {
+        val channel = config.getChannel(Channels.ALERTS) as TextChannel
+        val moderatorRole = config.getRole(Roles.MODERATOR)
+
+        return channel.createMessage {
+            builder()
+
+            if (mention) {
+                content = if (content == null) {
+                    moderatorRole.mention
+                } else {
+                    "${moderatorRole.mention} $content"
+                }
+            }
+        }
+    }
