@@ -1,6 +1,9 @@
 buildscript {
     repositories {
-        jcenter()
+        maven {
+            name = 'KotDis'
+            url = 'https://maven.kotlindiscord.com/repository/maven-public/'
+        }
     }
 }
 
@@ -36,20 +39,24 @@ repositories {
 dependencies {
     detektPlugins "io.gitlab.arturbosch.detekt:detekt-formatting:1.8.0"
 
-    implementation 'com.gitlab.kordlib.kord:kord-core:0.4.14'
+    implementation 'com.gitlab.kordlib.kord:kord-core:0.4.16'
 
     implementation 'com.kotlindiscord.kord.extensions:kord-extensions:+'
 
     implementation 'com.uchuhimo:konf:0.22.1'
     implementation 'com.uchuhimo:konf-toml:0.22.1'
 
-    implementation 'io.github.microutils:kotlin-logging:1.7.9'
     implementation 'org.apache.commons:commons-text:1.8'
+    implementation 'org.nibor.autolink:autolink:0.10.0'
 
     implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
     implementation 'org.jetbrains.kotlin:kotlin-reflect'
 
-    implementation 'org.slf4j:slf4j-simple:1.7.29'
+    // Logging dependencies
+    implementation 'ch.qos.logback:logback-classic:1.2.3'
+    implementation 'io.github.microutils:kotlin-logging:1.7.9'
+    implementation 'io.sentry:sentry-logback:1.7.30'
+    implementation 'org.codehaus.groovy:groovy:3.0.4'  // For logback config
 }
 
 application {
@@ -78,5 +85,21 @@ jar {
         attributes(
                 "Main-Class": "com.kotlindiscord.bot.KDBotKt"
         )
+    }
+}
+
+processResources {
+    dependsOn "generateBuildInfo"
+
+    from "src/main/resources/build.properties"
+}
+
+task generateBuildInfo() {
+    outputs.files "src/main/resources/build.properties"
+
+    doLast {
+        new File("src/main/resources/build.properties").text = """
+            version=$project.version
+        """.stripIndent().strip()
     }
 }

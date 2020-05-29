@@ -16,6 +16,7 @@ import com.kotlindiscord.bot.enums.Roles
 import com.uchuhimo.konf.Config
 import com.uchuhimo.konf.Feature
 import com.uchuhimo.konf.source.toml
+import java.io.File
 
 /**
  * Central object representing this bot's configuration, wrapping a Konf [Config] object.
@@ -34,7 +35,11 @@ import com.uchuhimo.konf.source.toml
 class KDConfig {
     private val config = Config { addSpec(BotSpec); addSpec(ChannelsSpec); addSpec(RolesSpec) }
         .from.enabled(Feature.FAIL_ON_UNKNOWN_PATH).toml.resource("default.toml")
-        .from.toml.watchFile("config.toml")
+        .apply {
+            if (File("config.toml").exists()) {
+                from.toml.watchFile("config.toml")
+            }
+        }
         .from.env()
         .from.systemProperties()
 
@@ -64,8 +69,11 @@ class KDConfig {
     @Throws(MissingChannelException::class)
     suspend fun getChannel(channel: Channels): Channel {
         val snowflake = when (channel) {
-            Channels.BOT_COMMANDS -> Snowflake(config[ChannelsSpec.botCommands])
-            Channels.VERIFICATION -> Snowflake(config[ChannelsSpec.verification])
+            Channels.ACTION_LOG    -> Snowflake(config[ChannelsSpec.actionLog])
+            Channels.ALERTS        -> Snowflake(config[ChannelsSpec.alerts])
+            Channels.BOT_COMMANDS  -> Snowflake(config[ChannelsSpec.botCommands])
+            Channels.MODERATOR_LOG -> Snowflake(config[ChannelsSpec.moderatorLog])
+            Channels.VERIFICATION  -> Snowflake(config[ChannelsSpec.verification])
         }
 
         return bot.kord.getChannel(snowflake) ?: throw MissingChannelException(snowflake.longValue)
@@ -81,7 +89,7 @@ class KDConfig {
         return when (role) {
             Roles.OWNER     -> Snowflake(config[RolesSpec.owner])
             Roles.ADMIN     -> Snowflake(config[RolesSpec.admin])
-            Roles.MOD       -> Snowflake(config[RolesSpec.mod])
+            Roles.MODERATOR -> Snowflake(config[RolesSpec.mod])
             Roles.HELPER    -> Snowflake(config[RolesSpec.helper])
             Roles.DEVELOPER -> Snowflake(config[RolesSpec.developer])
             Roles.MUTED     -> Snowflake(config[RolesSpec.muted])

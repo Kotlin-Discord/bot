@@ -39,7 +39,7 @@ class AntispamExtension(bot: ExtensibleBot) : Extension(bot) {
     override suspend fun setup() {
         event<MessageCreateEvent> {
             check(::defaultCheck) // TODO: ignore appropriate roles.
-            check(notHasRole(config.getRole(Roles.MOD)))
+            check(notHasRole(config.getRole(Roles.MODERATOR)))
 
             action { messageCreateEvent ->
                 for (filter in filters) {

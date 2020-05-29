@@ -117,3 +117,6 @@ fabric.properties
 
 config.toml
 docs/build
+
+# Build info
+src/main/resources/build.properties
