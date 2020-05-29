@@ -13,9 +13,6 @@ import com.kotlindiscord.bot.enums.Roles
 import com.kotlindiscord.kord.extensions.ExtensibleBot
 import com.kotlindiscord.kord.extensions.checks.notHasRole
 import com.kotlindiscord.kord.extensions.extensions.Extension
-import kotlinx.coroutines.flow.count
-import kotlinx.coroutines.flow.filter
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.toList
 import mu.KotlinLogging
 import java.time.Instant
@@ -42,6 +39,7 @@ class AntispamExtension(bot: ExtensibleBot) : Extension(bot) {
     override suspend fun setup() {
         event<MessageCreateEvent> {
             check(::defaultCheck) // TODO: ignore appropriate roles.
+            check(notHasRole(config.getRole(Roles.MOD)))
 
             action { messageCreateEvent ->
                 for (filter in filters) {
