@@ -39,8 +39,6 @@ repositories {
 dependencies {
     detektPlugins "io.gitlab.arturbosch.detekt:detekt-formatting:1.8.0"
 
-    implementation 'com.gitlab.kordlib.kord:kord-core:0.4.16'
-
     implementation 'com.kotlindiscord.kord.extensions:kord-extensions:+'
 
     implementation 'com.uchuhimo:konf:0.22.1'
