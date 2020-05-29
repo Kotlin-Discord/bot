@@ -25,6 +25,30 @@ const val DELETE_DELAY = 10_000L
 /** How long to wait before retrying message removal on error - 2 seconds. **/
 const val RETRY_DELAY = 2_000L
 
+/** How long to wait before applying the verification role - 5 seconds. **/
+const val ROLE_DELAY = 5_000L
+
+/** Message sent to the user on verification. **/
+val VERIFICATION_MESSAGE = """
+    Hello, and thanks for accepting our policies! For reference, here's what you just agreed to:
+
+    **Code of Conduct:** <https://kotlindiscord.com/docs/code-of-conduct>
+    **Privacy Policy:** <https://kotlindiscord.com/docs/privacy>
+    **Rules:** <https://kotlindiscord.com/docs/rules>
+
+    :one: *Follow Discord's rules*
+    :two: *Follow our Code of Conduct*
+    :three: *Avoid non-English languages*
+    :four: *Treat all users with patience & respect*
+    :five: *Listen to & respect all staff members*
+    :six: *Keep all projects legal & appropriate*
+    :seven: *Do not spam, or advertise other communities or projects*
+    :eight: *Adhere to the given topics and guidelines for each channel*
+
+    If you need to contact staff for any reason, feel free to send a message to <@!714847245157269505> and
+    we'll reply as soon as we can.
+""".trimIndent()
+
 private val logger = KotlinLogging.logger {}
 
 /**
@@ -51,13 +75,9 @@ class VerificationExtension(bot: ExtensibleBot) : Extension(bot) {
             )
 
             action {
-                // TODO: DM with info (after policy decisions)
                 message.deleteIgnoringNotFound()
 
                 val author = message.getAuthorAsMember()!!
-
-                author.addRole(config.getRoleSnowflake(Roles.DEVELOPER))
-
                 val channel = config.getChannel(Channels.ACTION_LOG) as GuildMessageChannel
 
                 channel.createMessage {
@@ -100,6 +120,23 @@ class VerificationExtension(bot: ExtensibleBot) : Extension(bot) {
                             this.text = author.id.value
                         }
                     }
+                }
+
+                try {
+                    val dmChannel = author.getDmChannel()
+
+                    dmChannel.createMessage(VERIFICATION_MESSAGE)
+                    delay(ROLE_DELAY)
+                    author.addRole(config.getRoleSnowflake(Roles.DEVELOPER))
+                } catch (e: RequestException) {
+                    val sentMessage = message.channel.createMessage(
+                        "${author.mention} $VERIFICATION_MESSAGE\n\n" +
+                                "You'll be given access to the rest of the server shortly."
+                    )
+
+                    sentMessage.deleteWithDelay(DELETE_DELAY)
+                    delay(ROLE_DELAY * 2)
+                    author.addRole(config.getRoleSnowflake(Roles.DEVELOPER))
                 }
             }
         }
