@@ -12,5 +12,7 @@ enum class Roles(val value: String) {
 
     HELPER("Helper"),
     DEVELOPER("Developer"),
-    MUTED("Muted");
+    MUTED("Muted"),
+
+    ANNOUNCEMENTS("Announcements");
 }

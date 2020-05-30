@@ -93,6 +93,7 @@ class KDConfig {
             Roles.HELPER    -> Snowflake(config[RolesSpec.helper])
             Roles.DEVELOPER -> Snowflake(config[RolesSpec.developer])
             Roles.MUTED     -> Snowflake(config[RolesSpec.muted])
+            Roles.ANNOUNCEMENTS     -> Snowflake(config[RolesSpec.announcements])
         }
     }
 

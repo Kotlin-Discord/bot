@@ -20,16 +20,16 @@ import mu.KotlinLogging
 import java.time.Instant
 
 /** How long to wait before removing irrelevant messages - 10 seconds. **/
-const val DELETE_DELAY = 10_000L
+private const val DELETE_DELAY = 10_000L
 
 /** How long to wait before retrying message removal on error - 2 seconds. **/
-const val RETRY_DELAY = 2_000L
+private const val RETRY_DELAY = 2_000L
 
 /** How long to wait before applying the verification role - 5 seconds. **/
-const val ROLE_DELAY = 5_000L
+private const val ROLE_DELAY = 5_000L
 
 /** Message sent to the user on verification. **/
-val VERIFICATION_MESSAGE = """
+private val VERIFICATION_MESSAGE = """
     Hello, and thanks for accepting our policies! For reference, here's what you just agreed to:
 
     **Code of Conduct:** <https://kotlindiscord.com/docs/code-of-conduct>
