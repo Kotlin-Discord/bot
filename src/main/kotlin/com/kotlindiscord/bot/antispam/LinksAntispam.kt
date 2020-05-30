@@ -9,6 +9,7 @@ val LINK_REGEX = Regex("https?://[^\\s]+")
 class LinksAntispam : AntispamRule {
     @Suppress("MagicNumber")
     override val pastMessagesTime = 5L
+    override val name = "link"
 
     override suspend fun check(pastMessages: List<Message>): String? {
         val result = pastMessages

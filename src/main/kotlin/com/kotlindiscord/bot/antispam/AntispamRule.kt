@@ -4,6 +4,9 @@ import com.gitlab.kordlib.core.entity.Message
 
 /** Abstract class representing an antispam filter. **/
 interface AntispamRule {
+    /** The name of the rule. **/
+    val name: String
+
     /** Attribute defining how old the collected messages are, in seconds. **/
     val pastMessagesTime: Long
 

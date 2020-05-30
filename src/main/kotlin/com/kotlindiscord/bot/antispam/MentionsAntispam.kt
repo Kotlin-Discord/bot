@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.count
 class MentionsAntispam : AntispamRule {
     @Suppress("MagicNumber")
     override val pastMessagesTime = 5L
+    override val name = "mention"
 
     @ExperimentalCoroutinesApi
     override suspend fun check(pastMessages: List<Message>): String? {

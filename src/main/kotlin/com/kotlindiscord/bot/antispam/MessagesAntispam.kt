@@ -6,6 +6,7 @@ import com.gitlab.kordlib.core.entity.Message
 class MessagesAntispam : AntispamRule {
     @Suppress("MagicNumber")
     override val pastMessagesTime = 10L
+    override val name = "message"
 
     override suspend fun check(pastMessages: List<Message>): String? {
         if (pastMessages.size > MAX_MESSAGES) {

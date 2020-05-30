@@ -9,6 +9,7 @@ val EMOJIS_REGEX = Regex("<:\\w+:\\d+>")
 class EmojisAntispam : AntispamRule {
     @Suppress("MagicNumber")
     override val pastMessagesTime = 5L
+    override val name = "emoji"
 
     override suspend fun check(pastMessages: List<Message>): String? {
         val result = pastMessages

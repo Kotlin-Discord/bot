@@ -6,6 +6,7 @@ import com.gitlab.kordlib.core.entity.Message
 class DuplicatesAntispam : AntispamRule {
     @Suppress("MagicNumber")
     override val pastMessagesTime = 10L
+    override val name = "duplicate"
 
     override suspend fun check(pastMessages: List<Message>): String? {
         val contents = pastMessages.map { it.content }

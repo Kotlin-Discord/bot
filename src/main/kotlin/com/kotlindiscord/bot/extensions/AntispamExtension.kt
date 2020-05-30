@@ -1,8 +1,11 @@
 package com.kotlindiscord.bot.extensions
 
 import com.gitlab.kordlib.cache.api.query
+import com.gitlab.kordlib.common.entity.ChannelType
 import com.gitlab.kordlib.core.cache.data.MessageData
 import com.gitlab.kordlib.core.entity.Message
+import com.gitlab.kordlib.core.entity.User
+import com.gitlab.kordlib.core.entity.channel.Channel
 import com.gitlab.kordlib.core.entity.channel.GuildMessageChannel
 import com.gitlab.kordlib.core.event.message.MessageCreateEvent
 import com.kotlindiscord.bot.antispam.*
@@ -10,6 +13,7 @@ import com.kotlindiscord.bot.authorId
 import com.kotlindiscord.bot.config.config
 import com.kotlindiscord.bot.defaultCheck
 import com.kotlindiscord.bot.enums.Roles
+import com.kotlindiscord.bot.sendAlert
 import com.kotlindiscord.kord.extensions.ExtensibleBot
 import com.kotlindiscord.kord.extensions.checks.notHasRole
 import com.kotlindiscord.kord.extensions.extensions.Extension
@@ -44,13 +48,14 @@ class AntispamExtension(bot: ExtensibleBot) : Extension(bot) {
             action { messageCreateEvent ->
                 for (filter in filters) {
                     val message = messageCreateEvent.message
+                    val author = message.author!!
 
                     val messages = bot.kord.cache.query<MessageData>
                     {
                         MessageData::timestamp predicate {
                             Instant.parse(it).isAfter(Instant.now().minusSeconds(filter.pastMessagesTime))
                         }
-                        MessageData::authorId eq message.author?.id?.longValue
+                        MessageData::authorId eq author.id.longValue
                     }
                         .toCollection()
                         .map { Message(it, bot.kord) }
@@ -61,20 +66,44 @@ class AntispamExtension(bot: ExtensibleBot) : Extension(bot) {
                             message.getAuthorAsMember()?.roles?.toList()?.contains(config.getRole(Roles.MUTED)) == false
                     ) {
                         // TODO: apply infraction.
-                        // TODO: Notify #alerts.
                         message.channel.createMessage(ALERT_MESSAGE.format(
-                                message.author?.mention,
+                                author.mention,
                                 result
                             )
                         )
-                        val channel = messageCreateEvent.message.channel.asChannel()
+                        val channel = message.channel.asChannel()
                         if (channel is GuildMessageChannel) {
                             channel.bulkDelete(messages.map { it.id })
                         }
-                        messageCreateEvent.message.getAuthorAsMember()?.addRole(config.getRole(Roles.MUTED).id)
+                        message.getAuthorAsMember()?.addRole(config.getRole(Roles.MUTED).id)
+
+                        // TODO: Upload message context.
+                        sendAlert {
+                            embed {
+                                title = "Antispam rule triggered!"
+                                description = formatAlert(message.channel.asChannel(), author, filter.name)
+                            }
+                        }
                     }
                 }
             }
         }
+    }
+
+    /** Format alert message to be posted to #alerts.
+     *
+     * @param channel The channel the rule triggered in.
+     * @param user The user that triggered the rule.
+     * @param filterName The name of the triggered filter.
+     **/
+    fun formatAlert(channel: Channel, user: User, filterName: String): String {
+        val channelMessage = if (channel.type == ChannelType.GuildText) {
+            "in ${channel.mention}"
+        } else {
+            "in a DM"
+        }
+
+        return "Antispam rule **$filterName** triggered by " +
+        "**${user.username}#${user.discriminator}** (`${user.id.value}`) $channelMessage"
     }
 }
