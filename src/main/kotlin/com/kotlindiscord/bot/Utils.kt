@@ -1,5 +1,6 @@
 package com.kotlindiscord.bot
 
+import com.gitlab.kordlib.core.cache.data.MessageData
 import com.gitlab.kordlib.core.entity.Message
 import com.gitlab.kordlib.core.entity.Role
 import com.gitlab.kordlib.rest.request.RequestException
@@ -26,6 +27,12 @@ fun Role.toEnum(): Roles? {
 
     return null
 }
+
+/** ID of the message author. **/
+val MessageData.authorId: Long? get() = author?.id
+
+/** Is the message author a bot. **/
+val MessageData.authorIsBot: Boolean? get() = author?.bot
 
 /**
  * Deletes a message, catching and ignoring a HTTP 404 (Not Found) exception.
