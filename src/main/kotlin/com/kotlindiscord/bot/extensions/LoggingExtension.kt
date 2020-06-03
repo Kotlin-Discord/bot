@@ -27,11 +27,10 @@ import mu.KotlinLogging
 import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
-import java.time.format.FormatStyle
 import java.util.*
 
 private val timeFormatter = DateTimeFormatter
-    .ofLocalizedDate(FormatStyle.SHORT)
+    .ofPattern("dd/MM/yyyy HH:mm:ss '(UTC)'")
     .withLocale(Locale.UK)
     .withZone(ZoneId.of("UTC"))
 
