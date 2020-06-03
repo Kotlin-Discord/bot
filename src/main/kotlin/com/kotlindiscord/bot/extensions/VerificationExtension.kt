@@ -89,36 +89,15 @@ class VerificationExtension(bot: ExtensibleBot) : Extension(bot) {
                         timestamp = Instant.now()
                         title = "User verification"
 
-                        field {
-                            inline = true
-
-                            name = "U/N"
-                            value = "`${author.username}`"
-                        }
-
-                        field {
-                            inline = true
-
-                            name = "Discrim"
-                            value = "`${author.discriminator}`"
-                        }
+                        field { inline = true; name = "U/N"; value = "`${author.username}`" }
+                        field { inline = true; name = "Discrim"; value = "`${author.discriminator}`" }
 
                         if (author.nickname != null) {
-                            field {
-                                inline = false
-
-                                name = "Nickname"
-                                value = "`${author.nickname}`"
-                            }
+                            field { inline = false; name = "Nickname"; value = "`${author.nickname}`" }
                         }
 
-                        thumbnail {
-                            url = author.avatar.url
-                        }
-
-                        footer {
-                            this.text = author.id.value
-                        }
+                        thumbnail { url = author.avatar.url }
+                        footer { this.text = author.id.value }
                     }
                 }
 

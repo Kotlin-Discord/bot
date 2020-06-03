@@ -2,10 +2,7 @@ package com.kotlindiscord.bot
 
 import com.kotlindiscord.bot.config.buildInfo
 import com.kotlindiscord.bot.config.config
-import com.kotlindiscord.bot.extensions.FilterExtension
-import com.kotlindiscord.bot.extensions.SubscriptionExtension
-import com.kotlindiscord.bot.extensions.TestExtension
-import com.kotlindiscord.bot.extensions.VerificationExtension
+import com.kotlindiscord.bot.extensions.*
 import com.kotlindiscord.kord.extensions.ExtensibleBot
 import io.sentry.Sentry
 import mu.KotlinLogging
@@ -30,6 +27,7 @@ suspend fun main(args: Array<String>) {
     logger.info { "Starting KDBot version ${buildInfo.version}." }
 
     bot.addExtension(FilterExtension::class)
+    bot.addExtension(LoggingExtension::class)
     bot.addExtension(SubscriptionExtension::class)
     bot.addExtension(VerificationExtension::class)
 
