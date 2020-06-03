@@ -1,9 +1,7 @@
 package com.kotlindiscord.bot.extensions
 
-import com.gitlab.kordlib.core.behavior.channel.TextChannelBehavior
-import com.gitlab.kordlib.core.behavior.channel.createMessage
 import com.gitlab.kordlib.core.behavior.channel.createWebhook
-import com.gitlab.kordlib.core.entity.Message
+import com.gitlab.kordlib.core.behavior.execute
 import com.gitlab.kordlib.core.entity.Webhook
 import com.gitlab.kordlib.core.entity.channel.TextChannel
 import com.gitlab.kordlib.core.event.*
@@ -15,6 +13,7 @@ import com.gitlab.kordlib.core.event.role.RoleCreateEvent
 import com.gitlab.kordlib.core.event.role.RoleDeleteEvent
 import com.gitlab.kordlib.core.event.role.RoleUpdateEvent
 import com.gitlab.kordlib.core.firstOrNull
+import com.gitlab.kordlib.rest.Image
 import com.gitlab.kordlib.rest.builder.message.EmbedBuilder
 import com.kotlindiscord.bot.config.config
 import com.kotlindiscord.bot.constants.Colors
@@ -530,8 +529,6 @@ class LoggingExtension(bot: ExtensibleBot) : Extension(bot) {
 
     @Suppress("UnusedPrivateMember")
     private suspend fun ensureWebhook(channel: Channels): Webhook {
-        // TODO: Use this when Kord is able to actually execute a webhook
-
         val channelObj = config.getChannel(channel) as TextChannel
         val webhook = channelObj.webhooks.firstOrNull { it.name == "Kotlin" }
 
@@ -539,20 +536,25 @@ class LoggingExtension(bot: ExtensibleBot) : Extension(bot) {
             return webhook
         }
 
+        logger.info { "Creating webhook for channel: #${channelObj.name}" }
+
         return channelObj.createWebhook {
             name = "Kotlin"
+            avatar = Image.raw(LoggingExtension::class.java.getResource("/logo.png").readBytes(), Image.Format.PNG)
         }
     }
 
-    private suspend fun sendEmbed(channel: Channels, body: suspend EmbedBuilder.() -> Unit): Message {
+    private suspend fun sendEmbed(channel: Channels, body: suspend EmbedBuilder.() -> Unit) {
         val builder = EmbedBuilder().apply {
             timestamp = Instant.now()
 
             body()
         }
 
-        val channelObj = config.getChannel(channel) as TextChannelBehavior
+        val webhook = ensureWebhook(channel)
 
-        return channelObj.createMessage { embed = builder }
+        webhook.execute(webhook.token!!) {
+            embeds += builder.toRequest()
+        }
     }
 }
