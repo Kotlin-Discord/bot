@@ -12,10 +12,10 @@ import com.kotlindiscord.bot.authorIsBot
 import com.kotlindiscord.bot.config.config
 import com.kotlindiscord.bot.defaultCheck
 import com.kotlindiscord.bot.enums.Roles
+import com.kotlindiscord.bot.hasRole
 import com.kotlindiscord.kord.extensions.ExtensibleBot
 import com.kotlindiscord.kord.extensions.checks.hasRole
 import com.kotlindiscord.kord.extensions.extensions.Extension
-import kotlinx.coroutines.flow.toList
 import mu.KotlinLogging
 import java.time.Instant
 
@@ -46,26 +46,29 @@ class CleanExtension(bot: ExtensibleBot) : Extension(bot) {
         command {
             name = "clean"
             description = """
-                Delete messages in bulks. Available flags :
-                [user] : Only messages from this/those user(s).
-                [regex] : Only messages matching this/those regex(es).
-                [in] : The channel(s) to clean in. Default to the current one.
-                [since] : The first message to clean, up to the current one.
-                [botonly] : If true, only messages from bots.
-                [count] : Number of messages to clean.
-                [force] : Force deletion of messages. (admins only)
+                Delete messages in bulk. 
+                
+                Available flags :
+                  [user] : Only messages from this/those user(s).
+                  [regex] : Only messages matching this/those regex(es).
+                  [in] : The channel(s) to clean in. Default to the current one.
+                  [since] : The first message to clean, up to the current one.
+                  [botonly] : If true, only messages from bots.
+                  [count] : Number of messages to clean.
+                  [force] : Force deletion of messages. (admins only)
             """.trimIndent()
+
             aliases = arrayOf("clear", "c")
 
             check(::defaultCheck)
             check(hasRole(config.getRole(Roles.MODERATOR)))
             signature<CleanArguments>()
+
             hidden = true
 
             action {
                 with(parse<CleanArguments>()) {
-                    val cleanNotice =
-                        """
+                    val cleanNotice = """
                         Cleaning with :
                         Users: ${user?.joinToString(", ") { "${it.username}#${it.discriminator}" }}
                         Regex: ${regex?.joinToString(", ")}
@@ -78,12 +81,12 @@ class CleanExtension(bot: ExtensibleBot) : Extension(bot) {
                         Force: $force
                         """.trimIndent()
 
-                    val channels =
-                    if (since != null) {
+                    val channels = if (since != null) {
                         if (!`in`.isNullOrEmpty()) {
                             message.channel.createMessage(":x: Cannot use the `in` and `channel` options together")
                             return@action
                         }
+
                         listOf(since.channelId.longValue)
                     } else if (`in`.isNullOrEmpty()) {
                         listOf(message.channelId.longValue)
@@ -109,7 +112,11 @@ class CleanExtension(bot: ExtensibleBot) : Extension(bot) {
                             }
 
                             if (!regex.isNullOrEmpty()) run {
-                                MessageData::content predicate { regex.all { regex -> regex.matches(it) } }
+                                MessageData::content predicate {
+                                    regex.all { regex ->
+                                        regex.matches(it)
+                                    }
+                                }
                             }
 
                             if (sinceTimestamp != null) run {
@@ -125,20 +132,18 @@ class CleanExtension(bot: ExtensibleBot) : Extension(bot) {
 
                         if (query.size > MAX_DELETION_SIZE) {
                             if (
-                                message.getAuthorAsMember()?.roles?.toList()
-                                    ?.contains(config.getRole(Roles.ADMIN)) == false
-                                // Basically, if the author isn't an admin.
+                                message.getAuthorAsMember()?.hasRole(config.getRole(Roles.ADMIN)) == false
                             ) {
                                 message.channel.createMessage(
                                     ":x: Cannot delete more than $MAX_DELETION_SIZE, " +
-                                            "please ask an admin to run this command with the `force:true` flag."
+                                    "please ask an admin to run this command with the `force:true` flag."
                                 )
                                 return@action
                             } else {
                                 if (!force) {
                                     message.channel.createMessage(
-                                    ":x: Cannot delete more than $MAX_DELETION_SIZE, " +
-                                            "run this command with the `force:true` flag to force it."
+                                        ":x: Cannot delete more than $MAX_DELETION_SIZE, " +
+                                        "run this command with the `force:true` flag to force it."
                                     )
                                     return@action
                                 }
@@ -147,6 +152,7 @@ class CleanExtension(bot: ExtensibleBot) : Extension(bot) {
 
                         val cleanCount = "Messages to clean: ${query.joinToString(", ") { it.id.toString() }}"
                         logger.debug { cleanCount }
+                        // TODO: Log the cleanNotice and cleanCount to #moderator-log
 
                         val channel = bot.kord.getChannel(Snowflake(channelId))
                         if (channel is GuildMessageChannel) {

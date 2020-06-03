@@ -16,8 +16,6 @@ val bot = ExtensibleBot(prefix = config.prefix, token = config.token)
  * @param args Array of command-line arguments. These are ignored.
  */
 suspend fun main(args: Array<String>) {
-    bot.addExtension(CleanExtension::class)
-
     val logger = KotlinLogging.logger {}
     val environment = System.getenv().getOrDefault("SENTRY_ENVIRONMENT", "dev")
 
@@ -28,6 +26,7 @@ suspend fun main(args: Array<String>) {
 
     logger.info { "Starting KDBot version ${buildInfo.version}." }
 
+    bot.addExtension(CleanExtension::class)
     bot.addExtension(FilterExtension::class)
     bot.addExtension(SubscriptionExtension::class)
     bot.addExtension(VerificationExtension::class)

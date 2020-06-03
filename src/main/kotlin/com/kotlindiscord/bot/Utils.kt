@@ -1,6 +1,7 @@
 package com.kotlindiscord.bot
 
 import com.gitlab.kordlib.core.cache.data.MessageData
+import com.gitlab.kordlib.core.entity.Member
 import com.gitlab.kordlib.core.entity.Message
 import com.gitlab.kordlib.core.entity.Role
 import com.gitlab.kordlib.rest.request.RequestException
@@ -9,6 +10,7 @@ import com.kotlindiscord.bot.enums.Roles
 import io.ktor.http.HttpStatusCode
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.launch
 import mu.KotlinLogging
 
@@ -79,4 +81,10 @@ fun Message.deleteWithDelay(millis: Long, retry: Boolean = true): Job {
             }
         }
     }
+}
+
+/** Check if the user has the provided [role]. **/
+@Suppress("ExpressionBodySyntax")
+suspend fun Member.hasRole(role: Role): Boolean {
+    return this.roles.toList().contains(role)
 }
