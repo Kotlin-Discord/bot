@@ -51,10 +51,7 @@ class LoggingExtension(bot: ExtensibleBot) : Extension(bot) {
 
     override suspend fun setup() {
         event<Event> {
-            check(
-                inGuild(config.getGuild()),
-                ::isNotBot
-            )
+            check(inGuild(config.getGuild()), ::isNotBot)
 
             action {
                 when (it) {
@@ -522,6 +519,31 @@ class LoggingExtension(bot: ExtensibleBot) : Extension(bot) {
                     // This is an event we haven't accounted for that we may or
                     // may not want to log.
                     else                        -> logger.warn { "Unknown event: $it" }
+                }
+            }
+        }
+
+        event<UserUpdateEvent> {
+            check(::isNotBot)
+
+            action {
+                with(it) {
+                    val guild = config.getGuild()
+
+                    if (guild.getMember(user.id) == null) {
+                        return@action
+                    }
+
+                    sendEmbed(Channels.ACTION_LOG) {
+                        title = "User updated"
+
+                        field { name = "Created"; value = timeFormatter.format(user.createdAt); inline = true }
+                        field { name = "Username"; value = user.username; inline = true }
+                        field { name = "Discriminator"; value = user.discriminator; inline = true }
+
+                        footer { text = user.id.value }
+                        thumbnail { url = user.avatar.url }
+                    }
                 }
             }
         }
