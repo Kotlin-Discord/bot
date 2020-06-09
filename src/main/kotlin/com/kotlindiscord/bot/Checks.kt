@@ -66,7 +66,7 @@ suspend fun inBotChannel(event: Event): Boolean {
     val channel = channelFor(event)
 
     return when {
-        channel == null -> {
+        channel == null                                           -> {
             logger.debug { "Failing check: Channel is null" }
             false
         }
@@ -76,7 +76,7 @@ suspend fun inBotChannel(event: Event): Boolean {
             false
         }
 
-        else -> {
+        else                                                      -> {
             logger.debug { "Passing check" }
             true
         }
@@ -93,3 +93,30 @@ suspend fun botChannelOrModerator(): suspend (Event) -> Boolean = or(
     hasRole(config.getRole(Roles.ADMIN)),
     hasRole(config.getRole(Roles.OWNER))
 )
+
+/**
+ * Check that ensures an event wasn't fired by a bot. If an event doesn't
+ * concern a specific user, then this check will pass.
+ */
+suspend fun isNotBot(event: Event): Boolean {
+    val logger = KotlinLogging.logger {}
+
+    val user = userFor(event)
+
+    return when {
+        user == null                -> {
+            logger.debug { "Passing check: User for event $event is null." }
+            true
+        }
+
+        user.asUser().isBot == true -> {
+            logger.debug { "Failing check: User $user is a bot." }
+            false
+        }
+
+        else                        -> {
+            logger.debug { "Passing check." }
+            true
+        }
+    }
+}

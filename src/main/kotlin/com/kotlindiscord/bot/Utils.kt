@@ -2,6 +2,7 @@ package com.kotlindiscord.bot
 
 import com.gitlab.kordlib.core.entity.Message
 import com.gitlab.kordlib.core.entity.Role
+import com.gitlab.kordlib.core.entity.User
 import com.gitlab.kordlib.rest.request.RequestException
 import com.kotlindiscord.bot.config.config
 import com.kotlindiscord.bot.enums.Roles
@@ -10,6 +11,10 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import mu.KotlinLogging
+import java.time.Instant
+import java.time.temporal.ChronoUnit
+
+private const val NEW_DAYS = 3L
 
 /**
  * Convenience function to convert a [Role] object to a [Roles] enum value.
@@ -25,6 +30,29 @@ fun Role.toEnum(): Roles? {
     }
 
     return null
+}
+
+/**
+ * The creation timestamp for this user.
+ */
+val User.createdAt: Instant get() = this.id.timeStamp
+
+/**
+ * Check whether this is a user that was created recently.
+ *
+ * @return Whether the user was created in the last 3 days.
+ */
+fun User.isNew(): Boolean = this.createdAt.isBefore(Instant.now().minus(NEW_DAYS, ChronoUnit.DAYS))
+
+/**
+ * Generate the jump URL for this message.
+ *
+ * @return A clickable URL to jump to this message.
+ */
+suspend fun Message.getUrl(): String {
+    val guild = getGuild()?.id?.value ?: "@me"
+
+    return "https://discordapp.com/channels/$guild/${channelId.value}/${id.value}"
 }
 
 /**
