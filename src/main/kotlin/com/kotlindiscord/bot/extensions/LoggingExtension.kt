@@ -288,15 +288,15 @@ class LoggingExtension(bot: ExtensibleBot) : Extension(bot) {
                             old == null                -> """
                                 _Message was not cached, so some information about it is unavailable._
                                 
-                                **__Message content__**
+                                **__New message content__**
 
                                 ${new.content}
                             """.trimIndent()
 
                             old.content != new.content -> """
-                                **__Message content edited:__**
+                                **__Old message content__**
 
-                                ${new.content}
+                                ${old.content}
                             """.trimIndent()
 
                             else                       -> "**__Message content not edited__**"
