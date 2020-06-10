@@ -55,7 +55,7 @@ class CleanExtension(bot: ExtensibleBot) : Extension(bot) {
                   [since] : The first message to clean, up to the current one.
                   [botonly] : If true, only messages from bots.
                   [count] : Number of messages to clean.
-                  [force] : Force deletion of messages. (admins only)
+                  [force] : Bypass the 50 messages limit (admins only)
             """.trimIndent()
 
             aliases = arrayOf("clear", "c")
