@@ -14,6 +14,12 @@ object BotSpec : ConfigSpec() {
     /** Configured bot login token. **/
     val token by required<String>(description = "Bot login token")
 
+    /** Configured site API key. **/
+    val apiKey by required<String>(description = "Site API key")
+
+    /** Configured site API URL. **/
+    val apiUrl by optional<String>("https://kotlindiscord.com/api", description = "Site API URL")
+
     /** Character/s required before command names. **/
     val commandPrefix by required<String>(name = "prefix", description = "Command prefix character")
 }

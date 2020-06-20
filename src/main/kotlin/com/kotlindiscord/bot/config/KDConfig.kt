@@ -4,6 +4,7 @@ import com.gitlab.kordlib.common.entity.Snowflake
 import com.gitlab.kordlib.core.entity.Guild
 import com.gitlab.kordlib.core.entity.Role
 import com.gitlab.kordlib.core.entity.channel.Channel
+import com.kotlindiscord.api.client.APIClient
 import com.kotlindiscord.bot.MissingChannelException
 import com.kotlindiscord.bot.MissingGuildException
 import com.kotlindiscord.bot.MissingRoleException
@@ -33,15 +34,21 @@ import java.io.File
  * The currently-loaded configuration is always available at the [config] property.
  */
 class KDConfig {
-    private val config = Config { addSpec(BotSpec); addSpec(ChannelsSpec); addSpec(RolesSpec) }
+    private var config = Config { addSpec(BotSpec); addSpec(ChannelsSpec); addSpec(RolesSpec) }
         .from.enabled(Feature.FAIL_ON_UNKNOWN_PATH).toml.resource("default.toml")
-        .apply {
-            if (File("config.toml").exists()) {
-                from.toml.watchFile("config.toml")
-            }
-        }
         .from.env()
         .from.systemProperties()
+
+    init {
+        if (File("config.toml").exists()) {
+            config = config.from.toml.watchFile("config.toml")
+        }
+    }
+
+    /**
+     * API client for dealing with the site's API.
+     */
+    val api = APIClient(config[BotSpec.apiKey], config[BotSpec.apiUrl])
 
     /**
      * The bot's login token.
