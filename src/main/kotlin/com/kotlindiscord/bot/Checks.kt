@@ -28,7 +28,7 @@ suspend fun defaultCheck(event: Event): Boolean {
             false
         }
 
-        message.getGuild()?.id != config.getGuild().id -> {
+        message.getGuildOrNull()?.id != config.getGuild().id -> {
             logger.debug { "Failing check: Not in the correct guild" }
             false
         }
