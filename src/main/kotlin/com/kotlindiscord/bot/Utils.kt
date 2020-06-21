@@ -42,7 +42,7 @@ val User.createdAt: Instant get() = this.id.timeStamp
  *
  * @return Whether the user was created in the last 3 days.
  */
-fun User.isNew(): Boolean = this.createdAt.isBefore(Instant.now().minus(NEW_DAYS, ChronoUnit.DAYS))
+fun User.isNew(): Boolean = this.createdAt.isAfter(Instant.now().minus(NEW_DAYS, ChronoUnit.DAYS))
 
 /**
  * Generate the jump URL for this message.
