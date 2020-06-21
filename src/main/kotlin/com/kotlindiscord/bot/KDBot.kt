@@ -26,6 +26,7 @@ suspend fun main(args: Array<String>) {
 
     logger.info { "Starting KDBot version ${buildInfo.version}." }
 
+    bot.addExtension(CleanExtension::class)
     bot.addExtension(FilterExtension::class)
     bot.addExtension(LoggingExtension::class)
     bot.addExtension(SubscriptionExtension::class)

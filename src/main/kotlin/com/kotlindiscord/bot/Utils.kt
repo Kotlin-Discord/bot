@@ -1,5 +1,7 @@
 package com.kotlindiscord.bot
 
+import com.gitlab.kordlib.core.cache.data.MessageData
+import com.gitlab.kordlib.core.entity.Member
 import com.gitlab.kordlib.core.entity.Message
 import com.gitlab.kordlib.core.entity.Role
 import com.gitlab.kordlib.core.entity.User
@@ -9,6 +11,7 @@ import com.kotlindiscord.bot.enums.Roles
 import io.ktor.http.HttpStatusCode
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.launch
 import mu.KotlinLogging
 import java.time.Instant
@@ -32,6 +35,12 @@ fun Role.toEnum(): Roles? {
     return null
 }
 
+/** ID of the message author. **/
+val MessageData.authorId: Long? get() = author?.id
+
+/** Is the message author a bot. **/
+val MessageData.authorIsBot: Boolean? get() = author?.bot
+
 /**
  * The creation timestamp for this user.
  */
@@ -42,7 +51,7 @@ val User.createdAt: Instant get() = this.id.timeStamp
  *
  * @return Whether the user was created in the last 3 days.
  */
-fun User.isNew(): Boolean = this.createdAt.isBefore(Instant.now().minus(NEW_DAYS, ChronoUnit.DAYS))
+fun User.isNew(): Boolean = this.createdAt.isAfter(Instant.now().minus(NEW_DAYS, ChronoUnit.DAYS))
 
 /**
  * Generate the jump URL for this message.
@@ -100,4 +109,10 @@ fun Message.deleteWithDelay(millis: Long, retry: Boolean = true): Job {
             }
         }
     }
+}
+
+/** Check if the user has the provided [role]. **/
+@Suppress("ExpressionBodySyntax")
+suspend fun Member.hasRole(role: Role): Boolean {
+    return this.roles.toList().contains(role)
 }
