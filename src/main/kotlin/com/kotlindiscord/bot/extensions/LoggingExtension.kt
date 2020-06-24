@@ -232,7 +232,12 @@ class LoggingExtension(bot: ExtensibleBot) : Extension(bot) {
                         if (message != null) {
                             description = message.content
 
-                            field { name = "Author"; value = message.author!!.mention; inline = true }
+                            if (message.author != null) {
+                                field { name = "Author"; value = message.author!!.mention; inline = true }
+                            } else {
+                                field { name = "Author"; value = "Unknown Author"; inline = true }
+                            }
+
                             field { name = "Channel"; value = it.channel.mention; inline = true }
 
                             field { name = "Attachments"; value = message.attachments.size.toString(); inline = true }
@@ -253,7 +258,7 @@ class LoggingExtension(bot: ExtensibleBot) : Extension(bot) {
                         footer { text = it.messageId.value }
                     }
 
-                    is MessageUpdateEvent       -> sendEmbed(Channels.ACTION_LOG) {
+                    is MessageUpdateEvent       -> if (it.getMessage().author != null) sendEmbed(Channels.ACTION_LOG) {
                         color = Colors.info
                         title = "Message edited"
 
@@ -336,35 +341,39 @@ class LoggingExtension(bot: ExtensibleBot) : Extension(bot) {
                         footer { text = it.channel.id.value }
                     }
 
-                    is ReactionRemoveAllEvent   -> sendEmbed(Channels.MODERATOR_LOG) {
-                        color = Colors.negative
-                        title = "All reactions removed"
+                    is ReactionRemoveAllEvent   -> if (it.getMessage().author != null) {
+                        sendEmbed(Channels.MODERATOR_LOG) {
+                            color = Colors.negative
+                            title = "All reactions removed"
 
-                        val message = it.getMessage()
+                            val message = it.getMessage()
 
-                        field { name = "Author"; value = message.author!!.mention; inline = true }
-                        field { name = "Channel"; value = message.channel.mention; inline = true }
+                            field { name = "Author"; value = message.author!!.mention; inline = true }
+                            field { name = "Channel"; value = message.channel.mention; inline = true }
 
-                        field { name = "Message"; value = message.getUrl() }
+                            field { name = "Message"; value = message.getUrl() }
 
-                        footer { text = it.messageId.value }
+                            footer { text = it.messageId.value }
+                        }
                     }
 
-                    is ReactionRemoveEmojiEvent -> sendEmbed(Channels.MODERATOR_LOG) {
-                        color = Colors.negative
-                        title = "All reactions removed"
+                    is ReactionRemoveEmojiEvent -> if (it.getMessage().author != null) {
+                        sendEmbed(Channels.MODERATOR_LOG) {
+                            color = Colors.negative
+                            title = "All reactions removed"
 
-                        val message = it.getMessage()
+                            val message = it.getMessage()
 
-                        field { name = "Author"; value = message.author!!.mention; inline = true }
-                        field { name = "Channel"; value = message.channel.mention; inline = true }
+                            field { name = "Author"; value = message.author!!.mention; inline = true }
+                            field { name = "Channel"; value = message.channel.mention; inline = true }
 
-                        // TODO: Switch to `mention` when Hope adds it back
-                        field { name = "Emoji"; value = it.emoji.urlFormat; inline = true }
+                            // TODO: Switch to `mention` when Hope adds it back
+                            field { name = "Emoji"; value = it.emoji.urlFormat; inline = true }
 
-                        field { name = "Message"; value = message.getUrl() }
+                            field { name = "Message"; value = message.getUrl() }
 
-                        footer { text = it.messageId.value }
+                            footer { text = it.messageId.value }
+                        }
                     }
 
                     is RoleCreateEvent          -> sendEmbed(Channels.MODERATOR_LOG) {
