@@ -64,10 +64,7 @@ class EmbedFilter(bot: ExtensibleBot) : Filter(bot) {
                     }
 
                     for (messageField in messageEmbed.fields) {
-                        field {
-                            name = messageField.name
-                            value = messageField.value
-                        }
+                        field { name = messageField.name; value = messageField.value }
                     }
 
                     if (messageEmbed.footer != null) {

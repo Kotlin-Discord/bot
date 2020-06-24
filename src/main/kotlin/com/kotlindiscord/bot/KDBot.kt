@@ -2,10 +2,7 @@ package com.kotlindiscord.bot
 
 import com.kotlindiscord.bot.config.buildInfo
 import com.kotlindiscord.bot.config.config
-import com.kotlindiscord.bot.extensions.AntispamExtension
-import com.kotlindiscord.bot.extensions.FilterExtension
-import com.kotlindiscord.bot.extensions.TestExtension
-import com.kotlindiscord.bot.extensions.VerificationExtension
+import com.kotlindiscord.bot.extensions.*
 import com.kotlindiscord.kord.extensions.ExtensibleBot
 import io.sentry.Sentry
 import mu.KotlinLogging
@@ -19,11 +16,6 @@ val bot = ExtensibleBot(prefix = config.prefix, token = config.token)
  * @param args Array of command-line arguments. These are ignored.
  */
 suspend fun main(args: Array<String>) {
-    bot.addExtension(AntispamExtension::class)
-    bot.addExtension(TestExtension::class)
-    bot.addExtension(FilterExtension::class)
-    bot.addExtension(VerificationExtension::class)
-
     val logger = KotlinLogging.logger {}
     val environment = System.getenv().getOrDefault("SENTRY_ENVIRONMENT", "dev")
 
@@ -33,6 +25,13 @@ suspend fun main(args: Array<String>) {
     }
 
     logger.info { "Starting KDBot version ${buildInfo.version}." }
+
+    bot.addExtension(AntispamExtension::class)
+    bot.addExtension(CleanExtension::class)
+    bot.addExtension(FilterExtension::class)
+    bot.addExtension(LoggingExtension::class)
+    bot.addExtension(SubscriptionExtension::class)
+    bot.addExtension(VerificationExtension::class)
 
     if (environment == "dev") {
         bot.addExtension(TestExtension::class)

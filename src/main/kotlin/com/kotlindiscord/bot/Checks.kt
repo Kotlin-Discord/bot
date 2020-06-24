@@ -2,7 +2,9 @@ package com.kotlindiscord.bot
 
 import com.gitlab.kordlib.core.event.Event
 import com.kotlindiscord.bot.config.config
-import com.kotlindiscord.kord.extensions.checks.messageFor
+import com.kotlindiscord.bot.enums.Channels
+import com.kotlindiscord.bot.enums.Roles
+import com.kotlindiscord.kord.extensions.checks.*
 import mu.KotlinLogging
 
 /**
@@ -16,7 +18,7 @@ import mu.KotlinLogging
  * @param event The event to run this check against.
  */
 suspend fun defaultCheck(event: Event): Boolean {
-    val logger = KotlinLogging.logger("defaultCheck")
+    val logger = KotlinLogging.logger {}
 
     val message = messageFor(event)?.asMessage()
 
@@ -48,6 +50,72 @@ suspend fun defaultCheck(event: Event): Boolean {
 
         else                                           -> {
             logger.debug { "Passing check" }
+            true
+        }
+    }
+}
+
+/**
+ * Check to ensure an event happened within the bot commands channel.
+ *
+ * @param event The event to run this check against.
+ */
+suspend fun inBotChannel(event: Event): Boolean {
+    val logger = KotlinLogging.logger {}
+
+    val channel = channelFor(event)
+
+    return when {
+        channel == null                                           -> {
+            logger.debug { "Failing check: Channel is null" }
+            false
+        }
+
+        channel.id != config.getChannel(Channels.BOT_COMMANDS).id -> {
+            logger.debug { "Failing check: Not in bot commands" }
+            false
+        }
+
+        else                                                      -> {
+            logger.debug { "Passing check" }
+            true
+        }
+    }
+}
+
+/**
+ * Check that checks that the user is at least a moderator, or that the event
+ * happened in the bot commands channel.
+ */
+suspend fun botChannelOrModerator(): suspend (Event) -> Boolean = or(
+    ::inBotChannel,
+    hasRole(config.getRole(Roles.MODERATOR)),
+    hasRole(config.getRole(Roles.ADMIN)),
+    hasRole(config.getRole(Roles.OWNER))
+)
+
+/**
+ * Check that ensures an event wasn't fired by a bot. If an event doesn't
+ * concern a specific user, then this check will pass.
+ */
+suspend fun isNotBot(event: Event): Boolean {
+    val logger = KotlinLogging.logger {}
+
+    val user = userFor(event)
+
+    return when {
+        user == null                -> {
+            logger.debug { "Passing check: User for event $event is null." }
+            true
+        }
+
+        user.asUser().isBot == true -> {
+            logger.debug { "Failing check: User $user is a bot." }
+            false
+        }
+
+        else                        -> {
+            logger.debug { "Passing check." }
             true
         }
     }

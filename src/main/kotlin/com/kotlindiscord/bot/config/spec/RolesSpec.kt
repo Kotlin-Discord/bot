@@ -11,6 +11,9 @@ object RolesSpec : ConfigSpec() {
     /** Configured admin role ID. **/
     val admin by required<Long>()
 
+    /** Configured announcements role ID. **/
+    val announcements by required<Long>()
+
     /** Configured developer (verified user) role ID. **/
     val developer by required<Long>()
 

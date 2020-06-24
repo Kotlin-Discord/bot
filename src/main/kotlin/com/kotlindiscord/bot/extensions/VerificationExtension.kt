@@ -20,16 +20,16 @@ import mu.KotlinLogging
 import java.time.Instant
 
 /** How long to wait before removing irrelevant messages - 10 seconds. **/
-const val DELETE_DELAY = 10_000L
+private const val DELETE_DELAY = 10_000L
 
 /** How long to wait before retrying message removal on error - 2 seconds. **/
-const val RETRY_DELAY = 2_000L
+private const val RETRY_DELAY = 2_000L
 
 /** How long to wait before applying the verification role - 5 seconds. **/
-const val ROLE_DELAY = 5_000L
+private const val ROLE_DELAY = 5_000L
 
 /** Message sent to the user on verification. **/
-val VERIFICATION_MESSAGE = """
+private val VERIFICATION_MESSAGE = """
     Hello, and thanks for accepting our policies! For reference, here's what you just agreed to:
 
     **Code of Conduct:** <https://kotlindiscord.com/docs/code-of-conduct>
@@ -89,36 +89,15 @@ class VerificationExtension(bot: ExtensibleBot) : Extension(bot) {
                         timestamp = Instant.now()
                         title = "User verification"
 
-                        field {
-                            inline = true
-
-                            name = "U/N"
-                            value = "`${author.username}`"
-                        }
-
-                        field {
-                            inline = true
-
-                            name = "Discrim"
-                            value = "`${author.discriminator}`"
-                        }
+                        field { inline = true; name = "U/N"; value = "`${author.username}`" }
+                        field { inline = true; name = "Discrim"; value = "`${author.discriminator}`" }
 
                         if (author.nickname != null) {
-                            field {
-                                inline = false
-
-                                name = "Nickname"
-                                value = "`${author.nickname}`"
-                            }
+                            field { inline = false; name = "Nickname"; value = "`${author.nickname}`" }
                         }
 
-                        thumbnail {
-                            url = author.avatar.url
-                        }
-
-                        footer {
-                            this.text = author.id.value
-                        }
+                        thumbnail { url = author.avatar.url }
+                        footer { this.text = author.id.value }
                     }
                 }
 

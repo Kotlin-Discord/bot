@@ -3,8 +3,8 @@
 # the folks at Python Discord. You can find their bot code here: https://github.com/python-discord/bot
 
 # Regexes that match whole words rather than parts of words
-\b(ra+)r+(d+|t+)ed\b
-\b(re+)tar+(d+|t+)(ed)?\b
+\b(?:ra+)r+(?:d+|t+)ed\b
+\b(?:re+)tar+(?:d+|t+)(?:ed)?\b
 \bbeaner+s?\b
 \bchi*n+k+s*\b
 \bcoo+ns*\b
@@ -23,6 +23,8 @@
 \bta+r+d+\b
 \btow?l-?head+s*\b
 \btrann*y\b
+\bsimp(?:ing)?\b
+\b(?:wo)?mansplain(?:ing)?\b
 
 # Regexes that may be present within words
 cuck(?!oo+)

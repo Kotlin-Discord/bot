@@ -96,7 +96,7 @@ class RegexFilter(bot: ExtensibleBot) : Filter(bot) {
     }
 
     private fun loadRegexes(): List<Regex> {
-        val resource = InviteFilter::class.java.getResource("/regex/regexFilter.regex")
+        val resource = RegexFilter::class.java.getResource("/regex/regexFilter.regex")
 
         return resource.readText()
             .split("\r\n", "\n")
