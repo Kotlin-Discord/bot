@@ -18,9 +18,11 @@ jobs:
           curl -sL https://sentry.io/get-cli/ | bash
 
           export SENTRY_RELEASE=$(sentry-cli releases propose-version)
-          echo Release: $SENTRY_RELEASE
 
-          sentry-cli releases new $SENTRY_RELEASE -p $SENTRY_PROJECT
+          echo Release: $SENTRY_RELEASE
+          echo Project: $SENTRY_PROJECT
+
+          sentry-cli releases new $SENTRY_RELEASE --project $SENTRY_PROJECT
           sentry-cli releases set-commits --auto $SENTRY_RELEASE
           sentry-cli releases finalize $SENTRY_RELEASE
 
