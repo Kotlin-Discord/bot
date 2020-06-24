@@ -115,7 +115,7 @@ class UrlFilter(bot: ExtensibleBot) : Filter(bot) {
 
         val jumpMessage = if (channel.type == ChannelType.GuildText) {
             "[the following message](https://discordapp.com/channels/" +
-                    "${message.getGuild()!!.id.value}/${channel.id}/${message.id})"
+                    "${message.getGuild().id.value}/${channel.id}/${message.id})"
         } else {
             "the following message"
         }

@@ -8,7 +8,7 @@ import com.gitlab.kordlib.core.entity.Role
 import com.gitlab.kordlib.core.entity.User
 import com.gitlab.kordlib.core.entity.channel.TextChannel
 import com.gitlab.kordlib.rest.builder.message.MessageCreateBuilder
-import com.gitlab.kordlib.rest.request.RequestException
+import com.gitlab.kordlib.rest.request.RestRequestException
 import com.kotlindiscord.bot.config.config
 import com.kotlindiscord.bot.enums.Channels
 import com.kotlindiscord.bot.enums.Roles
@@ -63,7 +63,7 @@ fun User.isNew(): Boolean = this.createdAt.isAfter(Instant.now().minus(NEW_DAYS,
  * @return A clickable URL to jump to this message.
  */
 suspend fun Message.getUrl(): String {
-    val guild = getGuild()?.id?.value ?: "@me"
+    val guild = getGuildOrNull()?.id?.value ?: "@me"
 
     return "https://discordapp.com/channels/$guild/${channelId.value}/${id.value}"
 }
@@ -74,7 +74,7 @@ suspend fun Message.getUrl(): String {
 suspend fun Message.deleteIgnoringNotFound() {
     try {
         this.delete()
-    } catch (e: RequestException) {
+    } catch (e: RestRequestException) {
         if (e.code != HttpStatusCode.NotFound.value) {
             throw e
         }
@@ -97,7 +97,7 @@ fun Message.deleteWithDelay(millis: Long, retry: Boolean = true): Job {
 
         try {
             this@deleteWithDelay.deleteIgnoringNotFound()
-        } catch (e: RequestException) {
+        } catch (e: RestRequestException) {
             val message = this@deleteWithDelay
 
             if (retry) {

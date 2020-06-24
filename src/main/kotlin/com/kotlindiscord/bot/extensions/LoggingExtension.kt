@@ -530,7 +530,7 @@ class LoggingExtension(bot: ExtensibleBot) : Extension(bot) {
                 with(it) {
                     val guild = config.getGuild()
 
-                    if (guild.getMember(user.id) == null) {
+                    if (guild.getMemberOrNull(user.id) == null) {
                         return@action
                     }
 

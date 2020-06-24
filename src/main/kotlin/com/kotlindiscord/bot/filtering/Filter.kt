@@ -3,7 +3,7 @@ package com.kotlindiscord.bot.filtering
 import com.gitlab.kordlib.core.entity.Message
 import com.gitlab.kordlib.core.event.message.MessageCreateEvent
 import com.gitlab.kordlib.core.event.message.MessageUpdateEvent
-import com.gitlab.kordlib.rest.request.RequestException
+import com.gitlab.kordlib.rest.request.RestRequestException
 import com.kotlindiscord.bot.deleteWithDelay
 import com.kotlindiscord.kord.extensions.ExtensibleBot
 import io.ktor.http.HttpStatusCode
@@ -75,7 +75,7 @@ abstract class Filter(val bot: ExtensibleBot) {
             val channel = eventMessage.author!!.getDmChannel()
 
             return channel.createMessage(message)
-        } catch (e: RequestException) {
+        } catch (e: RestRequestException) {
             if (e.code == HttpStatusCode.Forbidden.value) {
                 val notificationMessage =
                     eventMessage.channel.createMessage("${eventMessage.author!!.mention} $message")

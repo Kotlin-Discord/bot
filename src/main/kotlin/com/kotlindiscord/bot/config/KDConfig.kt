@@ -116,7 +116,7 @@ class KDConfig {
     suspend fun getRole(role: Roles): Role {
         val snowflake = getRoleSnowflake(role)
 
-        return bot.kord.getRole(guildSnowflake, snowflake) ?: throw MissingRoleException(snowflake.longValue)
+        return getGuild().getRoleOrNull(snowflake) ?: throw MissingRoleException(snowflake.longValue)
     }
 
     /**

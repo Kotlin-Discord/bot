@@ -3,7 +3,7 @@ package com.kotlindiscord.bot.extensions
 import com.gitlab.kordlib.core.behavior.channel.createMessage
 import com.gitlab.kordlib.core.entity.channel.GuildMessageChannel
 import com.gitlab.kordlib.core.event.message.MessageCreateEvent
-import com.gitlab.kordlib.rest.request.RequestException
+import com.gitlab.kordlib.rest.request.RestRequestException
 import com.kotlindiscord.bot.config.config
 import com.kotlindiscord.bot.defaultCheck
 import com.kotlindiscord.bot.deleteIgnoringNotFound
@@ -107,7 +107,7 @@ class VerificationExtension(bot: ExtensibleBot) : Extension(bot) {
                     dmChannel.createMessage(VERIFICATION_MESSAGE)
                     delay(ROLE_DELAY)
                     author.addRole(config.getRoleSnowflake(Roles.DEVELOPER))
-                } catch (e: RequestException) {
+                } catch (e: RestRequestException) {
                     val sentMessage = message.channel.createMessage(
                         "${author.mention} $VERIFICATION_MESSAGE\n\n" +
                                 "You'll be given access to the rest of the server shortly."
@@ -146,14 +146,14 @@ class VerificationExtension(bot: ExtensibleBot) : Extension(bot) {
 
                     try {
                         message.deleteIgnoringNotFound()
-                    } catch (e: RequestException) {
+                    } catch (e: RestRequestException) {
                         logger.warn(e) { "Failed to delete user's message, retrying in two seconds." }
 
                         delay(RETRY_DELAY)
 
                         try {
                             message.deleteIgnoringNotFound()
-                        } catch (e: RequestException) {
+                        } catch (e: RestRequestException) {
                             logger.warn(e) { "Failed to delete user's message on the second attempt." }
                         }
                     }
