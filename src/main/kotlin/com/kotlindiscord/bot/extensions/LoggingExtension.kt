@@ -358,7 +358,9 @@ class LoggingExtension(bot: ExtensibleBot) : Extension(bot) {
 
                         field { name = "Author"; value = message.author!!.mention; inline = true }
                         field { name = "Channel"; value = message.channel.mention; inline = true }
-                        field { name = "Emoji"; value = it.emoji.formatted; inline = true }
+
+                        // TODO: Switch to `mention` when Hope adds it back
+                        field { name = "Emoji"; value = it.emoji.urlFormat; inline = true }
 
                         field { name = "Message"; value = message.getUrl() }
 

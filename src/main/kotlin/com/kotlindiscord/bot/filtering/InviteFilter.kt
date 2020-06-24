@@ -72,7 +72,7 @@ class InviteFilter(bot: ExtensibleBot) : Filter(bot) {
             val code = match.groups[1]!!.value
             val info = getGuildInfo(code) ?: continue
 
-            if (info.invite.guildId in whitelist) continue
+            if (info.invite.partialGuild?.id in whitelist) continue
 
             logger.debug { "Found match: ${match.groups[0]}" }
             inviteData[code] = info
@@ -93,7 +93,7 @@ class InviteFilter(bot: ExtensibleBot) : Filter(bot) {
                         if (info.guildIcon.isNotEmpty()) {
                             thumbnail {
                                 this.url = "https://cdn.discordapp.com/icons/" +
-                                        "${info.invite.guildId.value}/${info.guildIcon}.png?size=512"
+                                        "${info.invite.partialGuild?.id?.value}/${info.guildIcon}.png?size=512"
                             }
                         }
                     }
@@ -138,7 +138,7 @@ class InviteFilter(bot: ExtensibleBot) : Filter(bot) {
     private suspend fun getGuildInfo(inviteCode: String): GuildInfo? {
         val data = bot.kord.rest.invite.getInvite(inviteCode, true)
 
-        if (data.guild == null || data.channel == null) {
+        if (data.guild == null) {
             return null
         }
 
