@@ -36,10 +36,10 @@ fun Role.toEnum(): Roles? {
 }
 
 /** ID of the message author. **/
-val MessageData.authorId: Long? get() = author?.id
+val MessageData.authorId: Long? get() = author.id
 
 /** Is the message author a bot. **/
-val MessageData.authorIsBot: Boolean? get() = author?.bot
+val MessageData.authorIsBot: Boolean? get() = author.bot
 
 /**
  * The creation timestamp for this user.
