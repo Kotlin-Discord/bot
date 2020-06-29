@@ -34,3 +34,4 @@ services:
     tty: true
     environment:
       BOT_APIKEY: "${API_KEY:-GStandsForGreatDude}"
+      BOT_TOKEN:
