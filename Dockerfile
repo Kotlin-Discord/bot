@@ -9,9 +9,8 @@ ENTRYPOINT ["/tini", "--"]
 # Set up app
 ENV SENTRY_ENVIRONMENT production
 
-RUN mkdir /app
-COPY build/libs/bot-*-all.jar /app
 WORKDIR /app
-
+COPY build/libs/bot-*-all.jar .
+COPY config.toml .
 # Run it
 CMD ["/bin/sh" ,"-c", "java -jar /app/bot-*-all.jar"]
