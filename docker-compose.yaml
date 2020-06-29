@@ -1,0 +1,36 @@
+version: "3.7"
+services:
+  postgres:
+    image: postgres:12-alpine
+    environment:
+      POSTGRES_DB: "kotdis"
+      POSTGRES_PASSWORD: "kotdis"
+      POSTGRES_USER: "kotdis"
+
+  web:
+    build:
+      context: "${SITE_PROJECT_PATH:-../site}"
+      dockerfile: Dockerfile
+    ports:
+      - "127.0.0.1:8080:8080"
+    depends_on:
+      - postgres
+    tty: true
+    environment:
+      DEBUG: "${DEBUG-}"
+      DB_PASSWORD: "kotdis"
+      DB_URL: "postgres:5432/kotdis"
+      DB_USER: "kotdis"
+      API_KEY: "${API_KEY:-GStandsForGreatDude}"
+      DISCORD_CLIENT_ID: ""
+      DISCORD_CLIENT_SECRET: ""
+
+  bot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - web
+    tty: true
+    environment:
+      BOT_APIKEY: "${API_KEY:-GStandsForGreatDude}"
