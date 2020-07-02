@@ -35,3 +35,4 @@ services:
     environment:
       BOT_APIKEY: "${API_KEY:-600125N29733611E}"
       BOT_TOKEN:
+      SENTRY_ENVIRONMENT: "dev"
