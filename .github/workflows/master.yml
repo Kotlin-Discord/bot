@@ -88,7 +88,9 @@ jobs:
         run: "docker login -u ${{ secrets.MAVEN_USER }} -p ${{ secrets.MAVEN_PASSWORD }} docker.kotlindiscord.com"
 
       - name: Build Container
-        run: "docker build --file Dockerfile -t docker.kotlindiscord.com/bot:latest ."
+        run: |
+          touch config.toml
+          docker build --file Dockerfile -t docker.kotlindiscord.com/bot:latest .
 
       - name: Publish Container
         run: "docker push docker.kotlindiscord.com/bot"
