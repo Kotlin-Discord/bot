@@ -21,7 +21,7 @@ services:
       DB_PASSWORD: "kotdis"
       DB_URL: "postgres:5432/kotdis"
       DB_USER: "kotdis"
-      API_KEY: "${API_KEY:-GStandsForGreatDude}"
+      API_KEY: "${API_KEY:-600125N29733611E}"
       DISCORD_CLIENT_ID: ""
       DISCORD_CLIENT_SECRET: ""
 
@@ -33,5 +33,5 @@ services:
       - web
     tty: true
     environment:
-      BOT_APIKEY: "${API_KEY:-GStandsForGreatDude}"
+      BOT_APIKEY: "${API_KEY:-600125N29733611E}"
       BOT_TOKEN:
