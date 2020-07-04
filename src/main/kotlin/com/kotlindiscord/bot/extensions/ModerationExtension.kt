@@ -15,6 +15,11 @@ import java.time.LocalDateTime
 
 private val logger = KotlinLogging.logger {}
 
+/**
+ * Extension in charge of providing the moderation interface.
+ *
+ * @param bot Current [ExtensibleBot] instance.
+ */
 class ModerationExtension(bot: ExtensibleBot) : Extension(bot) {
     override val name = "moderation"
 
