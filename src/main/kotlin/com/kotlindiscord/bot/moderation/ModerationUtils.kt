@@ -19,7 +19,3 @@ suspend inline fun <reified T: InfractionType> createInfraction(message: Message
     val ctor = T::class.primaryConstructor ?: throw IllegalArgumentException("${T::class.simpleName} has no primary constructor.")
     return ctor.call(data)
 }
-
-suspend fun upsertInfraction(infraction: InfractionType) {
-    infraction.upsert()
-}
