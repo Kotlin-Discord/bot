@@ -62,6 +62,11 @@ abstract class InfractionType(val infractionData: InfractionData) {
     suspend fun upsert() {
         config.api.upsertInfraction(this.toInfractionModel())
     }
+
+    @Suppress("ExpressionBodySyntax")
+    override fun toString(): String {
+        return "${type.capitalize()} infraction: $infractionData"
+    }
 }
 
 /** Kick the user from the server. **/
