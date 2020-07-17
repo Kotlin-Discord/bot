@@ -8,8 +8,10 @@ import com.kotlindiscord.bot.moderation.Ban
 import com.kotlindiscord.bot.moderation.createInfraction
 import com.kotlindiscord.kord.extensions.ExtensibleBot
 import com.kotlindiscord.kord.extensions.checks.hasRole
+import com.kotlindiscord.kord.extensions.checks.utils.Scheduler
 import com.kotlindiscord.kord.extensions.extensions.Extension
 import com.kotlindiscord.kord.extensions.parsers.parseDuration
+import kotlinx.coroutines.runBlocking
 import mu.KotlinLogging
 import java.time.LocalDateTime
 
@@ -22,6 +24,8 @@ private val logger = KotlinLogging.logger {}
  */
 class ModerationExtension(bot: ExtensibleBot) : Extension(bot) {
     override val name = "moderation"
+
+    private val scheduler = Scheduler()
 
     override suspend fun setup() {
         data class ModerationCommandArguments(
@@ -66,9 +70,23 @@ class ModerationExtension(bot: ExtensibleBot) : Extension(bot) {
                     logger.debug { "New infraction $infraction" }
 
                     infraction.apply()
-                    infraction.upsert()
+                    val model = infraction.upsert()
 
-                    // TODO: Schedule infraction cancel.
+                    if (duration != null) {
+                        val parsedDurationResult = kotlin.runCatching {
+                            parseDuration(duration)
+                        }
+
+                        if (parsedDurationResult.isSuccess) {
+                            scheduler.schedule(
+                                model.id!!.toInt(),
+                                parsedDurationResult.getOrThrow().toMillis(),
+                                infraction
+                            ) {
+                                runBlocking { it?.pardon() }
+                            }
+                            }
+                        }
                 }
             }
         }

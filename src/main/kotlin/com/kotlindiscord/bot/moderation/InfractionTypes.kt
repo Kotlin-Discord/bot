@@ -59,8 +59,9 @@ abstract class InfractionType(val infractionData: InfractionData) {
     }
 
     /** Upsert this infraction into the database. **/
-    suspend fun upsert() {
-        config.api.upsertInfraction(this.toInfractionModel())
+    @Suppress("ExpressionBodySyntax")
+    suspend fun upsert(): InfractionModel {
+        return config.api.upsertInfraction(this.toInfractionModel())
     }
 
     @Suppress("ExpressionBodySyntax")
