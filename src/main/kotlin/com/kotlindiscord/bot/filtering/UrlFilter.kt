@@ -37,7 +37,10 @@ private val blacklist = setOf(
     "freegiftcards.co", "grabify.link", "joinmy.site", "leancoding.co", "minecräft.com",
     "poweredbydialup.club", "poweredbydialup.online", "poweredbysecurity.online", "poweredbysecurity.org",
     "quickmessage.us", "spottyfly.com", "stopify.co", "särahah.eu", "särahah.pl",
-    "xda-developers.us", "youshouldclick.us", "youtubeshort.pro", "yoütu.be"
+    "xda-developers.us", "youshouldclick.us", "youtubeshort.pro", "yoütu.be",
+
+    // Domains that shouldn't be used in an helpful conversation
+    "lmgtfy.com"
 )
 
 private val extensionBlacklist = setOf(
