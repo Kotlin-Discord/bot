@@ -48,11 +48,8 @@ class SyncExtension(bot: ExtensibleBot) : Extension(bot) {
         event<UserUpdateEvent> { action { userUpdated(it.user) } }
     }
 
-    /**
-     * @suppress
-     */
     @Suppress("UnusedPrivateMember")  // Odd way to point out unused function params, isn't it
-    suspend fun initialSync(handler: EventHandler<ReadyEvent>, event: ReadyEvent) {
+    private suspend fun initialSync(handler: EventHandler<ReadyEvent>, event: ReadyEvent) {
         val (rolesUpdated, rolesRemoved) = updateRoles()
         val (usersUpdated, usersScrubbed) = updateUsers()
 
@@ -69,35 +66,23 @@ class SyncExtension(bot: ExtensibleBot) : Extension(bot) {
             }
     }
 
-    /**
-     * @suppress
-     */
     @Suppress("UnusedPrivateMember")
-    suspend fun roleUpdated(role: Role) {
+    private suspend fun roleUpdated(role: Role) {
         config.api.upsertRole(role.toModel())
     }
 
-    /**
-     * @suppress
-     */
     @Suppress("UnusedPrivateMember")
-    suspend fun roleDeleted(role: Snowflake) {
+    private suspend fun roleDeleted(role: Snowflake) {
         config.api.deleteRole(role.longValue)
     }
 
-    /**
-     * @suppress
-     */
     @Suppress("UnusedPrivateMember")
-    suspend fun memberUpdated(member: Member) {
+    private suspend fun memberUpdated(member: Member) {
         config.api.upsertUser(member.toModel())
     }
 
-    /**
-     * @suppress
-     */
     @Suppress("UnusedPrivateMember")
-    suspend fun memberLeft(user: User) {
+    private suspend fun memberLeft(user: User) {
         val dbUser = config.api.getUser(user.id.longValue) ?: return
 
         config.api.upsertUser(
@@ -105,11 +90,8 @@ class SyncExtension(bot: ExtensibleBot) : Extension(bot) {
         )
     }
 
-    /**
-     * @suppress
-     */
     @Suppress("UnusedPrivateMember")
-    suspend fun userUpdated(user: User) {
+    private suspend fun userUpdated(user: User) {
         val dbUser = config.api.getUser(user.id.longValue) ?: return
 
         config.api.upsertUser(
@@ -117,10 +99,7 @@ class SyncExtension(bot: ExtensibleBot) : Extension(bot) {
         )
     }
 
-    /**
-     * @suppress
-     */
-    suspend fun updateRoles(): Pair<Int, Int> {
+    private suspend fun updateRoles(): Pair<Int, Int> {
         val dbRoles = config.api.getRoles().map { it.id to it }.toMap()
         val discordRoles = config.getGuild().roles.toList().map { it.id.longValue to it }.toMap()
         val rolesToUpdate = mutableListOf<RoleModel>()
@@ -149,10 +128,7 @@ class SyncExtension(bot: ExtensibleBot) : Extension(bot) {
         return Pair(rolesToUpdate.size, rolesToRemove.size)
     }
 
-    /**
-     * @suppress
-     */
-    suspend fun updateUsers(): Pair<Int, Int> {
+    private suspend fun updateUsers(): Pair<Int, Int> {
         val dbUsers = config.api.getUsers().map { it.id to it }.toMap()
         val discordUsers = config.getGuild().members.toList().map { it.id.longValue to it }.toMap()
         val usersToUpdate = mutableListOf<UserModel>()
