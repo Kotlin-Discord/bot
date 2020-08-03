@@ -1,12 +1,24 @@
 package com.kotlindiscord.bot.extensions
 
+import com.gitlab.kordlib.common.entity.Snowflake
 import com.gitlab.kordlib.core.behavior.channel.createEmbed
+import com.gitlab.kordlib.core.entity.Member
+import com.gitlab.kordlib.core.entity.Role
+import com.gitlab.kordlib.core.entity.User
 import com.gitlab.kordlib.core.entity.channel.TextChannel
+import com.gitlab.kordlib.core.event.UserUpdateEvent
 import com.gitlab.kordlib.core.event.gateway.ReadyEvent
+import com.gitlab.kordlib.core.event.guild.MemberJoinEvent
+import com.gitlab.kordlib.core.event.guild.MemberLeaveEvent
+import com.gitlab.kordlib.core.event.guild.MemberUpdateEvent
+import com.gitlab.kordlib.core.event.role.RoleCreateEvent
+import com.gitlab.kordlib.core.event.role.RoleDeleteEvent
+import com.gitlab.kordlib.core.event.role.RoleUpdateEvent
 import com.kotlindiscord.api.client.models.RoleModel
 import com.kotlindiscord.api.client.models.UserModel
 import com.kotlindiscord.bot.config.config
 import com.kotlindiscord.bot.enums.Channels
+import com.kotlindiscord.bot.toModel
 import com.kotlindiscord.kord.extensions.ExtensibleBot
 import com.kotlindiscord.kord.extensions.events.EventHandler
 import com.kotlindiscord.kord.extensions.extensions.Extension
@@ -27,6 +39,15 @@ class SyncExtension(bot: ExtensibleBot) : Extension(bot) {
 
     override suspend fun setup() {
         event<ReadyEvent> { action(::initialSync) }
+
+        event<RoleCreateEvent> { action { roleUpdated(it.role) } }
+        event<RoleUpdateEvent> { action { roleUpdated(it.role) } }
+        event<RoleDeleteEvent> { action { roleDeleted(it.roleId) } }
+
+        event<MemberJoinEvent> { action { memberUpdated(it.member) } }
+        event<MemberUpdateEvent> { action { memberUpdated(it.getMember()) } }
+        event<MemberLeaveEvent> { action { memberLeft(it.user) } }
+        event<UserUpdateEvent> { action { userUpdated(it.user) } }
     }
 
     /**
@@ -48,6 +69,54 @@ class SyncExtension(bot: ExtensibleBot) : Extension(bot) {
                     **Users scrubbed:** $usersScrubbed
                 """.trimIndent()
             }
+    }
+
+    /**
+     * @suppress
+     */
+    @Suppress("UnusedPrivateMember")
+    suspend fun roleUpdated(role: Role) {
+        config.api.upsertRole(role.toModel())
+    }
+
+    /**
+     * @suppress
+     */
+    @Suppress("UnusedPrivateMember")
+    suspend fun roleDeleted(role: Snowflake) {
+        config.api.deleteRole(role.longValue)
+    }
+
+    /**
+     * @suppress
+     */
+    @Suppress("UnusedPrivateMember")
+    suspend fun memberUpdated(member: Member) {
+        config.api.upsertUser(member.toModel())
+    }
+
+    /**
+     * @suppress
+     */
+    @Suppress("UnusedPrivateMember")
+    suspend fun memberLeft(user: User) {
+        val dbUser = config.api.getUser(user.id.longValue) ?: return
+
+        config.api.upsertUser(
+            UserModel(user.id.longValue, user.username, user.discriminator, user.avatar.url, dbUser.roles, false)
+        )
+    }
+
+    /**
+     * @suppress
+     */
+    @Suppress("UnusedPrivateMember")
+    suspend fun userUpdated(user: User) {
+        val dbUser = config.api.getUser(user.id.longValue) ?: return
+
+        config.api.upsertUser(
+            UserModel(user.id.longValue, user.username, user.discriminator, user.avatar.url, dbUser.roles, false)
+        )
     }
 
     /**
