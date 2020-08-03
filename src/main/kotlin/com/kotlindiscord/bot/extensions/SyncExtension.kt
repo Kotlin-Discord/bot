@@ -25,7 +25,6 @@ import com.kotlindiscord.kord.extensions.extensions.Extension
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.flow.toSet
-import mu.KotlinLogging
 
 /**
  * Extension in charge of keeping the database (on the site) updated with data from Discord.
@@ -35,7 +34,6 @@ import mu.KotlinLogging
  */
 class SyncExtension(bot: ExtensibleBot) : Extension(bot) {
     override val name: String = "sync"
-    private val logger = KotlinLogging.logger {}
 
     override suspend fun setup() {
         event<ReadyEvent> { action(::initialSync) }
@@ -132,16 +130,12 @@ class SyncExtension(bot: ExtensibleBot) : Extension(bot) {
             val dbRole = dbRoles[id]
 
             if (dbRole == null) {
-                rolesToUpdate.add(
-                    RoleModel(id, role.name, role.color.hashCode())
-                )
+                rolesToUpdate.add(role.toModel())
             } else if (  // Check if there's anything to update
                 role.color.hashCode() != dbRole.colour ||
                 role.name != dbRole.name
             ) {
-                rolesToUpdate.add(
-                    RoleModel(id, role.name, role.color.hashCode())
-                )
+                rolesToUpdate.add(role.toModel())
             }
         }
 
@@ -168,24 +162,14 @@ class SyncExtension(bot: ExtensibleBot) : Extension(bot) {
             val dbUser = dbUsers[id]
 
             if (dbUser == null) {
-                usersToUpdate.add(
-                    UserModel(
-                        id, user.username, user.discriminator, user.avatar.url,
-                        user.roles.map { it.id.longValue }.toSet()
-                    )
-                )
+                usersToUpdate.add(user.toModel())
             } else if (  // Check if there's anything to update
                 dbUser.username != user.username ||
                 dbUser.discriminator != user.discriminator ||
                 dbUser.avatarUrl != user.avatar.url ||
                 dbUser.roles != user.roles.map { it.id.longValue }.toSet()
             ) {
-                usersToUpdate.add(
-                    UserModel(
-                        id, user.username, user.discriminator, user.avatar.url,
-                        user.roles.map { it.id.longValue }.toSet()
-                    )
-                )
+                usersToUpdate.add(user.toModel())
             }
         }
 
