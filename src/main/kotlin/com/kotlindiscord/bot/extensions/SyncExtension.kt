@@ -56,13 +56,20 @@ class SyncExtension(bot: ExtensibleBot) : Extension(bot) {
         (config.getChannel(Channels.ALERTS) as TextChannel)
             .createEmbed {
                 title = "Sync statistics"
-                description = """
-                    **Roles updated:** $rolesUpdated
-                    **Roles removed:** $rolesRemoved
-                    
-                    **Users updated:** $usersUpdated
-                    **Users scrubbed:** $usersScrubbed
-                """.trimIndent()
+
+                field {
+                    inline = false
+
+                    name = "Roles"
+                    value = "**Updated:** $rolesUpdated | **Removed:** $rolesRemoved"
+                }
+
+                field {
+                    inline = false
+
+                    name = "Users"
+                    value = "**Updated:** $usersUpdated | **Scrubbed:** $usersScrubbed"
+                }
             }
     }
 
