@@ -17,9 +17,12 @@ import com.gitlab.kordlib.core.event.role.RoleUpdateEvent
 import com.kotlindiscord.api.client.models.RoleModel
 import com.kotlindiscord.api.client.models.UserModel
 import com.kotlindiscord.bot.config.config
+import com.kotlindiscord.bot.defaultCheck
 import com.kotlindiscord.bot.enums.Channels
+import com.kotlindiscord.bot.enums.Roles
 import com.kotlindiscord.bot.toModel
 import com.kotlindiscord.kord.extensions.ExtensibleBot
+import com.kotlindiscord.kord.extensions.checks.topRoleHigherOrEqual
 import com.kotlindiscord.kord.extensions.events.EventHandler
 import com.kotlindiscord.kord.extensions.extensions.Extension
 import kotlinx.coroutines.flow.map
@@ -46,6 +49,38 @@ class SyncExtension(bot: ExtensibleBot) : Extension(bot) {
         event<MemberUpdateEvent> { action { memberUpdated(it.getMember()) } }
         event<MemberLeaveEvent> { action { memberLeft(it.user) } }
         event<UserUpdateEvent> { action { userUpdated(it.user) } }
+
+        command {
+            name = "sync"
+
+            check(
+                ::defaultCheck,
+                topRoleHigherOrEqual(config.getRole(Roles.ADMIN))
+            )
+
+            action {
+                val (rolesUpdated, rolesRemoved) = updateRoles()
+                val (usersUpdated, usersScrubbed) = updateUsers()
+
+                message.channel.createEmbed {
+                    title = "Sync statistics"
+
+                    field {
+                        inline = false
+
+                        name = "Roles"
+                        value = "**Updated:** $rolesUpdated | **Removed:** $rolesRemoved"
+                    }
+
+                    field {
+                        inline = false
+
+                        name = "Users"
+                        value = "**Updated:** $usersUpdated | **Scrubbed:** $usersScrubbed"
+                    }
+                }
+            }
+        }
     }
 
     @Suppress("UnusedPrivateMember")  // Odd way to point out unused function params, isn't it
