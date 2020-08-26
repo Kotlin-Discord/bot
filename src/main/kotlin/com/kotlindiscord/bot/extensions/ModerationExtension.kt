@@ -1,11 +1,12 @@
 package com.kotlindiscord.bot.extensions
 
+import com.gitlab.kordlib.core.behavior.ban
 import com.gitlab.kordlib.core.entity.User
+import com.kotlindiscord.api.client.enums.InfractionType
+import com.kotlindiscord.api.client.models.InfractionModel
 import com.kotlindiscord.bot.config.config
 import com.kotlindiscord.bot.defaultCheck
 import com.kotlindiscord.bot.enums.Roles
-import com.kotlindiscord.bot.moderation.Ban
-import com.kotlindiscord.bot.moderation.createInfraction
 import com.kotlindiscord.kord.extensions.ExtensibleBot
 import com.kotlindiscord.kord.extensions.checks.hasRole
 import com.kotlindiscord.kord.extensions.checks.utils.Scheduler
@@ -29,7 +30,7 @@ class ModerationExtension(bot: ExtensibleBot) : Extension(bot) {
 
     override suspend fun setup() {
         data class ModerationCommandArguments(
-            val infractor: User,
+            val infractee: User,
             val duration: String? = null,
             val reason: MutableList<String> = mutableListOf()
         )
@@ -40,8 +41,6 @@ class ModerationExtension(bot: ExtensibleBot) : Extension(bot) {
             check(::defaultCheck)
             check(hasRole(config.getRole(Roles.MODERATOR)))
             signature<ModerationCommandArguments>()
-
-            hidden = true
 
             action {
                 with(parse<ModerationCommandArguments>()) {
@@ -59,18 +58,25 @@ class ModerationExtension(bot: ExtensibleBot) : Extension(bot) {
                             expires = LocalDateTime.now() + parsedDurationResult.getOrNull()
                         }
                     }
-                    val infraction = createInfraction<Ban>(
-                        message,
-                        infractor,
-                        reason.joinToString(separator = " "),
-                        expires!!
-                        // TODO: Properly handle null expiration.
-                        // BODY: Once the database will be able to accept null expiration, we can get rid of this NPE.
+
+                    val joinedReason = reason.joinToString(separator = " ")
+
+                    val infraction = InfractionModel(
+                        infractor = message.author!!.id.longValue,
+                        user = infractee.id.longValue,
+                        reason = joinedReason,
+                        type = InfractionType.BAN,
+                        expires = expires,
+                        created = LocalDateTime.now()
                     )
+
                     logger.debug { "New infraction $infraction" }
 
-                    infraction.apply()
-                    val model = infraction.upsert()
+                    config.api.upsertInfraction(infraction)
+
+                    message.getGuild().ban(infractee.id) {
+                        this.reason = joinedReason
+                    }
 
                     if (duration != null) {
                         val parsedDurationResult = kotlin.runCatching {
@@ -78,15 +84,11 @@ class ModerationExtension(bot: ExtensibleBot) : Extension(bot) {
                         }
 
                         if (parsedDurationResult.isSuccess) {
-                            scheduler.schedule(
-                                model.id!!.toInt(),
-                                parsedDurationResult.getOrThrow().toMillis(),
-                                infraction
-                            ) {
-                                runBlocking { it?.pardon() }
-                            }
+                            scheduler.schedule(parsedDurationResult.getOrThrow().toMillis(), infraction) {
+                                runBlocking { message.getGuild().unban(infractee.id) }
                             }
                         }
+                    }
                 }
             }
         }
