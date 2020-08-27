@@ -29,6 +29,7 @@ suspend fun main(args: Array<String>) {
     bot.addExtension(CleanExtension::class)
     bot.addExtension(FilterExtension::class)
     bot.addExtension(LoggingExtension::class)
+    bot.addExtension(SilenceExtension::class)
     bot.addExtension(SubscriptionExtension::class)
     bot.addExtension(VerificationExtension::class)
 
