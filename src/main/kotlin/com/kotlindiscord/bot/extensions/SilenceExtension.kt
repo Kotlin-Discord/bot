@@ -50,6 +50,8 @@ class SilenceExtension(bot: ExtensibleBot) : Extension(bot) {
             check(hasRole(config.getRole(Roles.MODERATOR)))
             signature<SilenceArguments>()
 
+            hidden = true
+
             action {
                 with(parse<SilenceArguments>()) {
                     val channel = this@action.message.getChannel() as GuildMessageChannel
@@ -99,6 +101,8 @@ class SilenceExtension(bot: ExtensibleBot) : Extension(bot) {
 
             check(::defaultCheck)
             check(hasRole(config.getRole(Roles.MODERATOR)))
+
+            hidden = true
 
             action {
                 val channel = this.message.getChannel() as GuildMessageChannel
