@@ -27,12 +27,16 @@ class SilenceExtension(bot: ExtensibleBot) : Extension(bot) {
     /** Mapping for Scheduler task ID and channel ID. */
     val taskMapping: MutableMap<String, UUID> = mutableMapOf()
 
+    /** All currently silenced channels. */
+    val silencedChannels: MutableList<String> = mutableListOf()
+
     private suspend fun unsilence(taskData: TaskData?) {
         taskData!!.channel.editRolePermission(config.getRoleSnowflake(Roles.DEVELOPER)) {
             allowed += Permission.SendMessages
         }
         taskData.channel.createMessage(":unlock: Channel unsilenced successfully.")
         taskMapping.remove(taskData.channel.id.value)
+        silencedChannels -= taskData.channel.id.value
     }
 
     override suspend fun setup() {
@@ -55,11 +59,17 @@ class SilenceExtension(bot: ExtensibleBot) : Extension(bot) {
             action {
                 with(parse<SilenceArguments>()) {
                     val channel = this@action.message.getChannel() as GuildMessageChannel
+
+                    if (channel.id.value in silencedChannels) {
+                        channel.createMessage(":x: Channel is already silenced.")
+                        return@action
+                    }
+
                     val role = config.getRoleSnowflake(Roles.DEVELOPER)
                     val overwrites = channel.getPermissionOverwritesForRole(role)
 
-                    if (overwrites != null && overwrites.denied.contains(Permission.SendMessages)) {
-                        channel.createMessage(":x: Channel is already silenced.")
+                    if (overwrites == null || overwrites.denied.contains(Permission.SendMessages)) {
+                        channel.createMessage(":x: Trying to silence private channel.")
                         return@action
                     }
 
@@ -76,6 +86,7 @@ class SilenceExtension(bot: ExtensibleBot) : Extension(bot) {
                         }
                         val taskId = scheduler.schedule(durationFinal.toMillis(), TaskData(channel), ::unsilence)
                         taskMapping[channel.id.value] = taskId
+                        silencedChannels += channel.id.value
 
                         val formattedDuration = durationFinal.run {
                             String.format("%d:%02d:%02d", toHours(), toMinutesPart(), toSecondsPart())
@@ -87,6 +98,7 @@ class SilenceExtension(bot: ExtensibleBot) : Extension(bot) {
                         channel.editRolePermission(role) {
                             denied += Permission.SendMessages
                         }
+                        silencedChannels += channel.id.value
                         channel.createMessage(":lock: Successfully silenced channel for undefined time.")
                     }
                 }
@@ -107,23 +119,23 @@ class SilenceExtension(bot: ExtensibleBot) : Extension(bot) {
             action {
                 val channel = this.message.getChannel() as GuildMessageChannel
 
+                if (!silencedChannels.contains(channel.id.value)) {
+                    channel.createMessage(":x: Channel is not silenced. Can't unsilence.")
+                    return@action
+                }
+
                 if (channel.id.value in taskMapping) {
                     scheduler.finishJob(taskMapping[channel.id.value]!!)
                     return@action
                 }
 
                 val role = config.getRoleSnowflake(Roles.DEVELOPER)
-                val overwrites = channel.getPermissionOverwritesForRole(role)
 
-                if (overwrites?.denied!!.contains(Permission.SendMessages)) {
-                    channel.editRolePermission(role) {
-                        allowed += Permission.SendMessages
-                    }
-                    channel.createMessage(":unlock: Successfully unsilenced channel.")
-                    return@action
+                channel.editRolePermission(role) {
+                    allowed += Permission.SendMessages
                 }
-
-                channel.createMessage(":x: Channel is not silenced.")
+                channel.createMessage(":unlock: Successfully unsilenced channel.")
+                silencedChannels -= channel.id.value
             }
         }
     }
