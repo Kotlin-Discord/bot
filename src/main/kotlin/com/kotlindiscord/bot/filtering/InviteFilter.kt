@@ -24,7 +24,7 @@ private val whitelist = setOf(  // Guilds we allow invites to
     Snowflake(590806733924859943),  // Discord Hack Week
     Snowflake(197038439483310086),  // Discord Testers
     Snowflake(81384788765712384),   // Discord API
-    Snowflake(613425648685547541),   // Discord Developers
+    Snowflake(613425648685547541),  // Discord Developers
     Snowflake(507304429255393322)   // FabricMC
 )
 
