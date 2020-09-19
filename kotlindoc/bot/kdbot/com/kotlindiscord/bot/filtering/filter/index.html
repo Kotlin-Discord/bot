@@ -1,0 +1,1166 @@
+<!DOCTYPE HTML>
+<!--
+    Editorial by HTML5 UP
+    html5up.net | @ajlkn
+    Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+<head>
+
+
+
+
+<meta charset="utf-8"/>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+<meta name="generator" content="Orchid 0.20.0-SNAPSHOT"/>
+<link rel="icon" href="https://bot.docs.kotlindiscord.com/favicon.ico">
+
+
+<meta name="robots" content="index, follow">
+
+
+
+<title>Filter</title>
+
+
+<meta name="description" content="Kotlin Discord&#39;s in-house management bot">
+
+
+
+
+
+<script>
+    window.site = {"orchidVersion":"0.20.0-SNAPSHOT","baseUrl":"https://bot.docs.kotlindiscord.com","environment":"debug","version":"1.0-SNAPSHOT"};
+</script>
+
+
+
+
+
+<!-- start:debug info -->
+
+<!-- THEME -->
+<!-- Type: Editorial -->
+<!-- Class: com.eden.orchid.editorial.EditorialTheme -->
+
+<!-- PAGE -->
+<!-- Type: classes -->
+<!-- Class: com.eden.orchid.sourcedoc.page.SourceDocPage -->
+<!-- Layout: index -->
+<!-- Resolved Layout: templates/layouts/index.peb -->
+<!-- Page Template: kotlindocClass, sourceDocPage, classes, page -->
+<!-- Resolved Page Template: templates/pages/sourceDocPage.peb -->
+
+<!-- RESOURCE -->
+<!-- Class: com.eden.orchid.sourcedoc.page.SourceDocResource -->
+<!-- Source Filename:  -->
+
+<!-- COMPLETE PAGE CONFIGURATION -->
+<script>
+    window.allData = {"reference":{"path":"kotlindoc/bot/kdbot","baseUrl":"https://bot.docs.kotlindiscord.com","fileName":"com/kotlindiscord/bot/filtering/filter","extension":"html","usePrettyUrl":true,"link":"https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/filtering/filter"},"description":"","title":"Filter"};
+</script>
+
+<!-- end:debug info -->
+
+
+
+
+    <!-- start:inject meta-components -->
+    
+        
+            
+        
+    
+    <!-- end:inject meta-components -->
+
+
+
+    <!-- start:inject meta-components -->
+    
+        
+            
+        
+    
+    <!-- end:inject meta-components -->
+
+
+
+
+
+<!-- start:inject styles -->
+<link rel="stylesheet" type="text/css" href="https://bot.docs.kotlindiscord.com/Editorial/86a5943b/assets/css/editorial_main.css"  />
+<link rel="stylesheet" type="text/css" href="https://bot.docs.kotlindiscord.com/Editorial/86a5943b/assets/css/editorial_orchidCustomizations.css"  />
+<link rel="stylesheet" type="text/css" href="https://bot.docs.kotlindiscord.com/Editorial/86a5943b/assets/css/orchidSearch.css"  />
+<link rel="stylesheet" type="text/css" href="https://bot.docs.kotlindiscord.com/assets/css/orchidSearch.css"  />
+<link rel="stylesheet" type="text/css" href="https://bot.docs.kotlindiscord.com/assets/css/orchidSourceDoc.css"  />
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.17.1/themes/prism.min.css"  />
+<!-- end:inject styles -->
+
+</head>
+<body class="is-loading">
+
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+    <!-- Main -->
+    <div id="main">
+        <div class="inner">
+
+            <!-- Header -->
+            
+                <header id="header">
+    <a href="https://bot.docs.kotlindiscord.com" class="logo">Kotlin Discord: Bot</a>
+    <ul class="icons">
+    
+    
+        <li>
+            <a href="https://github.com/Kotlin-Discord/bot" class="icon fa-github">
+                <span class="label">github</span>
+            </a>
+        </li>
+    
+    
+    </ul>
+</header>
+            
+            
+            
+            
+                <section id="pageContent">
+                    <header class="major"><h2>Filter</h2></header>
+                    <article>
+                        
+    <!-- start:inject components -->
+    
+        
+            
+                
+                    
+                        <div class="sourcedoc-page orchid-sourcedoc content">
+  
+<div class="sourcedoc-section section-root section-level-1" id="Filter">
+
+
+  <h1 class="sourcedoc-section section-name">Filter</h1>
+  
+    <div class="sourcedoc-section section-element" id="b6854481f858b65517de3a968e7093a0068bdb73">
+      
+      <p class="sourcedoc-section section-signature">
+        <code>abstract class <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/filtering/filter">Filter</a></code>
+      </p>
+      <div class="sourcedoc-section section-comments"><p>Class representing a single type of message filter.<p>Subclasses are expected to implement exactly one type of message filter, and they must implement
+the checkCreate function. This function should check whether a message is problematic, action it
+appropriately, and return <code>false</code> if processing should stop here, or <code>true</code> if other filters
+should be checked.</p><p>If your filter doesn't delete or otherwise action the message (that is to say, it's only for alerting),
+then it may be best to return <code>true</code> so the rest of the filters can be executed. Whether this is
+truly the case will depend on what exactly your filter is doing, though.</p></p>
+</div>
+
+      
+      
+        
+          
+<div class="sourcedoc-section section-root section-level-2" id="fields">
+
+
+  <p class="sourcedoc-section section-name"><strong>Fields</strong></p>
+
+  <div class="table-container">
+    <table class="table is-fullwidth is-bordered">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+      </thead>
+      <tbody>
+      
+      <tr class="sourcedoc-section section-element" id="8b619afce61eb1dc9715091c6a6d013360086618">
+        <td class="sourcedoc-section section-signature">
+          <code>val mistakeMessage: String</code>
+        </td>
+        <td class="sourcedoc-section section-comments content">
+        <p>Message appended to notification reasons sent to users.</p>
+
+        </td>
+      </tr>
+      
+      <tr class="sourcedoc-section section-element" id="d153761d4dd2b868b5898b16c3aadab5202f4bff">
+        <td class="sourcedoc-section section-signature">
+          <code>abstract concerns: Array&lt;<a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/filtering/filterconcerns">FilterConcerns</a>&gt;</code>
+        </td>
+        <td class="sourcedoc-section section-comments content">
+        <p>An array of <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/filtering/filterconcerns">FilterConcerns</a> - filters won't be executed if their concerns aren't met.<p>This means that we don't waste time executing filters when the data they filter against isn't present.</p></p>
+
+        </td>
+      </tr>
+      
+      <tr class="sourcedoc-section section-element" id="66546ea0e5a4a0278ea109425a6596ff55e830af">
+        <td class="sourcedoc-section section-signature">
+          <code>val bot: ExtensibleBot</code>
+        </td>
+        <td class="sourcedoc-section section-comments content">
+        <p>Current bot instance</p>
+
+        </td>
+      </tr>
+      
+      </tbody>
+    </table>
+  </div>
+
+
+</div>
+
+        
+          
+<div class="sourcedoc-section section-root section-level-2" id="constructors">
+
+
+  <h2 class="sourcedoc-section section-name">Constructors</h2>
+  
+    <div class="sourcedoc-section section-element" id="8cc5d1ce00790d3c545c8cbd84a8a037ea89d7da">
+      
+      <h3 class="sourcedoc-section element-name">&lt;init&gt;</h3>
+      
+      <p class="sourcedoc-section section-signature">
+        <code>constructor(bot: ExtensibleBot)</code>
+      </p>
+      <div class="sourcedoc-section section-comments"><p>Class representing a single type of message filter.<p>Subclasses are expected to implement exactly one type of message filter, and they must implement
+the checkCreate function. This function should check whether a message is problematic, action it
+appropriately, and return <code>false</code> if processing should stop here, or <code>true</code> if other filters
+should be checked.</p><p>If your filter doesn't delete or otherwise action the message (that is to say, it's only for alerting),
+then it may be best to return <code>true</code> so the rest of the filters can be executed. Whether this is
+truly the case will depend on what exactly your filter is doing, though.</p></p>
+</div>
+
+      
+      
+        
+          
+<div class="sourcedoc-section section-root section-level-3" id="f7e844368a8e9b51db805d998148a1b593c1a306">
+
+
+  <p class="sourcedoc-section section-name"><strong>Parameters</strong></p>
+
+  <div class="table-container">
+    <table class="table is-fullwidth is-bordered">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+      </thead>
+      <tbody>
+      
+      <tr class="sourcedoc-section section-element" id="96a3939815950b0ea972d5b91ef0b935d5edfbe3">
+        <td class="sourcedoc-section section-signature">
+          <code>bot: ExtensibleBot</code>
+        </td>
+        <td class="sourcedoc-section section-comments content">
+        <p>Current bot instance</p>
+
+        </td>
+      </tr>
+      
+      </tbody>
+    </table>
+  </div>
+
+
+</div>
+
+        
+      
+    </div>
+  
+
+</div>
+
+        
+          
+<div class="sourcedoc-section section-root section-level-2" id="methods">
+
+
+  <h2 class="sourcedoc-section section-name">Methods</h2>
+  
+    <div class="sourcedoc-section section-element" id="6cf1413e26e55cb00bd4d5134ef63ed0e0d954a5">
+      
+      <h3 class="sourcedoc-section element-name">checkCreate</h3>
+      
+      <p class="sourcedoc-section section-signature">
+        <code>abstract suspend fun checkCreate(event: MessageCreateEvent, content: String): Boolean</code>
+      </p>
+      <div class="sourcedoc-section section-comments"><p>Check whether a message should be actioned, action it, and return a value based on
+whether we should continue processing filters.<p>This function is only executed on message creation.</p></p>
+</div>
+
+      
+      
+        
+          
+<div class="sourcedoc-section section-root section-level-3" id="1c9f6750934ef9b1fe6c0f50b348a0b15f63b8ca">
+
+
+  <p class="sourcedoc-section section-name"><strong>Parameters</strong></p>
+
+  <div class="table-container">
+    <table class="table is-fullwidth is-bordered">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+      </thead>
+      <tbody>
+      
+      <tr class="sourcedoc-section section-element" id="ffc06066bebc5c89323b24981613deca4142f2e5">
+        <td class="sourcedoc-section section-signature">
+          <code>event: MessageCreateEvent</code>
+        </td>
+        <td class="sourcedoc-section section-comments content">
+        <p>The event containing the message to be checked against</p>
+
+        </td>
+      </tr>
+      
+      <tr class="sourcedoc-section section-element" id="cdad72a65bad8c6eb919a0e52d6ef45300706bf8">
+        <td class="sourcedoc-section section-signature">
+          <code>content: String</code>
+        </td>
+        <td class="sourcedoc-section section-comments content">
+        <p>Sanitized message content (eg, with spoilers removed)</p>
+
+        </td>
+      </tr>
+      
+      </tbody>
+    </table>
+  </div>
+
+
+</div>
+
+        
+          
+<div class="sourcedoc-section section-root section-level-3" id="41f8b17d353eaefd745b5866bfdee56c283cc560">
+
+
+  <p class="sourcedoc-section section-name"><strong>ReturnValue</strong></p>
+
+  <div class="table-container">
+    <table class="table is-fullwidth is-bordered">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+      </thead>
+      <tbody>
+      
+      <tr class="sourcedoc-section section-element" id="b76ff4906f33c2dd97ddd929b9662ba8cac6174c">
+        <td class="sourcedoc-section section-signature">
+          <code>Boolean</code>
+        </td>
+        <td class="sourcedoc-section section-comments content">
+        <p>false if processing should stop here, <code>true</code> if other filters should be checked</p>
+
+        </td>
+      </tr>
+      
+      </tbody>
+    </table>
+  </div>
+
+
+</div>
+
+        
+      
+    </div>
+  
+    <div class="sourcedoc-section section-element" id="4ad06ab39c1fa303ee458fc244ed63da6e525433">
+      
+      <h3 class="sourcedoc-section element-name">checkEdit</h3>
+      
+      <p class="sourcedoc-section section-signature">
+        <code>abstract suspend fun checkEdit(event: MessageUpdateEvent, content: String): Boolean</code>
+      </p>
+      <div class="sourcedoc-section section-comments"><p>Check whether a message should be actioned, action it, and return a value based on
+whether we should continue processing filters.<p>This function is only executed on message edits.</p></p>
+</div>
+
+      
+      
+        
+          
+<div class="sourcedoc-section section-root section-level-3" id="42a289d30da1b46fcf382edd6357bf534a5a56ec">
+
+
+  <p class="sourcedoc-section section-name"><strong>Parameters</strong></p>
+
+  <div class="table-container">
+    <table class="table is-fullwidth is-bordered">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+      </thead>
+      <tbody>
+      
+      <tr class="sourcedoc-section section-element" id="ea5ed629c211e4ca33481818cbd76a8a5f2953e2">
+        <td class="sourcedoc-section section-signature">
+          <code>event: MessageUpdateEvent</code>
+        </td>
+        <td class="sourcedoc-section section-comments content">
+        <p>The event containing the message to be checked against</p>
+
+        </td>
+      </tr>
+      
+      <tr class="sourcedoc-section section-element" id="cdad72a65bad8c6eb919a0e52d6ef45300706bf8">
+        <td class="sourcedoc-section section-signature">
+          <code>content: String</code>
+        </td>
+        <td class="sourcedoc-section section-comments content">
+        <p>Sanitized message content (eg, with spoilers removed)</p>
+
+        </td>
+      </tr>
+      
+      </tbody>
+    </table>
+  </div>
+
+
+</div>
+
+        
+          
+<div class="sourcedoc-section section-root section-level-3" id="6b234e0e701427d48a420c76d7c25129b85b765b">
+
+
+  <p class="sourcedoc-section section-name"><strong>ReturnValue</strong></p>
+
+  <div class="table-container">
+    <table class="table is-fullwidth is-bordered">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+      </thead>
+      <tbody>
+      
+      <tr class="sourcedoc-section section-element" id="b76ff4906f33c2dd97ddd929b9662ba8cac6174c">
+        <td class="sourcedoc-section section-signature">
+          <code>Boolean</code>
+        </td>
+        <td class="sourcedoc-section section-comments content">
+        <p>false if processing should stop here, <code>true</code> if other filters should be checked</p>
+
+        </td>
+      </tr>
+      
+      </tbody>
+    </table>
+  </div>
+
+
+</div>
+
+        
+      
+    </div>
+  
+    <div class="sourcedoc-section section-element" id="8fa1cfffc0f5b75aad5840c841c86072b71e612f">
+      
+      <h3 class="sourcedoc-section element-name">sendAlert</h3>
+      
+      <p class="sourcedoc-section section-signature">
+        <code>suspend fun sendAlert(mention: Boolean, builder: suspend MessageCreateBuilder.()-&gt;Unit): Message</code>
+      </p>
+      <div class="sourcedoc-section section-comments"><p>Send an alert to the alerts channel.<p>This function works just like the <a href="#">TextChannel.createMessage</a> function.</p></p>
+</div>
+
+      
+      
+        
+          
+<div class="sourcedoc-section section-root section-level-3" id="c0800f8389ab54901ef3f426e0032203bfa46140">
+
+
+  <p class="sourcedoc-section section-name"><strong>Parameters</strong></p>
+
+  <div class="table-container">
+    <table class="table is-fullwidth is-bordered">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+      </thead>
+      <tbody>
+      
+      <tr class="sourcedoc-section section-element" id="3416b2226c5e2dfa5bf85c0b9df531b1b7320cc0">
+        <td class="sourcedoc-section section-signature">
+          <code>mention: Boolean</code>
+        </td>
+        <td class="sourcedoc-section section-comments content">
+        
+        </td>
+      </tr>
+      
+      <tr class="sourcedoc-section section-element" id="8192ebffe00b0bb5c6bfc141cd797727089c4cd5">
+        <td class="sourcedoc-section section-signature">
+          <code>builder: suspend MessageCreateBuilder.()-&gt;Unit</code>
+        </td>
+        <td class="sourcedoc-section section-comments content">
+        
+        </td>
+      </tr>
+      
+      </tbody>
+    </table>
+  </div>
+
+
+</div>
+
+        
+          
+<div class="sourcedoc-section section-root section-level-3" id="de5aa29ade1ef92c4743b71bf349f1a574e9a236">
+
+
+  <p class="sourcedoc-section section-name"><strong>ReturnValue</strong></p>
+
+  <div class="table-container">
+    <table class="table is-fullwidth is-bordered">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+      </thead>
+      <tbody>
+      
+      <tr class="sourcedoc-section section-element" id="68f4145fee7dde76afceb910165924ad14cf0d00">
+        <td class="sourcedoc-section section-signature">
+          <code>Message</code>
+        </td>
+        <td class="sourcedoc-section section-comments content">
+        
+        </td>
+      </tr>
+      
+      </tbody>
+    </table>
+  </div>
+
+
+</div>
+
+        
+      
+    </div>
+  
+    <div class="sourcedoc-section section-element" id="fcc7a0437cfc5872043f2966c9a304ea4d379f23">
+      
+      <h3 class="sourcedoc-section element-name">sendNotification</h3>
+      
+      <p class="sourcedoc-section section-signature">
+        <code>suspend fun sendNotification(eventMessage: Message, reason: String): Message</code>
+      </p>
+      <div class="sourcedoc-section section-comments"><p>Send a notification to a user - attempting to DM first, and then using a channel.</p>
+</div>
+
+      
+      
+        
+          
+<div class="sourcedoc-section section-root section-level-3" id="8ac6c5d27b3ed403fa634ed3b6e4432565944ba6">
+
+
+  <p class="sourcedoc-section section-name"><strong>Parameters</strong></p>
+
+  <div class="table-container">
+    <table class="table is-fullwidth is-bordered">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+      </thead>
+      <tbody>
+      
+      <tr class="sourcedoc-section section-element" id="136f459cb1d2eb009b3ed318598fcd2e46d94913">
+        <td class="sourcedoc-section section-signature">
+          <code>eventMessage: Message</code>
+        </td>
+        <td class="sourcedoc-section section-comments content">
+        <p>Message object from the event corresponding with this filtering attempt</p>
+
+        </td>
+      </tr>
+      
+      <tr class="sourcedoc-section section-element" id="f1aab90f24b94dbde4a95b396ae57f84bb2c1a96">
+        <td class="sourcedoc-section section-signature">
+          <code>reason: String</code>
+        </td>
+        <td class="sourcedoc-section section-comments content">
+        <p>Human-readable reason to send to the user</p>
+
+        </td>
+      </tr>
+      
+      </tbody>
+    </table>
+  </div>
+
+
+</div>
+
+        
+          
+<div class="sourcedoc-section section-root section-level-3" id="ee14718852fa73685c1aad897e638137df664d97">
+
+
+  <p class="sourcedoc-section section-name"><strong>ReturnValue</strong></p>
+
+  <div class="table-container">
+    <table class="table is-fullwidth is-bordered">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+      </thead>
+      <tbody>
+      
+      <tr class="sourcedoc-section section-element" id="68f4145fee7dde76afceb910165924ad14cf0d00">
+        <td class="sourcedoc-section section-signature">
+          <code>Message</code>
+        </td>
+        <td class="sourcedoc-section section-comments content">
+        
+        </td>
+      </tr>
+      
+      </tbody>
+    </table>
+  </div>
+
+
+</div>
+
+        
+      
+    </div>
+  
+
+</div>
+
+        
+      
+    </div>
+  
+
+</div>
+
+</div>
+
+
+
+
+
+
+                    
+                
+            
+        
+    
+    <!-- end:inject components -->
+
+
+                    </article>
+                </section>
+            
+        </div>
+        <hr>
+
+        <!-- Page Footer -->
+        <div class="inner">
+    <footer id="footer">
+        <div class="clearfix">
+            
+            
+        </div>
+    </footer>
+</div>
+
+    </div>
+
+    <!-- Sidebar -->
+    <div id="sidebar">
+    <div class="inner">
+
+        <!-- Search -->
+        <section id="search" class="alt">
+            <form data-orchid-search="">
+                <input type="text" name="query" id="query" placeholder="Search"/>
+            </form>
+            <div class="box" id="search-results" data-orchid-search-results style="display: none;">
+                <b>Search Results</b>
+                <ul></ul>
+            </div>
+            <div class="box" id="search-progress" data-orchid-search-progress style="display: none;">
+                <div class="loader">Loading...</div>
+            </div>
+        </section>
+
+        <!-- Menu -->
+        <nav id="siteNav" class="menu">
+            <header class="major">
+                <h2>Kotlin Discord: Bot</h2>
+            </header>
+            <ul class="top-level">
+                
+                    
+    
+    <li>
+        <a class="subheader">API Docs</a>
+    </li>
+    
+
+                
+                    
+    <li>
+        <span class="opener">Classes</span>
+        <ul>
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/filtering/attachmentfilter">AttachmentFilter</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/config/spec/botspec">BotSpec</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/config/buildinfo">BuildInfo</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/enums/channels">Channels</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/config/spec/channelsspec">ChannelsSpec</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/extensions/cleanextension">CleanExtension</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/constants/colors">Colors</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/filtering/embedfilter">EmbedFilter</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/filtering/filter">Filter</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/filtering/filterconcerns">FilterConcerns</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/extensions/filterextension">FilterExtension</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/filtering/invitefilter">InviteFilter</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/config/kdconfig">KDConfig</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/kdexception">KDException</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/extensions/loggingextension">LoggingExtension</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/missingchannelexception">MissingChannelException</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/missingguildexception">MissingGuildException</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/missingobjectexception">MissingObjectException</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/missingroleexception">MissingRoleException</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/filtering/regexfilter">RegexFilter</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/enums/roles">Roles</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/config/spec/rolesspec">RolesSpec</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/extensions/subscriptionextension">SubscriptionExtension</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/extensions/syncextension">SyncExtension</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/extensions/testextension">TestExtension</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/filtering/urlfilter">UrlFilter</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/extensions/verificationextension">VerificationExtension</a>
+    </li>
+    
+
+        
+        </ul>
+    </li>
+
+                
+                    
+    <li>
+        <span class="opener">Packages</span>
+        <ul>
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot">com.kotlindiscord.bot</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/config">com.kotlindiscord.bot.config</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/config/spec">com.kotlindiscord.bot.config.spec</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/constants">com.kotlindiscord.bot.constants</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/enums">com.kotlindiscord.bot.enums</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/extensions">com.kotlindiscord.bot.extensions</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/filtering">com.kotlindiscord.bot.filtering</a>
+    </li>
+    
+
+        
+        </ul>
+    </li>
+
+                
+            </ul>
+        </nav>
+        
+        <nav class="menu">
+            <header class="major">
+                <h2>Filter</h2>
+            </header>
+            <ul class="top-level">
+                
+                    
+    <li>
+        <span class="opener">Fields</span>
+        <ul>
+        
+            
+    
+    <li>
+        <a href="#8b619afce61eb1dc9715091c6a6d013360086618">val mistakeMessage: String</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="#d153761d4dd2b868b5898b16c3aadab5202f4bff">abstract concerns: Array&lt;FilterConcerns&gt;</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="#66546ea0e5a4a0278ea109425a6596ff55e830af">val bot: ExtensibleBot</a>
+    </li>
+    
+
+        
+        </ul>
+    </li>
+
+                
+                    
+    <li>
+        <span class="opener">Constructors</span>
+        <ul>
+        
+            
+    
+    <li>
+        <a href="#8cc5d1ce00790d3c545c8cbd84a8a037ea89d7da">constructor(bot: ExtensibleBot)</a>
+    </li>
+    
+
+        
+        </ul>
+    </li>
+
+                
+                    
+    <li>
+        <span class="opener">Methods</span>
+        <ul>
+        
+            
+    
+    <li>
+        <a href="#6cf1413e26e55cb00bd4d5134ef63ed0e0d954a5">abstract suspend fun checkCreate(event: MessageCreateEvent, content: String): Boolean</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="#4ad06ab39c1fa303ee458fc244ed63da6e525433">abstract suspend fun checkEdit(event: MessageUpdateEvent, content: String): Boolean</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="#8fa1cfffc0f5b75aad5840c841c86072b71e612f">suspend fun sendAlert(mention: Boolean, builder: suspend MessageCreateBuilder.()-&gt;Unit): Message</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="#fcc7a0437cfc5872043f2966c9a304ea4d379f23">suspend fun sendNotification(eventMessage: Message, reason: String): Message</a>
+    </li>
+    
+
+        
+        </ul>
+    </li>
+
+                
+            </ul>
+        </nav>
+        
+
+        <!-- Section -->
+        <section>
+            <p class="text-center">
+                Currently 1.0-SNAPSHOT. Created with <a href="https://orchid.run">Orchid </a> and <b>Orchid Editorial Theme</b>.
+            </p>
+        </section>
+
+        <!-- Footer -->
+        <footer id="footer">
+            <p class="copyright text-center">&copy; Kotlin Discord. All rights reserved.<br>Design by <a href="https://html5up.net">HTML5 UP</a></p>
+        </footer>
+
+    </div>
+</div>
+
+</div>
+
+<!-- start:inject scripts -->
+<script  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script  src="https://cdnjs.cloudflare.com/ajax/libs/skel/3.0.1/skel.min.js"></script>
+<script  src="https://bot.docs.kotlindiscord.com/Editorial/86a5943b/assets/js/editorial_util.js"></script>
+<script  src="https://bot.docs.kotlindiscord.com/Editorial/86a5943b/assets/js/editorial_main.js"></script>
+<script  src="https://bot.docs.kotlindiscord.com/Editorial/86a5943b/assets/js/editorial_orchidCustomizations.js"></script>
+<script  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script  src="https://unpkg.com/lunr/lunr.js"></script>
+<script  src="https://bot.docs.kotlindiscord.com/assets/js/orchidSearch.js"></script>
+<script  src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.17.1/prism.min.js"></script>
+<script  src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.17.1/components/prism-kotlin.min.js"></script>
+<script  src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.17.1/components/prism-toml.min.js"></script>
+<script  src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.17.1/components/prism-yaml.min.js"></script>
+<!-- end:inject scripts -->
+
+</body>
+</html>

@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd"
+    xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+        <loc>https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot</loc>
+        <lastmod>2020-09-19</lastmod>
+        <priority>0.0</priority>
+        
+    </url>
+    <url>
+        <loc>https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot</loc>
+        <lastmod>2020-09-19</lastmod>
+        <priority>0.0</priority>
+        
+    </url>
+    <url>
+        <loc>https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/filtering</loc>
+        <lastmod>2020-09-19</lastmod>
+        <priority>0.0</priority>
+        
+    </url>
+    <url>
+        <loc>https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/filtering/regexfilter</loc>
+        <lastmod>2020-09-19</lastmod>
+        <priority>0.0</priority>
+        
+    </url>
+    <url>
+        <loc>https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/filtering/filterconcerns</loc>
+        <lastmod>2020-09-19</lastmod>
+        <priority>0.0</priority>
+        
+    </url>
+    <url>
+        <loc>https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/filtering/urlfilter</loc>
+        <lastmod>2020-09-19</lastmod>
+        <priority>0.0</priority>
+        
+    </url>
+    <url>
+        <loc>https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/filtering/invitefilter</loc>
+        <lastmod>2020-09-19</lastmod>
+        <priority>0.0</priority>
+        
+    </url>
+    <url>
+        <loc>https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/filtering/filter</loc>
+        <lastmod>2020-09-19</lastmod>
+        <priority>0.0</priority>
+        
+    </url>
+    <url>
+        <loc>https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/filtering/attachmentfilter</loc>
+        <lastmod>2020-09-19</lastmod>
+        <priority>0.0</priority>
+        
+    </url>
+    <url>
+        <loc>https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/filtering/embedfilter</loc>
+        <lastmod>2020-09-19</lastmod>
+        <priority>0.0</priority>
+        
+    </url>
+    <url>
+        <loc>https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/constants</loc>
+        <lastmod>2020-09-19</lastmod>
+        <priority>0.0</priority>
+        
+    </url>
+    <url>
+        <loc>https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/constants/colors</loc>
+        <lastmod>2020-09-19</lastmod>
+        <priority>0.0</priority>
+        
+    </url>
+    <url>
+        <loc>https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/config</loc>
+        <lastmod>2020-09-19</lastmod>
+        <priority>0.0</priority>
+        
+    </url>
+    <url>
+        <loc>https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/config/spec</loc>
+        <lastmod>2020-09-19</lastmod>
+        <priority>0.0</priority>
+        
+    </url>
+    <url>
+        <loc>https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/config/spec/rolesspec</loc>
+        <lastmod>2020-09-19</lastmod>
+        <priority>0.0</priority>
+        
+    </url>
+    <url>
+        <loc>https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/config/spec/channelsspec</loc>
+        <lastmod>2020-09-19</lastmod>
+        <priority>0.0</priority>
+        
+    </url>
+    <url>
+        <loc>https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/config/spec/botspec</loc>
+        <lastmod>2020-09-19</lastmod>
+        <priority>0.0</priority>
+        
+    </url>
+    <url>
+        <loc>https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/config/kdconfig</loc>
+        <lastmod>2020-09-19</lastmod>
+        <priority>0.0</priority>
+        
+    </url>
+    <url>
+        <loc>https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/config/buildinfo</loc>
+        <lastmod>2020-09-19</lastmod>
+        <priority>0.0</priority>
+        
+    </url>
+    <url>
+        <loc>https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/extensions</loc>
+        <lastmod>2020-09-19</lastmod>
+        <priority>0.0</priority>
+        
+    </url>
+    <url>
+        <loc>https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/extensions/testextension</loc>
+        <lastmod>2020-09-19</lastmod>
+        <priority>0.0</priority>
+        
+    </url>
+    <url>
+        <loc>https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/extensions/filterextension</loc>
+        <lastmod>2020-09-19</lastmod>
+        <priority>0.0</priority>
+        
+    </url>
+    <url>
+        <loc>https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/extensions/syncextension</loc>
+        <lastmod>2020-09-19</lastmod>
+        <priority>0.0</priority>
+        
+    </url>
+    <url>
+        <loc>https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/extensions/subscriptionextension</loc>
+        <lastmod>2020-09-19</lastmod>
+        <priority>0.0</priority>
+        
+    </url>
+    <url>
+        <loc>https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/extensions/verificationextension</loc>
+        <lastmod>2020-09-19</lastmod>
+        <priority>0.0</priority>
+        
+    </url>
+    <url>
+        <loc>https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/extensions/loggingextension</loc>
+        <lastmod>2020-09-19</lastmod>
+        <priority>0.0</priority>
+        
+    </url>
+    <url>
+        <loc>https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/extensions/cleanextension</loc>
+        <lastmod>2020-09-19</lastmod>
+        <priority>0.0</priority>
+        
+    </url>
+    <url>
+        <loc>https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/enums</loc>
+        <lastmod>2020-09-19</lastmod>
+        <priority>0.0</priority>
+        
+    </url>
+    <url>
+        <loc>https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/enums/roles</loc>
+        <lastmod>2020-09-19</lastmod>
+        <priority>0.0</priority>
+        
+    </url>
+    <url>
+        <loc>https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/enums/channels</loc>
+        <lastmod>2020-09-19</lastmod>
+        <priority>0.0</priority>
+        
+    </url>
+    <url>
+        <loc>https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/missingchannelexception</loc>
+        <lastmod>2020-09-19</lastmod>
+        <priority>0.0</priority>
+        
+    </url>
+    <url>
+        <loc>https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/missingroleexception</loc>
+        <lastmod>2020-09-19</lastmod>
+        <priority>0.0</priority>
+        
+    </url>
+    <url>
+        <loc>https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/kdexception</loc>
+        <lastmod>2020-09-19</lastmod>
+        <priority>0.0</priority>
+        
+    </url>
+    <url>
+        <loc>https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/missingguildexception</loc>
+        <lastmod>2020-09-19</lastmod>
+        <priority>0.0</priority>
+        
+    </url>
+    <url>
+        <loc>https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/missingobjectexception</loc>
+        <lastmod>2020-09-19</lastmod>
+        <priority>0.0</priority>
+        
+    </url>
+    
+</urlset>

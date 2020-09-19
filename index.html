@@ -1,0 +1,561 @@
+<!DOCTYPE HTML>
+<!--
+    Editorial by HTML5 UP
+    html5up.net | @ajlkn
+    Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+<head>
+
+
+
+
+<meta charset="utf-8"/>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+<meta name="generator" content="Orchid 0.20.0-SNAPSHOT"/>
+<link rel="icon" href="https://bot.docs.kotlindiscord.com/favicon.ico">
+
+
+<meta name="robots" content="index, follow">
+
+
+
+<title>Home</title>
+
+
+<meta name="description" content="Kotlin Discord&#39;s in-house management bot">
+
+
+
+
+
+<script>
+    window.site = {"orchidVersion":"0.20.0-SNAPSHOT","baseUrl":"https://bot.docs.kotlindiscord.com","environment":"debug","version":"1.0-SNAPSHOT"};
+</script>
+
+
+
+
+
+<!-- start:debug info -->
+
+<!-- THEME -->
+<!-- Type: Editorial -->
+<!-- Class: com.eden.orchid.editorial.EditorialTheme -->
+
+<!-- PAGE -->
+<!-- Type: frontPage -->
+<!-- Class: com.eden.orchid.impl.generators.HomepageGenerator$Homepage -->
+<!-- Layout: index -->
+<!-- Resolved Layout: templates/layouts/index.peb -->
+<!-- Page Template: frontPage, page -->
+<!-- Resolved Page Template: templates/pages/page.peb -->
+
+<!-- RESOURCE -->
+<!-- Class: com.eden.orchid.api.resources.resource.FileResource -->
+<!-- Source Filename: homepage.md -->
+
+<!-- COMPLETE PAGE CONFIGURATION -->
+<script>
+    window.allData = {"reference":{"path":"","baseUrl":"https://bot.docs.kotlindiscord.com","fileName":"","extension":"html","usePrettyUrl":true,"link":"https://bot.docs.kotlindiscord.com"},"description":"","title":"Home"};
+</script>
+
+<!-- end:debug info -->
+
+
+
+
+    <!-- start:inject meta-components -->
+    
+        
+            
+        
+    
+    <!-- end:inject meta-components -->
+
+
+
+    <!-- start:inject meta-components -->
+    
+        
+            
+        
+    
+    <!-- end:inject meta-components -->
+
+
+
+
+
+<!-- start:inject styles -->
+<link rel="stylesheet" type="text/css" href="https://bot.docs.kotlindiscord.com/Editorial/86a5943b/assets/css/editorial_main.css"  />
+<link rel="stylesheet" type="text/css" href="https://bot.docs.kotlindiscord.com/Editorial/86a5943b/assets/css/editorial_orchidCustomizations.css"  />
+<link rel="stylesheet" type="text/css" href="https://bot.docs.kotlindiscord.com/Editorial/86a5943b/assets/css/orchidSearch.css"  />
+<link rel="stylesheet" type="text/css" href="https://bot.docs.kotlindiscord.com/assets/css/orchidSearch.css"  />
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.17.1/themes/prism.min.css"  />
+<!-- end:inject styles -->
+
+</head>
+<body class="is-loading">
+
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+    <!-- Main -->
+    <div id="main">
+        <div class="inner">
+
+            <!-- Header -->
+            
+                <header id="header">
+    <a href="https://bot.docs.kotlindiscord.com" class="logo">Kotlin Discord: Bot</a>
+    <ul class="icons">
+    
+    
+        <li>
+            <a href="https://github.com/Kotlin-Discord/bot" class="icon fa-github">
+                <span class="label">github</span>
+            </a>
+        </li>
+    
+    
+    </ul>
+</header>
+            
+            
+            
+            
+                <section id="pageContent">
+                    <header class="major"><h2>Home</h2></header>
+                    <article>
+                        
+    <!-- start:inject components -->
+    
+        
+            
+                
+                    
+                        
+                    
+                
+            
+        
+            
+                
+                    
+                        <div class="component component-readme component-order-0">
+                            <h1 id="kotdis-bot"><a href="#kotdis-bot" id="kotdis-bot" class="anchor"></a>KotDis Bot</h1>
+<p>This repository contains what will eventually be the primary bot used for
+managing the Kotlin Discord server.</p>
+<p>Right now, it's in a very early state.</p>
+<h1 id="running-with-docker"><a href="#running-with-docker" id="running-with-docker" class="anchor"></a>Running with Docker</h1>
+<p>In order to run the bot with Docker and <a href="https://docs.docker.com/compose/install/">Docker Compose</a>,
+you'll need to run a local copy of <a href="https://github.com/Kotlin-Discord/site">our website</a>.</p>
+<h2 id="getting-the-containers-ready"><a href="#getting-the-containers-ready" id="getting-the-containers-ready" class="anchor"></a>Getting the Containers Ready</h2>
+<p>In the site project root, you'll need to run</p>
+<pre><code>npm i
+./gradlew build
+</code></pre>
+<p>In the bot project root, you'll need to run</p>
+<pre><code>./gradlew build
+</code></pre>
+<p>You'll also need to create an <code>.env</code> file in the bot project root
+and set the <code>BOT_TOKEN</code> variable to your test bot token.</p>
+<pre><code class="language-dotenv">BOT_TOKEN=...
+</code></pre>
+<p>Additionally, the docker-compose file assumes that both the site and bot root folders
+have been placed within the same directory. You can override this by setting the
+<code>SITE_PROJECT_PATH</code> environment variable to the path to the site project folder.</p>
+<h2 id="running-the-bot-and-site"><a href="#running-the-bot-and-site" id="running-the-bot-and-site" class="anchor"></a>Running the Bot and Site</h2>
+<p>Simply run <code>docker-compose up</code> in the bot project root to launch both containers.</p>
+
+                        </div>
+                    
+                
+            
+        
+    
+    <!-- end:inject components -->
+
+
+                    </article>
+                </section>
+            
+        </div>
+        <hr>
+
+        <!-- Page Footer -->
+        <div class="inner">
+    <footer id="footer">
+        <div class="clearfix">
+            
+            
+        </div>
+    </footer>
+</div>
+
+    </div>
+
+    <!-- Sidebar -->
+    <div id="sidebar">
+    <div class="inner">
+
+        <!-- Search -->
+        <section id="search" class="alt">
+            <form data-orchid-search="">
+                <input type="text" name="query" id="query" placeholder="Search"/>
+            </form>
+            <div class="box" id="search-results" data-orchid-search-results style="display: none;">
+                <b>Search Results</b>
+                <ul></ul>
+            </div>
+            <div class="box" id="search-progress" data-orchid-search-progress style="display: none;">
+                <div class="loader">Loading...</div>
+            </div>
+        </section>
+
+        <!-- Menu -->
+        <nav id="siteNav" class="menu">
+            <header class="major">
+                <h2>Kotlin Discord: Bot</h2>
+            </header>
+            <ul class="top-level">
+                
+                    
+    
+    <li>
+        <a class="subheader">API Docs</a>
+    </li>
+    
+
+                
+                    
+    <li>
+        <span class="opener">Classes</span>
+        <ul>
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/filtering/attachmentfilter">AttachmentFilter</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/config/spec/botspec">BotSpec</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/config/buildinfo">BuildInfo</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/enums/channels">Channels</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/config/spec/channelsspec">ChannelsSpec</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/extensions/cleanextension">CleanExtension</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/constants/colors">Colors</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/filtering/embedfilter">EmbedFilter</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/filtering/filter">Filter</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/filtering/filterconcerns">FilterConcerns</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/extensions/filterextension">FilterExtension</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/filtering/invitefilter">InviteFilter</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/config/kdconfig">KDConfig</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/kdexception">KDException</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/extensions/loggingextension">LoggingExtension</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/missingchannelexception">MissingChannelException</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/missingguildexception">MissingGuildException</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/missingobjectexception">MissingObjectException</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/missingroleexception">MissingRoleException</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/filtering/regexfilter">RegexFilter</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/enums/roles">Roles</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/config/spec/rolesspec">RolesSpec</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/extensions/subscriptionextension">SubscriptionExtension</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/extensions/syncextension">SyncExtension</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/extensions/testextension">TestExtension</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/filtering/urlfilter">UrlFilter</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/extensions/verificationextension">VerificationExtension</a>
+    </li>
+    
+
+        
+        </ul>
+    </li>
+
+                
+                    
+    <li>
+        <span class="opener">Packages</span>
+        <ul>
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot">com.kotlindiscord.bot</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/config">com.kotlindiscord.bot.config</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/config/spec">com.kotlindiscord.bot.config.spec</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/constants">com.kotlindiscord.bot.constants</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/enums">com.kotlindiscord.bot.enums</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/extensions">com.kotlindiscord.bot.extensions</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/filtering">com.kotlindiscord.bot.filtering</a>
+    </li>
+    
+
+        
+        </ul>
+    </li>
+
+                
+            </ul>
+        </nav>
+        
+
+        <!-- Section -->
+        <section>
+            <p class="text-center">
+                Currently 1.0-SNAPSHOT. Created with <a href="https://orchid.run">Orchid </a> and <b>Orchid Editorial Theme</b>.
+            </p>
+        </section>
+
+        <!-- Footer -->
+        <footer id="footer">
+            <p class="copyright text-center">&copy; Kotlin Discord. All rights reserved.<br>Design by <a href="https://html5up.net">HTML5 UP</a></p>
+        </footer>
+
+    </div>
+</div>
+
+</div>
+
+<!-- start:inject scripts -->
+<script  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script  src="https://cdnjs.cloudflare.com/ajax/libs/skel/3.0.1/skel.min.js"></script>
+<script  src="https://bot.docs.kotlindiscord.com/Editorial/86a5943b/assets/js/editorial_util.js"></script>
+<script  src="https://bot.docs.kotlindiscord.com/Editorial/86a5943b/assets/js/editorial_main.js"></script>
+<script  src="https://bot.docs.kotlindiscord.com/Editorial/86a5943b/assets/js/editorial_orchidCustomizations.js"></script>
+<script  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script  src="https://unpkg.com/lunr/lunr.js"></script>
+<script  src="https://bot.docs.kotlindiscord.com/assets/js/orchidSearch.js"></script>
+<script  src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.17.1/prism.min.js"></script>
+<script  src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.17.1/components/prism-kotlin.min.js"></script>
+<script  src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.17.1/components/prism-toml.min.js"></script>
+<script  src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.17.1/components/prism-yaml.min.js"></script>
+<!-- end:inject scripts -->
+
+</body>
+</html>

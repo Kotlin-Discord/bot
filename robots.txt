@@ -1,0 +1,8 @@
+User-agent: *
+
+Disallow: /
+
+
+
+Sitemap: https://bot.docs.kotlindiscord.com/sitemap.xml
+

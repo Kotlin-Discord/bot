@@ -1,0 +1,1086 @@
+<!DOCTYPE HTML>
+<!--
+    Editorial by HTML5 UP
+    html5up.net | @ajlkn
+    Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+<head>
+
+
+
+
+<meta charset="utf-8"/>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+<meta name="generator" content="Orchid 0.20.0-SNAPSHOT"/>
+<link rel="icon" href="https://bot.docs.kotlindiscord.com/favicon.ico">
+
+
+<meta name="robots" content="index, follow">
+
+
+
+<title>KDConfig</title>
+
+
+<meta name="description" content="Kotlin Discord&#39;s in-house management bot">
+
+
+
+
+
+<script>
+    window.site = {"orchidVersion":"0.20.0-SNAPSHOT","baseUrl":"https://bot.docs.kotlindiscord.com","environment":"debug","version":"1.0-SNAPSHOT"};
+</script>
+
+
+
+
+
+<!-- start:debug info -->
+
+<!-- THEME -->
+<!-- Type: Editorial -->
+<!-- Class: com.eden.orchid.editorial.EditorialTheme -->
+
+<!-- PAGE -->
+<!-- Type: classes -->
+<!-- Class: com.eden.orchid.sourcedoc.page.SourceDocPage -->
+<!-- Layout: index -->
+<!-- Resolved Layout: templates/layouts/index.peb -->
+<!-- Page Template: kotlindocClass, sourceDocPage, classes, page -->
+<!-- Resolved Page Template: templates/pages/sourceDocPage.peb -->
+
+<!-- RESOURCE -->
+<!-- Class: com.eden.orchid.sourcedoc.page.SourceDocResource -->
+<!-- Source Filename:  -->
+
+<!-- COMPLETE PAGE CONFIGURATION -->
+<script>
+    window.allData = {"reference":{"path":"kotlindoc/bot/kdbot","baseUrl":"https://bot.docs.kotlindiscord.com","fileName":"com/kotlindiscord/bot/config/kdconfig","extension":"html","usePrettyUrl":true,"link":"https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/config/kdconfig"},"description":"","title":"KDConfig"};
+</script>
+
+<!-- end:debug info -->
+
+
+
+
+    <!-- start:inject meta-components -->
+    
+        
+            
+        
+    
+    <!-- end:inject meta-components -->
+
+
+
+    <!-- start:inject meta-components -->
+    
+        
+            
+        
+    
+    <!-- end:inject meta-components -->
+
+
+
+
+
+<!-- start:inject styles -->
+<link rel="stylesheet" type="text/css" href="https://bot.docs.kotlindiscord.com/Editorial/86a5943b/assets/css/editorial_main.css"  />
+<link rel="stylesheet" type="text/css" href="https://bot.docs.kotlindiscord.com/Editorial/86a5943b/assets/css/editorial_orchidCustomizations.css"  />
+<link rel="stylesheet" type="text/css" href="https://bot.docs.kotlindiscord.com/Editorial/86a5943b/assets/css/orchidSearch.css"  />
+<link rel="stylesheet" type="text/css" href="https://bot.docs.kotlindiscord.com/assets/css/orchidSearch.css"  />
+<link rel="stylesheet" type="text/css" href="https://bot.docs.kotlindiscord.com/assets/css/orchidSourceDoc.css"  />
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.17.1/themes/prism.min.css"  />
+<!-- end:inject styles -->
+
+</head>
+<body class="is-loading">
+
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+    <!-- Main -->
+    <div id="main">
+        <div class="inner">
+
+            <!-- Header -->
+            
+                <header id="header">
+    <a href="https://bot.docs.kotlindiscord.com" class="logo">Kotlin Discord: Bot</a>
+    <ul class="icons">
+    
+    
+        <li>
+            <a href="https://github.com/Kotlin-Discord/bot" class="icon fa-github">
+                <span class="label">github</span>
+            </a>
+        </li>
+    
+    
+    </ul>
+</header>
+            
+            
+            
+            
+                <section id="pageContent">
+                    <header class="major"><h2>KDConfig</h2></header>
+                    <article>
+                        
+    <!-- start:inject components -->
+    
+        
+            
+                
+                    
+                        <div class="sourcedoc-page orchid-sourcedoc content">
+  
+<div class="sourcedoc-section section-root section-level-1" id="KDConfig">
+
+
+  <h1 class="sourcedoc-section section-name">KDConfig</h1>
+  
+    <div class="sourcedoc-section section-element" id="8ae98d644086c913ee7fe39d88476181fabfe22a">
+      
+      <p class="sourcedoc-section section-signature">
+        <code>class <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/config/kdconfig">KDConfig</a></code>
+      </p>
+      <div class="sourcedoc-section section-comments"><p>Central object representing this bot's configuration, wrapping a Konf <a href="#">Config</a> object.<p>Config data is loaded from four locations, with values from earlier locations being
+overridden by values in later locations:</p><ul><li>The file <code>default.toml</code>, which is bundled with the bot as a resource.</li><li>The file <code>config.toml</code>, located in the current working directory. If you edit this file
+at runtime, then it will automatically be reloaded.</li><li>Environment variables defined at runtime.</li><li>System properties defined at runtime.</li></ul><p>The currently-loaded configuration is always available at the config property.</p></p>
+</div>
+
+      
+      
+        
+          
+<div class="sourcedoc-section section-root section-level-2" id="fields">
+
+
+  <p class="sourcedoc-section section-name"><strong>Fields</strong></p>
+
+  <div class="table-container">
+    <table class="table is-fullwidth is-bordered">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+      </thead>
+      <tbody>
+      
+      <tr class="sourcedoc-section section-element" id="b0b12fb2137389f299b9a8f3b4675c719afb775a">
+        <td class="sourcedoc-section section-signature">
+          <code>val api: /**
+     * API client for dealing with the site's API.
+     */</code>
+        </td>
+        <td class="sourcedoc-section section-comments content">
+        <p>API client for dealing with the site's API.</p>
+
+        </td>
+      </tr>
+      
+      <tr class="sourcedoc-section section-element" id="edf548a872dd5f3f2eef94e9ff9698ae1562e664">
+        <td class="sourcedoc-section section-signature">
+          <code>val token: String</code>
+        </td>
+        <td class="sourcedoc-section section-comments content">
+        <p>The bot's login token.</p>
+
+        </td>
+      </tr>
+      
+      <tr class="sourcedoc-section section-element" id="d9a8973ed786e117ab394337dcdf83412a7d94ed">
+        <td class="sourcedoc-section section-signature">
+          <code>val prefix: String</code>
+        </td>
+        <td class="sourcedoc-section section-comments content">
+        <p>The bot's command prefix.</p>
+
+        </td>
+      </tr>
+      
+      <tr class="sourcedoc-section section-element" id="4b494b3019ae39a1a060ac38f208c6a3a550fac9">
+        <td class="sourcedoc-section section-signature">
+          <code>val guildSnowflake: Snowflake</code>
+        </td>
+        <td class="sourcedoc-section section-comments content">
+        <p>The <a href="#">Snowflake</a> object representing the bot's configured primary guild.</p>
+
+        </td>
+      </tr>
+      
+      </tbody>
+    </table>
+  </div>
+
+
+</div>
+
+        
+          
+<div class="sourcedoc-section section-root section-level-2" id="constructors">
+
+
+  <p class="sourcedoc-section section-name"><strong>Constructors</strong></p>
+
+  <div class="table-container">
+    <table class="table is-fullwidth is-bordered">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+      </thead>
+      <tbody>
+      
+      <tr class="sourcedoc-section section-element" id="d4613aad3f43ed7d2b370aabe518d8516ff827ff">
+        <td class="sourcedoc-section section-signature">
+          <code>constructor()</code>
+        </td>
+        <td class="sourcedoc-section section-comments content">
+        <p>Central object representing this bot's configuration, wrapping a Konf <a href="#">Config</a> object.<p>Config data is loaded from four locations, with values from earlier locations being
+overridden by values in later locations:</p><ul><li>The file <code>default.toml</code>, which is bundled with the bot as a resource.</li><li>The file <code>config.toml</code>, located in the current working directory. If you edit this file
+at runtime, then it will automatically be reloaded.</li><li>Environment variables defined at runtime.</li><li>System properties defined at runtime.</li></ul><p>The currently-loaded configuration is always available at the config property.</p></p>
+
+        </td>
+      </tr>
+      
+      </tbody>
+    </table>
+  </div>
+
+
+</div>
+
+        
+          
+<div class="sourcedoc-section section-root section-level-2" id="methods">
+
+
+  <h2 class="sourcedoc-section section-name">Methods</h2>
+  
+    <div class="sourcedoc-section section-element" id="6ecbb71daff3f3174779d47866f89a9b3e8615c3">
+      
+      <h3 class="sourcedoc-section element-name">getChannel</h3>
+      
+      <p class="sourcedoc-section section-signature">
+        <code>suspend fun getChannel(channel: <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/enums/channels">Channels</a>): Channel</code>
+      </p>
+      <div class="sourcedoc-section section-comments"><p>Given a <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/enums/channels">Channels</a> enum value, attempt to retrieve the corresponding Discord <a href="#">Channel</a>
+object.</p>
+</div>
+
+      
+      
+        
+          
+<div class="sourcedoc-section section-root section-level-3" id="6f249c7eec89480fdcb1f2c4b459b0bd1a460817">
+
+
+  <p class="sourcedoc-section section-name"><strong>Parameters</strong></p>
+
+  <div class="table-container">
+    <table class="table is-fullwidth is-bordered">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+      </thead>
+      <tbody>
+      
+      <tr class="sourcedoc-section section-element" id="f75dafaa2837b02721629fe0663eaba8a4f53e3e">
+        <td class="sourcedoc-section section-signature">
+          <code>channel: <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/enums/channels">Channels</a></code>
+        </td>
+        <td class="sourcedoc-section section-comments content">
+        <p>The corresponding <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/enums/channels">Channels</a> enum value to retrieve the channel for.</p>
+
+        </td>
+      </tr>
+      
+      </tbody>
+    </table>
+  </div>
+
+
+</div>
+
+        
+          
+<div class="sourcedoc-section section-root section-level-3" id="02484374385126927dcfb3f39e0502b5dd7d9e6d">
+
+
+  <p class="sourcedoc-section section-name"><strong>ReturnValue</strong></p>
+
+  <div class="table-container">
+    <table class="table is-fullwidth is-bordered">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+      </thead>
+      <tbody>
+      
+      <tr class="sourcedoc-section section-element" id="879f0b1bef59eeebf78cfd3a22f6f8077810cecf">
+        <td class="sourcedoc-section section-signature">
+          <code>Channel</code>
+        </td>
+        <td class="sourcedoc-section section-comments content">
+        <p>The <a href="#">Channel</a> object represented by the given <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/enums/channels">Channels</a> enum value.</p>
+
+        </td>
+      </tr>
+      
+      </tbody>
+    </table>
+  </div>
+
+
+</div>
+
+        
+      
+    </div>
+  
+    <div class="sourcedoc-section section-element" id="6090aaf9565e86a1dbe10bba14fdc6a7aad498e3">
+      
+      <h3 class="sourcedoc-section element-name">getRoleSnowflake</h3>
+      
+      <p class="sourcedoc-section section-signature">
+        <code>fun getRoleSnowflake(role: <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/enums/roles">Roles</a>): Snowflake</code>
+      </p>
+      <div class="sourcedoc-section section-comments"><p>Given a <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/enums/roles">Roles</a> enum value, retrieve a <a href="#">Snowflake</a> corresponding with a configured role.</p>
+</div>
+
+      
+      
+        
+          
+<div class="sourcedoc-section section-root section-level-3" id="592a7786bd2aa0d4f1fcc3baa1e7ec012ef24fe1">
+
+
+  <p class="sourcedoc-section section-name"><strong>Parameters</strong></p>
+
+  <div class="table-container">
+    <table class="table is-fullwidth is-bordered">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+      </thead>
+      <tbody>
+      
+      <tr class="sourcedoc-section section-element" id="12182de09c33a57bf3a044b54de75f0ee11b8fe1">
+        <td class="sourcedoc-section section-signature">
+          <code>role: <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/enums/roles">Roles</a></code>
+        </td>
+        <td class="sourcedoc-section section-comments content">
+        <p>The corresponding <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/enums/roles">Roles</a> enum value to retrieve the <a href="#">Snowflake</a> for.</p>
+
+        </td>
+      </tr>
+      
+      </tbody>
+    </table>
+  </div>
+
+
+</div>
+
+        
+          
+<div class="sourcedoc-section section-root section-level-3" id="d3bc9fa663419bdc583aa87c57a292a43a6fd647">
+
+
+  <p class="sourcedoc-section section-name"><strong>ReturnValue</strong></p>
+
+  <div class="table-container">
+    <table class="table is-fullwidth is-bordered">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+      </thead>
+      <tbody>
+      
+      <tr class="sourcedoc-section section-element" id="fda76b0bcc1e87cf259b1d1e3271d76f590fb5dd">
+        <td class="sourcedoc-section section-signature">
+          <code>Snowflake</code>
+        </td>
+        <td class="sourcedoc-section section-comments content">
+        <p>The <a href="#">Snowflake</a> object represented by the given <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/enums/roles">Roles</a> enum value.</p>
+
+        </td>
+      </tr>
+      
+      </tbody>
+    </table>
+  </div>
+
+
+</div>
+
+        
+      
+    </div>
+  
+    <div class="sourcedoc-section section-element" id="26ab139d90ba0fe236bd16dc79485d0839bac0aa">
+      
+      <h3 class="sourcedoc-section element-name">getRole</h3>
+      
+      <p class="sourcedoc-section section-signature">
+        <code>suspend fun getRole(role: <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/enums/roles">Roles</a>): Role</code>
+      </p>
+      <div class="sourcedoc-section section-comments"><p>Given a <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/enums/roles">Roles</a> enum value, attempt to retrieve the corresponding Discord <a href="#">Role</a>
+object.</p>
+</div>
+
+      
+      
+        
+          
+<div class="sourcedoc-section section-root section-level-3" id="485bfffc84a48719f9c075c96d7de404a5171bb1">
+
+
+  <p class="sourcedoc-section section-name"><strong>Parameters</strong></p>
+
+  <div class="table-container">
+    <table class="table is-fullwidth is-bordered">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+      </thead>
+      <tbody>
+      
+      <tr class="sourcedoc-section section-element" id="12182de09c33a57bf3a044b54de75f0ee11b8fe1">
+        <td class="sourcedoc-section section-signature">
+          <code>role: <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/enums/roles">Roles</a></code>
+        </td>
+        <td class="sourcedoc-section section-comments content">
+        <p>The corresponding <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/enums/roles">Roles</a> enum value to retrieve the channel for.</p>
+
+        </td>
+      </tr>
+      
+      </tbody>
+    </table>
+  </div>
+
+
+</div>
+
+        
+          
+<div class="sourcedoc-section section-root section-level-3" id="4c4a6dd291949343e6af01c7792d4ab0a3e012bf">
+
+
+  <p class="sourcedoc-section section-name"><strong>ReturnValue</strong></p>
+
+  <div class="table-container">
+    <table class="table is-fullwidth is-bordered">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+      </thead>
+      <tbody>
+      
+      <tr class="sourcedoc-section section-element" id="c3f104d1365744b538bfde9f4adb6a6df4b80355">
+        <td class="sourcedoc-section section-signature">
+          <code>Role</code>
+        </td>
+        <td class="sourcedoc-section section-comments content">
+        <p>The <a href="#">Role</a> object represented by the given <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/enums/roles">Roles</a> enum value.</p>
+
+        </td>
+      </tr>
+      
+      </tbody>
+    </table>
+  </div>
+
+
+</div>
+
+        
+      
+    </div>
+  
+    <div class="sourcedoc-section section-element" id="2100e9be4b62193e019cd550aafc726f3a8e1596">
+      
+      <h3 class="sourcedoc-section element-name">getGuild</h3>
+      
+      <p class="sourcedoc-section section-signature">
+        <code>suspend fun getGuild(): Guild</code>
+      </p>
+      <div class="sourcedoc-section section-comments"><p>Attempt to retrieve the <a href="#">Guild</a> object for the configured primary guild.</p>
+</div>
+
+      
+      
+        
+          
+<div class="sourcedoc-section section-root section-level-3" id="e12170293d47f53c67710ff8e27b2ea8a506233d">
+
+
+  <p class="sourcedoc-section section-name"><strong>ReturnValue</strong></p>
+
+  <div class="table-container">
+    <table class="table is-fullwidth is-bordered">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+      </thead>
+      <tbody>
+      
+      <tr class="sourcedoc-section section-element" id="54241a3d0070c8752d375cbccca2ac4602a5abd2">
+        <td class="sourcedoc-section section-signature">
+          <code>Guild</code>
+        </td>
+        <td class="sourcedoc-section section-comments content">
+        <p>The <a href="#">Guild</a> object representing the configured primary guild.</p>
+
+        </td>
+      </tr>
+      
+      </tbody>
+    </table>
+  </div>
+
+
+</div>
+
+        
+      
+    </div>
+  
+
+</div>
+
+        
+      
+    </div>
+  
+
+</div>
+
+</div>
+
+
+
+
+
+
+                    
+                
+            
+        
+    
+    <!-- end:inject components -->
+
+
+                    </article>
+                </section>
+            
+        </div>
+        <hr>
+
+        <!-- Page Footer -->
+        <div class="inner">
+    <footer id="footer">
+        <div class="clearfix">
+            
+            
+        </div>
+    </footer>
+</div>
+
+    </div>
+
+    <!-- Sidebar -->
+    <div id="sidebar">
+    <div class="inner">
+
+        <!-- Search -->
+        <section id="search" class="alt">
+            <form data-orchid-search="">
+                <input type="text" name="query" id="query" placeholder="Search"/>
+            </form>
+            <div class="box" id="search-results" data-orchid-search-results style="display: none;">
+                <b>Search Results</b>
+                <ul></ul>
+            </div>
+            <div class="box" id="search-progress" data-orchid-search-progress style="display: none;">
+                <div class="loader">Loading...</div>
+            </div>
+        </section>
+
+        <!-- Menu -->
+        <nav id="siteNav" class="menu">
+            <header class="major">
+                <h2>Kotlin Discord: Bot</h2>
+            </header>
+            <ul class="top-level">
+                
+                    
+    
+    <li>
+        <a class="subheader">API Docs</a>
+    </li>
+    
+
+                
+                    
+    <li>
+        <span class="opener">Classes</span>
+        <ul>
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/filtering/attachmentfilter">AttachmentFilter</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/config/spec/botspec">BotSpec</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/config/buildinfo">BuildInfo</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/enums/channels">Channels</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/config/spec/channelsspec">ChannelsSpec</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/extensions/cleanextension">CleanExtension</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/constants/colors">Colors</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/filtering/embedfilter">EmbedFilter</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/filtering/filter">Filter</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/filtering/filterconcerns">FilterConcerns</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/extensions/filterextension">FilterExtension</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/filtering/invitefilter">InviteFilter</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/config/kdconfig">KDConfig</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/kdexception">KDException</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/extensions/loggingextension">LoggingExtension</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/missingchannelexception">MissingChannelException</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/missingguildexception">MissingGuildException</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/missingobjectexception">MissingObjectException</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/missingroleexception">MissingRoleException</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/filtering/regexfilter">RegexFilter</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/enums/roles">Roles</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/config/spec/rolesspec">RolesSpec</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/extensions/subscriptionextension">SubscriptionExtension</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/extensions/syncextension">SyncExtension</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/extensions/testextension">TestExtension</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/filtering/urlfilter">UrlFilter</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/extensions/verificationextension">VerificationExtension</a>
+    </li>
+    
+
+        
+        </ul>
+    </li>
+
+                
+                    
+    <li>
+        <span class="opener">Packages</span>
+        <ul>
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot">com.kotlindiscord.bot</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/config">com.kotlindiscord.bot.config</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/config/spec">com.kotlindiscord.bot.config.spec</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/constants">com.kotlindiscord.bot.constants</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/enums">com.kotlindiscord.bot.enums</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/extensions">com.kotlindiscord.bot.extensions</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/filtering">com.kotlindiscord.bot.filtering</a>
+    </li>
+    
+
+        
+        </ul>
+    </li>
+
+                
+            </ul>
+        </nav>
+        
+        <nav class="menu">
+            <header class="major">
+                <h2>KDConfig</h2>
+            </header>
+            <ul class="top-level">
+                
+                    
+    <li>
+        <span class="opener">Fields</span>
+        <ul>
+        
+            
+    
+    <li>
+        <a href="#b0b12fb2137389f299b9a8f3b4675c719afb775a">val api: /**
+     * API client for dealing with the site&#39;s API.
+     */</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="#edf548a872dd5f3f2eef94e9ff9698ae1562e664">val token: String</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="#d9a8973ed786e117ab394337dcdf83412a7d94ed">val prefix: String</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="#4b494b3019ae39a1a060ac38f208c6a3a550fac9">val guildSnowflake: Snowflake</a>
+    </li>
+    
+
+        
+        </ul>
+    </li>
+
+                
+                    
+    <li>
+        <span class="opener">Constructors</span>
+        <ul>
+        
+            
+    
+    <li>
+        <a href="#d4613aad3f43ed7d2b370aabe518d8516ff827ff">constructor()</a>
+    </li>
+    
+
+        
+        </ul>
+    </li>
+
+                
+                    
+    <li>
+        <span class="opener">Methods</span>
+        <ul>
+        
+            
+    
+    <li>
+        <a href="#6ecbb71daff3f3174779d47866f89a9b3e8615c3">suspend fun getChannel(channel: Channels): Channel</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="#6090aaf9565e86a1dbe10bba14fdc6a7aad498e3">fun getRoleSnowflake(role: Roles): Snowflake</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="#26ab139d90ba0fe236bd16dc79485d0839bac0aa">suspend fun getRole(role: Roles): Role</a>
+    </li>
+    
+
+        
+            
+    
+    <li>
+        <a href="#2100e9be4b62193e019cd550aafc726f3a8e1596">suspend fun getGuild(): Guild</a>
+    </li>
+    
+
+        
+        </ul>
+    </li>
+
+                
+            </ul>
+        </nav>
+        
+
+        <!-- Section -->
+        <section>
+            <p class="text-center">
+                Currently 1.0-SNAPSHOT. Created with <a href="https://orchid.run">Orchid </a> and <b>Orchid Editorial Theme</b>.
+            </p>
+        </section>
+
+        <!-- Footer -->
+        <footer id="footer">
+            <p class="copyright text-center">&copy; Kotlin Discord. All rights reserved.<br>Design by <a href="https://html5up.net">HTML5 UP</a></p>
+        </footer>
+
+    </div>
+</div>
+
+</div>
+
+<!-- start:inject scripts -->
+<script  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script  src="https://cdnjs.cloudflare.com/ajax/libs/skel/3.0.1/skel.min.js"></script>
+<script  src="https://bot.docs.kotlindiscord.com/Editorial/86a5943b/assets/js/editorial_util.js"></script>
+<script  src="https://bot.docs.kotlindiscord.com/Editorial/86a5943b/assets/js/editorial_main.js"></script>
+<script  src="https://bot.docs.kotlindiscord.com/Editorial/86a5943b/assets/js/editorial_orchidCustomizations.js"></script>
+<script  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script  src="https://unpkg.com/lunr/lunr.js"></script>
+<script  src="https://bot.docs.kotlindiscord.com/assets/js/orchidSearch.js"></script>
+<script  src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.17.1/prism.min.js"></script>
+<script  src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.17.1/components/prism-kotlin.min.js"></script>
+<script  src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.17.1/components/prism-toml.min.js"></script>
+<script  src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.17.1/components/prism-yaml.min.js"></script>
+<!-- end:inject scripts -->
+
+</body>
+</html>

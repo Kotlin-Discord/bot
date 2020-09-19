@@ -1,0 +1,587 @@
+{
+  "ownKey": "kotlindoc",
+  "childrenPages": {"kotlindoc": {
+    "ownKey": "kotlindoc",
+    "childrenPages": {"bot": {
+      "ownKey": "bot",
+      "childrenPages": {"kdbot": {
+        "ownKey": "kdbot",
+        "childrenPages": {"com": {
+          "ownKey": "com",
+          "childrenPages": {"kotlindiscord": {
+            "ownKey": "kotlindiscord",
+            "childrenPages": {"bot": {
+              "ownKey": "bot",
+              "childrenPages": {
+                "kdexception": {
+                  "ownKey": "kdexception",
+                  "ownPages": [{
+                    "reference": {
+                      "path": "kotlindoc/bot/kdbot",
+                      "baseUrl": "https://bot.docs.kotlindiscord.com",
+                      "fileName": "com/kotlindiscord/bot/kdexception",
+                      "extension": "html",
+                      "usePrettyUrl": true,
+                      "link": "https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/kdexception"
+                    },
+                    "description": "",
+                    "title": "KDException",
+                    "content": "<p>CommentComponent(kind=text, text=A base class for all custom exceptions in our bot framework., value=null)<\/p>\n"
+                  }]
+                },
+                "enums": {
+                  "ownKey": "enums",
+                  "childrenPages": {
+                    "channels": {
+                      "ownKey": "channels",
+                      "ownPages": [{
+                        "reference": {
+                          "path": "kotlindoc/bot/kdbot",
+                          "baseUrl": "https://bot.docs.kotlindiscord.com",
+                          "fileName": "com/kotlindiscord/bot/enums/channels",
+                          "extension": "html",
+                          "usePrettyUrl": true,
+                          "link": "https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/enums/channels"
+                        },
+                        "description": "",
+                        "title": "Channels",
+                        "content": "<p>CommentComponent(kind=text, text=An enum representing each type of channel that may be configured, for easier reference., value=null)<\/p>\n"
+                      }]
+                    },
+                    "roles": {
+                      "ownKey": "roles",
+                      "ownPages": [{
+                        "reference": {
+                          "path": "kotlindoc/bot/kdbot",
+                          "baseUrl": "https://bot.docs.kotlindiscord.com",
+                          "fileName": "com/kotlindiscord/bot/enums/roles",
+                          "extension": "html",
+                          "usePrettyUrl": true,
+                          "link": "https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/enums/roles"
+                        },
+                        "description": "",
+                        "title": "Roles",
+                        "content": "<p>CommentComponent(kind=text, text=An enum representing each type of role that may be configured, for easier reference., value=null)<\/p>\n"
+                      }]
+                    }
+                  },
+                  "ownPages": [{
+                    "reference": {
+                      "path": "kotlindoc/bot/kdbot",
+                      "baseUrl": "https://bot.docs.kotlindiscord.com",
+                      "fileName": "com/kotlindiscord/bot/enums",
+                      "extension": "html",
+                      "usePrettyUrl": true,
+                      "link": "https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/enums"
+                    },
+                    "description": "",
+                    "title": "com.kotlindiscord.bot.enums",
+                    "content": "<p>CommentComponent(kind=text, text=, value=null)<\/p>\n"
+                  }]
+                },
+                "extensions": {
+                  "ownKey": "extensions",
+                  "childrenPages": {
+                    "filterextension": {
+                      "ownKey": "filterextension",
+                      "ownPages": [{
+                        "reference": {
+                          "path": "kotlindoc/bot/kdbot",
+                          "baseUrl": "https://bot.docs.kotlindiscord.com",
+                          "fileName": "com/kotlindiscord/bot/extensions/filterextension",
+                          "extension": "html",
+                          "usePrettyUrl": true,
+                          "link": "https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/extensions/filterextension"
+                        },
+                        "description": "",
+                        "title": "FilterExtension",
+                        "content": "<p>CommentComponent(kind=text, text=Filter extension, for filtering messages and alerting staff based on message content.<p>This is a relatively complex extension, which is concerned with a lot of potential\nedge cases and tricky filtering. In order to lower the cognitive load, filtering\nbehaviour is split up into a bunch of , value=) CommentComponent(kind=typeName, text=Filter, value=com.kotlindiscord.bot.filtering.Filter) CommentComponent(kind=text, text= classes that work independently\nof the rest of this system.<\/p>, value=null)<\/p>\n"
+                      }]
+                    },
+                    "verificationextension": {
+                      "ownKey": "verificationextension",
+                      "ownPages": [{
+                        "reference": {
+                          "path": "kotlindoc/bot/kdbot",
+                          "baseUrl": "https://bot.docs.kotlindiscord.com",
+                          "fileName": "com/kotlindiscord/bot/extensions/verificationextension",
+                          "extension": "html",
+                          "usePrettyUrl": true,
+                          "link": "https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/extensions/verificationextension"
+                        },
+                        "description": "",
+                        "title": "VerificationExtension",
+                        "content": "<p>CommentComponent(kind=text, text=New user verification extension.<p>This extension provides a <code>!verify<\/code> command, as well as a <a href=\"#\">MessageCreateEvent<\/a> handler\nwhich removes messages from the verification channel, letting the user know how they\ncan verify themselves.<\/p>, value=null)<\/p>\n"
+                      }]
+                    },
+                    "cleanextension": {
+                      "ownKey": "cleanextension",
+                      "ownPages": [{
+                        "reference": {
+                          "path": "kotlindoc/bot/kdbot",
+                          "baseUrl": "https://bot.docs.kotlindiscord.com",
+                          "fileName": "com/kotlindiscord/bot/extensions/cleanextension",
+                          "extension": "html",
+                          "usePrettyUrl": true,
+                          "link": "https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/extensions/cleanextension"
+                        },
+                        "description": "",
+                        "title": "CleanExtension",
+                        "content": "<p>CommentComponent(kind=text, text=Extension providing a bulk message deletion command for mods+., value=null)<\/p>\n"
+                      }]
+                    },
+                    "testextension": {
+                      "ownKey": "testextension",
+                      "ownPages": [{
+                        "reference": {
+                          "path": "kotlindoc/bot/kdbot",
+                          "baseUrl": "https://bot.docs.kotlindiscord.com",
+                          "fileName": "com/kotlindiscord/bot/extensions/testextension",
+                          "extension": "html",
+                          "usePrettyUrl": true,
+                          "link": "https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/extensions/testextension"
+                        },
+                        "description": "",
+                        "title": "TestExtension",
+                        "content": "<p>CommentComponent(kind=text, text=Extension used for framework testing. Not for production use., value=null)<\/p>\n"
+                      }]
+                    },
+                    "loggingextension": {
+                      "ownKey": "loggingextension",
+                      "ownPages": [{
+                        "reference": {
+                          "path": "kotlindoc/bot/kdbot",
+                          "baseUrl": "https://bot.docs.kotlindiscord.com",
+                          "fileName": "com/kotlindiscord/bot/extensions/loggingextension",
+                          "extension": "html",
+                          "usePrettyUrl": true,
+                          "link": "https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/extensions/loggingextension"
+                        },
+                        "description": "",
+                        "title": "LoggingExtension",
+                        "content": "<p>CommentComponent(kind=text, text=Event logging extension.<p>This extension is in charge of relaying events to the action log and moderator log\nchannels. No advanced filtering or alerting is done here, we're just logging\nevents.<\/p>, value=null)<\/p>\n"
+                      }]
+                    },
+                    "subscriptionextension": {
+                      "ownKey": "subscriptionextension",
+                      "ownPages": [{
+                        "reference": {
+                          "path": "kotlindoc/bot/kdbot",
+                          "baseUrl": "https://bot.docs.kotlindiscord.com",
+                          "fileName": "com/kotlindiscord/bot/extensions/subscriptionextension",
+                          "extension": "html",
+                          "usePrettyUrl": true,
+                          "link": "https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/extensions/subscriptionextension"
+                        },
+                        "description": "",
+                        "title": "SubscriptionExtension",
+                        "content": "<p>CommentComponent(kind=text, text=Role-based subscriptions extension.<p>This extension provides a <code>!subscribe<\/code> and <code>!unsubscribe<\/code> command, to allow\nusers to give themselves the announcements role and remove it later if they wish.<\/p>, value=null)<\/p>\n"
+                      }]
+                    },
+                    "syncextension": {
+                      "ownKey": "syncextension",
+                      "ownPages": [{
+                        "reference": {
+                          "path": "kotlindoc/bot/kdbot",
+                          "baseUrl": "https://bot.docs.kotlindiscord.com",
+                          "fileName": "com/kotlindiscord/bot/extensions/syncextension",
+                          "extension": "html",
+                          "usePrettyUrl": true,
+                          "link": "https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/extensions/syncextension"
+                        },
+                        "description": "",
+                        "title": "SyncExtension",
+                        "content": "<p>CommentComponent(kind=text, text=Extension in charge of keeping the database (on the site) updated with data from Discord.<p>This extension checks for changes that need to be made when the ReadyEvent happens, and\nsends changes to the site when a variety of events happen.<\/p>, value=null)<\/p>\n"
+                      }]
+                    }
+                  },
+                  "ownPages": [{
+                    "reference": {
+                      "path": "kotlindoc/bot/kdbot",
+                      "baseUrl": "https://bot.docs.kotlindiscord.com",
+                      "fileName": "com/kotlindiscord/bot/extensions",
+                      "extension": "html",
+                      "usePrettyUrl": true,
+                      "link": "https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/extensions"
+                    },
+                    "description": "",
+                    "title": "com.kotlindiscord.bot.extensions",
+                    "content": "<p>CommentComponent(kind=text, text=, value=null)<\/p>\n"
+                  }]
+                },
+                "missingguildexception": {
+                  "ownKey": "missingguildexception",
+                  "ownPages": [{
+                    "reference": {
+                      "path": "kotlindoc/bot/kdbot",
+                      "baseUrl": "https://bot.docs.kotlindiscord.com",
+                      "fileName": "com/kotlindiscord/bot/missingguildexception",
+                      "extension": "html",
+                      "usePrettyUrl": true,
+                      "link": "https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/missingguildexception"
+                    },
+                    "description": "",
+                    "title": "MissingGuildException",
+                    "content": "<p>CommentComponent(kind=text, text=Thrown when a configured guild cannot be found., value=null)<\/p>\n"
+                  }]
+                },
+                "missingchannelexception": {
+                  "ownKey": "missingchannelexception",
+                  "ownPages": [{
+                    "reference": {
+                      "path": "kotlindoc/bot/kdbot",
+                      "baseUrl": "https://bot.docs.kotlindiscord.com",
+                      "fileName": "com/kotlindiscord/bot/missingchannelexception",
+                      "extension": "html",
+                      "usePrettyUrl": true,
+                      "link": "https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/missingchannelexception"
+                    },
+                    "description": "",
+                    "title": "MissingChannelException",
+                    "content": "<p>CommentComponent(kind=text, text=Thrown when a configured channel cannot be found., value=null)<\/p>\n"
+                  }]
+                },
+                "constants": {
+                  "ownKey": "constants",
+                  "childrenPages": {"colors": {
+                    "ownKey": "colors",
+                    "ownPages": [{
+                      "reference": {
+                        "path": "kotlindoc/bot/kdbot",
+                        "baseUrl": "https://bot.docs.kotlindiscord.com",
+                        "fileName": "com/kotlindiscord/bot/constants/colors",
+                        "extension": "html",
+                        "usePrettyUrl": true,
+                        "link": "https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/constants/colors"
+                      },
+                      "description": "",
+                      "title": "Colors",
+                      "content": "<p>CommentComponent(kind=text, text=Simple object providing colour constants to be used all over the codebase., value=null)<\/p>\n"
+                    }]
+                  }},
+                  "ownPages": [{
+                    "reference": {
+                      "path": "kotlindoc/bot/kdbot",
+                      "baseUrl": "https://bot.docs.kotlindiscord.com",
+                      "fileName": "com/kotlindiscord/bot/constants",
+                      "extension": "html",
+                      "usePrettyUrl": true,
+                      "link": "https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/constants"
+                    },
+                    "description": "",
+                    "title": "com.kotlindiscord.bot.constants",
+                    "content": "<p>CommentComponent(kind=text, text=, value=null)<\/p>\n"
+                  }]
+                },
+                "filtering": {
+                  "ownKey": "filtering",
+                  "childrenPages": {
+                    "filter": {
+                      "ownKey": "filter",
+                      "ownPages": [{
+                        "reference": {
+                          "path": "kotlindoc/bot/kdbot",
+                          "baseUrl": "https://bot.docs.kotlindiscord.com",
+                          "fileName": "com/kotlindiscord/bot/filtering/filter",
+                          "extension": "html",
+                          "usePrettyUrl": true,
+                          "link": "https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/filtering/filter"
+                        },
+                        "description": "",
+                        "title": "Filter",
+                        "content": "<p>CommentComponent(kind=text, text=Class representing a single type of message filter.<p>Subclasses are expected to implement exactly one type of message filter, and they must implement\nthe , value=) CommentComponent(kind=typeName, text=checkCreate, value=com.kotlindiscord.bot.filtering.Filter.checkCreate) CommentComponent(kind=text, text= function. This function should check whether a message is problematic, action it\nappropriately, and return <code>false<\/code> if processing should stop here, or <code>true<\/code> if other filters\nshould be checked.<\/p><p>If your filter doesn't delete or otherwise action the message (that is to say, it's only for alerting),\nthen it may be best to return <code>true<\/code> so the rest of the filters can be executed. Whether this is\ntruly the case will depend on what exactly your filter is doing, though.<\/p>, value=null)<\/p>\n"
+                      }]
+                    },
+                    "urlfilter": {
+                      "ownKey": "urlfilter",
+                      "ownPages": [{
+                        "reference": {
+                          "path": "kotlindoc/bot/kdbot",
+                          "baseUrl": "https://bot.docs.kotlindiscord.com",
+                          "fileName": "com/kotlindiscord/bot/filtering/urlfilter",
+                          "extension": "html",
+                          "usePrettyUrl": true,
+                          "link": "https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/filtering/urlfilter"
+                        },
+                        "description": "",
+                        "title": "UrlFilter",
+                        "content": "<p>CommentComponent(kind=text, text=Filter class intended for finding and removing messages, and alerting staff when problematic\nurls are posted.<p>This class is <i>heavily<\/i> inspired by the work done by the fine folks at Python Discord.\nYou can find their bot code here: https://github.com/python-discord/bot<\/p><p>Our filter differs a little - instead of checking whether the message has <i>some url<\/i> and then\nchecking that it contains <i>some blacklisted domain<\/i> anywhere in the content, we extract all\nURLs with a protocol or domains starting with www., and check whether those end in any of\nour blacklisted domains and extensions. We also have a larger list of banned domains, and we\ndeal with specific schemes and extensions.<\/p>, value=null)<\/p>\n"
+                      }]
+                    },
+                    "embedfilter": {
+                      "ownKey": "embedfilter",
+                      "ownPages": [{
+                        "reference": {
+                          "path": "kotlindoc/bot/kdbot",
+                          "baseUrl": "https://bot.docs.kotlindiscord.com",
+                          "fileName": "com/kotlindiscord/bot/filtering/embedfilter",
+                          "extension": "html",
+                          "usePrettyUrl": true,
+                          "link": "https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/filtering/embedfilter"
+                        },
+                        "description": "",
+                        "title": "EmbedFilter",
+                        "content": "<p>CommentComponent(kind=text, text=Filter class intended for finding removing messages, and alerting staff when selfbots and\nmodded clients post embeds., value=null)<\/p>\n"
+                      }]
+                    },
+                    "invitefilter": {
+                      "ownKey": "invitefilter",
+                      "ownPages": [{
+                        "reference": {
+                          "path": "kotlindoc/bot/kdbot",
+                          "baseUrl": "https://bot.docs.kotlindiscord.com",
+                          "fileName": "com/kotlindiscord/bot/filtering/invitefilter",
+                          "extension": "html",
+                          "usePrettyUrl": true,
+                          "link": "https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/filtering/invitefilter"
+                        },
+                        "description": "",
+                        "title": "InviteFilter",
+                        "content": "<p>CommentComponent(kind=text, text=Filter class intended for finding and removing messages, and alerting staff when invites are posted.<p>This class is <i>heavily<\/i> inspired by the work done by the fine folks at Python Discord.\nYou can find their bot code here: https://github.com/python-discord/bot<\/p>, value=null)<\/p>\n"
+                      }]
+                    },
+                    "attachmentfilter": {
+                      "ownKey": "attachmentfilter",
+                      "ownPages": [{
+                        "reference": {
+                          "path": "kotlindoc/bot/kdbot",
+                          "baseUrl": "https://bot.docs.kotlindiscord.com",
+                          "fileName": "com/kotlindiscord/bot/filtering/attachmentfilter",
+                          "extension": "html",
+                          "usePrettyUrl": true,
+                          "link": "https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/filtering/attachmentfilter"
+                        },
+                        "description": "",
+                        "title": "AttachmentFilter",
+                        "content": "<p>CommentComponent(kind=text, text=Filter class intended for finding and removing messages, and alerting staff when banned attachment\ntypes are uploaded.<p>We mostly filter files based on extensions that Discord can't preview natively, but we also allow\na few other formats in the interest of making branding work possible on Discord.<\/p><p>This class is <i>heavily<\/i> inspired by the work done by the fine folks at Python Discord.\nYou can find their bot code here: https://github.com/python-discord/bot<\/p>, value=null)<\/p>\n"
+                      }]
+                    },
+                    "regexfilter": {
+                      "ownKey": "regexfilter",
+                      "ownPages": [{
+                        "reference": {
+                          "path": "kotlindoc/bot/kdbot",
+                          "baseUrl": "https://bot.docs.kotlindiscord.com",
+                          "fileName": "com/kotlindiscord/bot/filtering/regexfilter",
+                          "extension": "html",
+                          "usePrettyUrl": true,
+                          "link": "https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/filtering/regexfilter"
+                        },
+                        "description": "",
+                        "title": "RegexFilter",
+                        "content": "<p>CommentComponent(kind=text, text=Filter class intended for finding messages and alerting staff based on regular expression matches.<p>This class is <i>heavily<\/i> inspired by the work done by the fine folks at Python Discord.\nYou can find their bot code here: https://github.com/python-discord/bot<\/p>, value=null)<\/p>\n"
+                      }]
+                    },
+                    "filterconcerns": {
+                      "ownKey": "filterconcerns",
+                      "ownPages": [{
+                        "reference": {
+                          "path": "kotlindoc/bot/kdbot",
+                          "baseUrl": "https://bot.docs.kotlindiscord.com",
+                          "fileName": "com/kotlindiscord/bot/filtering/filterconcerns",
+                          "extension": "html",
+                          "usePrettyUrl": true,
+                          "link": "https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/filtering/filterconcerns"
+                        },
+                        "description": "",
+                        "title": "FilterConcerns",
+                        "content": "<p>CommentComponent(kind=text, text=Filter concerns define what types of data a , value=) CommentComponent(kind=typeName, text=Filter, value=com.kotlindiscord.bot.filtering.Filter) CommentComponent(kind=text, text= cares about.<p>Define these in , value=) CommentComponent(kind=typeName, text=Filter.concerns, value=com.kotlindiscord.bot.filtering.Filter.concerns) CommentComponent(kind=text, text=. If an event is missing the data a , value=) CommentComponent(kind=typeName, text=Filter, value=com.kotlindiscord.bot.filtering.Filter) CommentComponent(kind=text, text= cares\nabout, the filter will be skipped.<\/p>, value=null)<\/p>\n"
+                      }]
+                    }
+                  },
+                  "ownPages": [{
+                    "reference": {
+                      "path": "kotlindoc/bot/kdbot",
+                      "baseUrl": "https://bot.docs.kotlindiscord.com",
+                      "fileName": "com/kotlindiscord/bot/filtering",
+                      "extension": "html",
+                      "usePrettyUrl": true,
+                      "link": "https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/filtering"
+                    },
+                    "description": "",
+                    "title": "com.kotlindiscord.bot.filtering",
+                    "content": "<p>CommentComponent(kind=text, text=, value=null)<\/p>\n"
+                  }]
+                },
+                "config": {
+                  "ownKey": "config",
+                  "childrenPages": {
+                    "buildinfo": {
+                      "ownKey": "buildinfo",
+                      "ownPages": [{
+                        "reference": {
+                          "path": "kotlindoc/bot/kdbot",
+                          "baseUrl": "https://bot.docs.kotlindiscord.com",
+                          "fileName": "com/kotlindiscord/bot/config/buildinfo",
+                          "extension": "html",
+                          "usePrettyUrl": true,
+                          "link": "https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/config/buildinfo"
+                        },
+                        "description": "",
+                        "title": "BuildInfo",
+                        "content": "<p>CommentComponent(kind=text, text=Object providing information about the current build., value=null)<\/p>\n"
+                      }]
+                    },
+                    "kdconfig": {
+                      "ownKey": "kdconfig",
+                      "ownPages": [{
+                        "reference": {
+                          "path": "kotlindoc/bot/kdbot",
+                          "baseUrl": "https://bot.docs.kotlindiscord.com",
+                          "fileName": "com/kotlindiscord/bot/config/kdconfig",
+                          "extension": "html",
+                          "usePrettyUrl": true,
+                          "link": "https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/config/kdconfig"
+                        },
+                        "description": "",
+                        "title": "KDConfig",
+                        "content": "<p>CommentComponent(kind=text, text=Central object representing this bot's configuration, wrapping a Konf <a href=\"#\">Config<\/a> object.<p>Config data is loaded from four locations, with values from earlier locations being\noverridden by values in later locations:<\/p><ul><li>The file <code>default.toml<\/code>, which is bundled with the bot as a resource.<\/li><li>The file <code>config.toml<\/code>, located in the current working directory. If you edit this file\nat runtime, then it will automatically be reloaded.<\/li><li>Environment variables defined at runtime.<\/li><li>System properties defined at runtime.<\/li><\/ul><p>The currently-loaded configuration is always available at the config property.<\/p>, value=null)<\/p>\n"
+                      }]
+                    },
+                    "spec": {
+                      "ownKey": "spec",
+                      "childrenPages": {
+                        "botspec": {
+                          "ownKey": "botspec",
+                          "ownPages": [{
+                            "reference": {
+                              "path": "kotlindoc/bot/kdbot",
+                              "baseUrl": "https://bot.docs.kotlindiscord.com",
+                              "fileName": "com/kotlindiscord/bot/config/spec/botspec",
+                              "extension": "html",
+                              "usePrettyUrl": true,
+                              "link": "https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/config/spec/botspec"
+                            },
+                            "description": "",
+                            "title": "BotSpec",
+                            "content": "<p>CommentComponent(kind=text, text=A class representing the <code>bot<\/code> section of the configuration.<p>This is used by Konf, and will not need to be accessed externally.<\/p>, value=null)<\/p>\n"
+                          }]
+                        },
+                        "rolesspec": {
+                          "ownKey": "rolesspec",
+                          "ownPages": [{
+                            "reference": {
+                              "path": "kotlindoc/bot/kdbot",
+                              "baseUrl": "https://bot.docs.kotlindiscord.com",
+                              "fileName": "com/kotlindiscord/bot/config/spec/rolesspec",
+                              "extension": "html",
+                              "usePrettyUrl": true,
+                              "link": "https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/config/spec/rolesspec"
+                            },
+                            "description": "",
+                            "title": "RolesSpec",
+                            "content": "<p>CommentComponent(kind=text, text=A class representing the <code>roles<\/code> section of the configuration.<p>This is used by Konf, and will not need to be accessed externally.<\/p>, value=null)<\/p>\n"
+                          }]
+                        },
+                        "channelsspec": {
+                          "ownKey": "channelsspec",
+                          "ownPages": [{
+                            "reference": {
+                              "path": "kotlindoc/bot/kdbot",
+                              "baseUrl": "https://bot.docs.kotlindiscord.com",
+                              "fileName": "com/kotlindiscord/bot/config/spec/channelsspec",
+                              "extension": "html",
+                              "usePrettyUrl": true,
+                              "link": "https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/config/spec/channelsspec"
+                            },
+                            "description": "",
+                            "title": "ChannelsSpec",
+                            "content": "<p>CommentComponent(kind=text, text=A class representing the <code>channels<\/code> section of the configuration.<p>This is used by Konf, and will not need to be accessed externally.<\/p>, value=null)<\/p>\n"
+                          }]
+                        }
+                      },
+                      "ownPages": [{
+                        "reference": {
+                          "path": "kotlindoc/bot/kdbot",
+                          "baseUrl": "https://bot.docs.kotlindiscord.com",
+                          "fileName": "com/kotlindiscord/bot/config/spec",
+                          "extension": "html",
+                          "usePrettyUrl": true,
+                          "link": "https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/config/spec"
+                        },
+                        "description": "",
+                        "title": "com.kotlindiscord.bot.config.spec",
+                        "content": "<p>CommentComponent(kind=text, text=, value=null)<\/p>\n"
+                      }]
+                    }
+                  },
+                  "ownPages": [{
+                    "reference": {
+                      "path": "kotlindoc/bot/kdbot",
+                      "baseUrl": "https://bot.docs.kotlindiscord.com",
+                      "fileName": "com/kotlindiscord/bot/config",
+                      "extension": "html",
+                      "usePrettyUrl": true,
+                      "link": "https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/config"
+                    },
+                    "description": "",
+                    "title": "com.kotlindiscord.bot.config",
+                    "content": "<p>CommentComponent(kind=text, text=, value=null)<\/p>\n"
+                  }]
+                },
+                "missingobjectexception": {
+                  "ownKey": "missingobjectexception",
+                  "ownPages": [{
+                    "reference": {
+                      "path": "kotlindoc/bot/kdbot",
+                      "baseUrl": "https://bot.docs.kotlindiscord.com",
+                      "fileName": "com/kotlindiscord/bot/missingobjectexception",
+                      "extension": "html",
+                      "usePrettyUrl": true,
+                      "link": "https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/missingobjectexception"
+                    },
+                    "description": "",
+                    "title": "MissingObjectException",
+                    "content": "<p>CommentComponent(kind=text, text=A base class for all <code>MissingXException<\/code> classes in our bot framework., value=null)<\/p>\n"
+                  }]
+                },
+                "missingroleexception": {
+                  "ownKey": "missingroleexception",
+                  "ownPages": [{
+                    "reference": {
+                      "path": "kotlindoc/bot/kdbot",
+                      "baseUrl": "https://bot.docs.kotlindiscord.com",
+                      "fileName": "com/kotlindiscord/bot/missingroleexception",
+                      "extension": "html",
+                      "usePrettyUrl": true,
+                      "link": "https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot/missingroleexception"
+                    },
+                    "description": "",
+                    "title": "MissingRoleException",
+                    "content": "<p>CommentComponent(kind=text, text=Thrown when a configured role cannot be found., value=null)<\/p>\n"
+                  }]
+                }
+              },
+              "ownPages": [{
+                "reference": {
+                  "path": "kotlindoc/bot/kdbot",
+                  "baseUrl": "https://bot.docs.kotlindiscord.com",
+                  "fileName": "com/kotlindiscord/bot",
+                  "extension": "html",
+                  "usePrettyUrl": true,
+                  "link": "https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot/com/kotlindiscord/bot"
+                },
+                "description": "",
+                "title": "com.kotlindiscord.bot",
+                "content": "<p>CommentComponent(kind=text, text=, value=null)<\/p>\n"
+              }]
+            }}
+          }}
+        }},
+        "ownPages": [{
+          "reference": {
+            "path": "kotlindoc/bot",
+            "baseUrl": "https://bot.docs.kotlindiscord.com",
+            "fileName": "kdbot",
+            "extension": "html",
+            "usePrettyUrl": true,
+            "link": "https://bot.docs.kotlindiscord.com/kotlindoc/bot/kdbot"
+          },
+          "description": "",
+          "title": "KDBot",
+          "content": "<h1 id=\"kotdis-bot\"><a href=\"#kotdis-bot\" id=\"kotdis-bot\" class=\"anchor\"><\/a>KotDis Bot<\/h1>\n<p>This repository contains what will eventually be the primary bot used for\nmanaging the Kotlin Discord server.<\/p>\n<p>Right now, it's in a very early state.<\/p>\n<h1 id=\"running-with-docker\"><a href=\"#running-with-docker\" id=\"running-with-docker\" class=\"anchor\"><\/a>Running with Docker<\/h1>\n<p>In order to run the bot with Docker and <a href=\"https://docs.docker.com/compose/install/\">Docker Compose<\/a>,\nyou'll need to run a local copy of <a href=\"https://github.com/Kotlin-Discord/site\">our website<\/a>.<\/p>\n<h2 id=\"getting-the-containers-ready\"><a href=\"#getting-the-containers-ready\" id=\"getting-the-containers-ready\" class=\"anchor\"><\/a>Getting the Containers Ready<\/h2>\n<p>In the site project root, you'll need to run<\/p>\n<pre><code>npm i\n./gradlew build\n<\/code><\/pre>\n<p>In the bot project root, you'll need to run<\/p>\n<pre><code>./gradlew build\n<\/code><\/pre>\n<p>You'll also need to create an <code>.env<\/code> file in the bot project root\nand set the <code>BOT_TOKEN<\/code> variable to your test bot token.<\/p>\n<pre><code class=\"language-dotenv\">BOT_TOKEN=...\n<\/code><\/pre>\n<p>Additionally, the docker-compose file assumes that both the site and bot root folders\nhave been placed within the same directory. You can override this by setting the\n<code>SITE_PROJECT_PATH<\/code> environment variable to the path to the site project folder.<\/p>\n<h2 id=\"running-the-bot-and-site\"><a href=\"#running-the-bot-and-site\" id=\"running-the-bot-and-site\" class=\"anchor\"><\/a>Running the Bot and Site<\/h2>\n<p>Simply run <code>docker-compose up<\/code> in the bot project root to launch both containers.<\/p>\n"
+        }]
+      }}
+    }}
+  }}
+}
