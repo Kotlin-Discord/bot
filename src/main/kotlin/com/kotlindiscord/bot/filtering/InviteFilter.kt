@@ -24,7 +24,8 @@ private val whitelist = setOf(  // Guilds we allow invites to
     Snowflake(590806733924859943),  // Discord Hack Week
     Snowflake(197038439483310086),  // Discord Testers
     Snowflake(81384788765712384),   // Discord API
-    Snowflake(613425648685547541)   // Discord Developers
+    Snowflake(613425648685547541),   // Discord Developers
+    Snowflake(507304429255393322)   // FabricMC
 )
 
 /**
@@ -124,7 +125,7 @@ class InviteFilter(bot: ExtensibleBot) : Filter(bot) {
 
         val jumpMessage = if (channel.type == ChannelType.GuildText) {
             "[the following message](https://discordapp.com/channels/" +
-                    "${message.getGuild().id.value}/${channel.id}/${message.id})"
+                    "${message.getGuild().id.value}/${channel.id.value}/${message.id.value})"
         } else {
             "the following message"
         }

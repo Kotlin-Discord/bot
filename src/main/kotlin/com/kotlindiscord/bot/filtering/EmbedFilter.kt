@@ -93,7 +93,7 @@ class EmbedFilter(bot: ExtensibleBot) : Filter(bot) {
 
         val jumpMessage = if (channel.type == ChannelType.GuildText) {
             "[$count suspicious embed/s posted](https://discordapp.com/channels/" +
-                    "${message.getGuild().id.value}/${channel.id}/${message.id})"
+                    "${message.getGuild().id.value}/${channel.id.value}/${message.id.value})"
         } else {
             "$count suspicious embed/s posted"
         }
