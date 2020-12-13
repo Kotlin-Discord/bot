@@ -1,8 +1,12 @@
 package com.kotlindiscord.bot.extensions
 
-import com.gitlab.kordlib.core.entity.User
 import com.kotlindiscord.bot.defaultCheck
 import com.kotlindiscord.kord.extensions.ExtensibleBot
+import com.kotlindiscord.kord.extensions.commands.converters.optionalNumber
+import com.kotlindiscord.kord.extensions.commands.converters.string
+import com.kotlindiscord.kord.extensions.commands.converters.user
+import com.kotlindiscord.kord.extensions.commands.converters.userList
+import com.kotlindiscord.kord.extensions.commands.parser.Arguments
 import com.kotlindiscord.kord.extensions.extensions.Extension
 
 /**
@@ -21,33 +25,37 @@ class TestExtension(bot: ExtensibleBot) : Extension(bot) {
             }
         }
 
-        data class WhoArgs(val user: User)
+        class WhoArgs : Arguments() {
+            val user by user("user")
+        }
 
         command {
             name = "who"
             description = "Who's that?"
 
             check(::defaultCheck)
-            signature<WhoArgs>()
+            signature(::WhoArgs)
 
             action {
-                with(parse<WhoArgs>()) {
+                with(parse(::WhoArgs)) {
                     message.channel.createMessage("User: ${user.username}#${user.discriminator}")
                 }
             }
         }
 
-        data class WhoMultiArgs(val users: List<User>)
+        class WhoMultiArgs : Arguments() {
+            val users by userList("users")
+        }
 
         command {
             name = "who-multi"
             description = "Who're they?"
 
             check(::defaultCheck)
-            signature<WhoMultiArgs>()
+            signature(::WhoMultiArgs)
 
             action {
-                with(parse<WhoMultiArgs>()) {
+                with(parse(::WhoMultiArgs)) {
                     message.channel.createMessage(
                         "Users: " + users.joinToString(", ") { "${it.username}#${it.discriminator}" }
                     )
@@ -55,17 +63,20 @@ class TestExtension(bot: ExtensibleBot) : Extension(bot) {
             }
         }
 
-        data class TestArgs(val num: Int? = null, val string: String)
+        class TestArgs : Arguments() {
+            val num by optionalNumber("num")
+            val string by string("string")
+        }
 
         command {
             name = "test"
             description = "Argument parsing test command."
 
             check(::defaultCheck)
-            signature<TestArgs>()
+            signature(::TestArgs)
 
             action {
-                with(parse<TestArgs>()) {
+                with(parse(::TestArgs)) {
                     message.channel.createMessage(
                         "Num (default null): $num, String: '$string'"
                     )

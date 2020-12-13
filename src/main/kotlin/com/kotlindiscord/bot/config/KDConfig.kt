@@ -1,9 +1,5 @@
 package com.kotlindiscord.bot.config
 
-import com.gitlab.kordlib.common.entity.Snowflake
-import com.gitlab.kordlib.core.entity.Guild
-import com.gitlab.kordlib.core.entity.Role
-import com.gitlab.kordlib.core.entity.channel.Channel
 import com.kotlindiscord.api.client.APIClient
 import com.kotlindiscord.bot.MissingChannelException
 import com.kotlindiscord.bot.MissingGuildException
@@ -17,6 +13,10 @@ import com.kotlindiscord.bot.enums.Roles
 import com.uchuhimo.konf.Config
 import com.uchuhimo.konf.Feature
 import com.uchuhimo.konf.source.toml
+import dev.kord.common.entity.Snowflake
+import dev.kord.core.entity.Guild
+import dev.kord.core.entity.Role
+import dev.kord.core.entity.channel.Channel
 import java.io.File
 
 /**
@@ -76,14 +76,14 @@ class KDConfig {
     @Throws(MissingChannelException::class)
     suspend fun getChannel(channel: Channels): Channel {
         val snowflake = when (channel) {
-            Channels.ACTION_LOG    -> Snowflake(config[ChannelsSpec.actionLog])
-            Channels.ALERTS        -> Snowflake(config[ChannelsSpec.alerts])
-            Channels.BOT_COMMANDS  -> Snowflake(config[ChannelsSpec.botCommands])
-            Channels.MODERATOR_LOG -> Snowflake(config[ChannelsSpec.moderatorLog])
-            Channels.VERIFICATION  -> Snowflake(config[ChannelsSpec.verification])
+            Channels.ACTION_LOG_CATEGORY -> Snowflake(config[ChannelsSpec.actionLogCategory])
+            Channels.ALERTS              -> Snowflake(config[ChannelsSpec.alerts])
+            Channels.BOT_COMMANDS        -> Snowflake(config[ChannelsSpec.botCommands])
+            Channels.MODERATOR_LOG       -> Snowflake(config[ChannelsSpec.moderatorLog])
+            Channels.VERIFICATION        -> Snowflake(config[ChannelsSpec.verification])
         }
 
-        return bot.kord.getChannel(snowflake) ?: throw MissingChannelException(snowflake.longValue)
+        return bot.kord.getChannel(snowflake) ?: throw MissingChannelException(snowflake.value)
     }
 
     /**
@@ -94,13 +94,13 @@ class KDConfig {
      */
     fun getRoleSnowflake(role: Roles): Snowflake {
         return when (role) {
-            Roles.OWNER     -> Snowflake(config[RolesSpec.owner])
-            Roles.ADMIN     -> Snowflake(config[RolesSpec.admin])
-            Roles.MODERATOR -> Snowflake(config[RolesSpec.mod])
-            Roles.HELPER    -> Snowflake(config[RolesSpec.helper])
-            Roles.DEVELOPER -> Snowflake(config[RolesSpec.developer])
-            Roles.MUTED     -> Snowflake(config[RolesSpec.muted])
-            Roles.ANNOUNCEMENTS     -> Snowflake(config[RolesSpec.announcements])
+            Roles.OWNER         -> Snowflake(config[RolesSpec.owner])
+            Roles.ADMIN         -> Snowflake(config[RolesSpec.admin])
+            Roles.MODERATOR     -> Snowflake(config[RolesSpec.mod])
+            Roles.HELPER        -> Snowflake(config[RolesSpec.helper])
+            Roles.DEVELOPER     -> Snowflake(config[RolesSpec.developer])
+            Roles.MUTED         -> Snowflake(config[RolesSpec.muted])
+            Roles.ANNOUNCEMENTS -> Snowflake(config[RolesSpec.announcements])
         }
     }
 
@@ -116,7 +116,7 @@ class KDConfig {
     suspend fun getRole(role: Roles): Role {
         val snowflake = getRoleSnowflake(role)
 
-        return getGuild().getRoleOrNull(snowflake) ?: throw MissingRoleException(snowflake.longValue)
+        return getGuild().getRoleOrNull(snowflake) ?: throw MissingRoleException(snowflake.value)
     }
 
     /**
@@ -127,7 +127,7 @@ class KDConfig {
      */
     @Throws(MissingGuildException::class)
     suspend fun getGuild(): Guild =
-        bot.kord.getGuild(guildSnowflake) ?: throw MissingGuildException(guildSnowflake.longValue)
+        bot.kord.getGuild(guildSnowflake) ?: throw MissingGuildException(guildSnowflake.value)
 }
 
 /**

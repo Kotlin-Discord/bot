@@ -1,11 +1,14 @@
 package com.kotlindiscord.bot.extensions
 
-import com.gitlab.kordlib.core.any
-import com.kotlindiscord.bot.*
+import com.kotlindiscord.bot.botChannelOrModerator
 import com.kotlindiscord.bot.config.config
+import com.kotlindiscord.bot.defaultCheck
 import com.kotlindiscord.bot.enums.Roles
 import com.kotlindiscord.kord.extensions.ExtensibleBot
 import com.kotlindiscord.kord.extensions.extensions.Extension
+import com.kotlindiscord.kord.extensions.utils.deleteIgnoringNotFound
+import com.kotlindiscord.kord.extensions.utils.deleteWithDelay
+import dev.kord.core.any
 import mu.KotlinLogging
 
 private val logger = KotlinLogging.logger {}

@@ -1,10 +1,10 @@
 package com.kotlindiscord.bot
 
-import com.gitlab.kordlib.core.event.Event
 import com.kotlindiscord.bot.config.config
 import com.kotlindiscord.bot.enums.Channels
 import com.kotlindiscord.bot.enums.Roles
 import com.kotlindiscord.kord.extensions.checks.*
+import dev.kord.core.event.Event
 import mu.KotlinLogging
 
 /**
@@ -23,7 +23,7 @@ suspend fun defaultCheck(event: Event): Boolean {
     val message = messageFor(event)?.asMessage()
 
     return when {
-        message == null                                -> {
+        message == null                                      -> {
             logger.debug { "Failing check: Message for event $event is null. This type of event may not be supported." }
             false
         }
@@ -33,22 +33,22 @@ suspend fun defaultCheck(event: Event): Boolean {
             false
         }
 
-        message.author == null                         -> {
+        message.author == null                               -> {
             logger.debug { "Failing check: Message sent by a webhook or system message" }
             false
         }
 
-        message.author!!.id == bot.kord.getSelf().id   -> {
+        message.author!!.id == bot.kord.getSelf().id         -> {
             logger.debug { "Failing check: We sent this message" }
             false
         }
 
-        message.author!!.isBot == true                 -> {
+        message.author!!.isBot == true                       -> {
             logger.debug { "Failing check: This message was sent by another bot" }
             false
         }
 
-        else                                           -> {
+        else                                                 -> {
             logger.debug { "Passing check" }
             true
         }

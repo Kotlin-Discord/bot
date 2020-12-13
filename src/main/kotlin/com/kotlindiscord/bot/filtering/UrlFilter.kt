@@ -1,20 +1,20 @@
 package com.kotlindiscord.bot.filtering
 
-import com.gitlab.kordlib.common.entity.ChannelType
-import com.gitlab.kordlib.core.entity.Message
-import com.gitlab.kordlib.core.entity.User
-import com.gitlab.kordlib.core.entity.channel.Channel
-import com.gitlab.kordlib.core.event.message.MessageCreateEvent
-import com.gitlab.kordlib.core.event.message.MessageUpdateEvent
-import com.kotlindiscord.bot.deleteIgnoringNotFound
 import com.kotlindiscord.kord.extensions.ExtensibleBot
+import com.kotlindiscord.kord.extensions.utils.deleteIgnoringNotFound
+import dev.kord.common.entity.ChannelType
+import dev.kord.core.entity.Message
+import dev.kord.core.entity.User
+import dev.kord.core.entity.channel.Channel
+import dev.kord.core.event.message.MessageCreateEvent
+import dev.kord.core.event.message.MessageUpdateEvent
 import org.nibor.autolink.LinkExtractor
 import org.nibor.autolink.LinkType
 
 private val blacklist = setOf(
     // Adult domains
     "e621.net", "kink.com", "motherless.com", "paheal.net", "pornhub.com", "redtube.com",
-    "wince.st", "xhamster.com", "xnxx.com", "youjizz.com", "youporn.com",
+    "wince.st", "xhamster.com", "xnxx.com", "xvideos.com", "youjizz.com", "youporn.com",
 
     // Piracy - not an exhaustive list, just what's popular.
     "1337x.to", "baybea.net", "beatpb.club", "blue247.pw", "demonoid.is", "eztv.io",
@@ -29,7 +29,7 @@ private val blacklist = setOf(
     "liveleak.com",
 
     // Phishing/typo-squatting
-    "discord.gift", "ssteam.site", "steamwalletgift.com", "yourtube.site", "youtubeshort.watch",
+    "ssteam.site", "steamwalletgift.com", "yourtube.site", "youtubeshort.watch",
 
     // IP loggers (Grabify)
     "bmwforum.co", "canadianlumberjacks.online", "catsnthing.com", "catsnthings.fun", "crabrave.pw",

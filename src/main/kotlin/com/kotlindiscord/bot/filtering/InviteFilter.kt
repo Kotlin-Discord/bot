@@ -1,16 +1,16 @@
 package com.kotlindiscord.bot.filtering
 
-import com.gitlab.kordlib.common.entity.ChannelType
-import com.gitlab.kordlib.common.entity.Snowflake
-import com.gitlab.kordlib.core.cache.data.InviteData
-import com.gitlab.kordlib.core.entity.Invite
-import com.gitlab.kordlib.core.entity.Message
-import com.gitlab.kordlib.core.entity.User
-import com.gitlab.kordlib.core.entity.channel.Channel
-import com.gitlab.kordlib.core.event.message.MessageCreateEvent
-import com.gitlab.kordlib.core.event.message.MessageUpdateEvent
-import com.kotlindiscord.bot.deleteIgnoringNotFound
 import com.kotlindiscord.kord.extensions.ExtensibleBot
+import com.kotlindiscord.kord.extensions.utils.deleteIgnoringNotFound
+import dev.kord.common.entity.ChannelType
+import dev.kord.common.entity.Snowflake
+import dev.kord.core.cache.data.InviteData
+import dev.kord.core.entity.Invite
+import dev.kord.core.entity.Message
+import dev.kord.core.entity.User
+import dev.kord.core.entity.channel.Channel
+import dev.kord.core.event.message.MessageCreateEvent
+import dev.kord.core.event.message.MessageUpdateEvent
 import mu.KotlinLogging
 
 private val logger = KotlinLogging.logger {}
@@ -50,7 +50,7 @@ class InviteFilter(bot: ExtensibleBot) : Filter(bot) {
 
     private suspend fun doFilter(content: String, message: Message): Boolean {
         val invites = regex.findAll(content)
-        val inviteData: MutableMap<String, GuildInfo> = mutableMapOf()
+        val inviteData: MutableMap<String, Invite> = mutableMapOf()
 
         if (invites.count() > 0) {
             message.deleteIgnoringNotFound()
@@ -71,30 +71,33 @@ class InviteFilter(bot: ExtensibleBot) : Filter(bot) {
 
         for (match in invites) {
             val code = match.groups[1]!!.value
-            val info = getGuildInfo(code) ?: continue
+            val invite = getInvite(code)
 
-            if (info.invite.partialGuild?.id in whitelist) continue
+            invite.partialGuild ?: continue
+
+            if (invite.partialGuild!!.id in whitelist) continue
 
             logger.debug { "Found match: ${match.groups[0]}" }
-            inviteData[code] = info
+            inviteData[code] = invite
         }
 
         if (inviteData.isNotEmpty()) {
-            for ((code, info) in inviteData) {
+            for ((code, invite) in inviteData) {
                 logger.debug { "Sending additional guild info embed: $code" }
 
                 sendAlert(false) {
                     embed {
-                        field { name = "Members"; value = info.members.toString() }
-                        field { name = "Active"; value = info.active.toString() }
+                        field { name = "Members"; value = invite.approximateMemberCount.toString() }
+                        field { name = "Online"; value = invite.approximatePresenceCount.toString() }
 
-                        author { name = info.guildName }
+                        author { name = invite.partialGuild!!.name }
                         footer { text = "Invite code: $code" }
 
-                        if (info.guildIcon.isNotEmpty()) {
+                        if (!invite.partialGuild!!.iconHash.isNullOrEmpty()) {
                             thumbnail {
                                 this.url = "https://cdn.discordapp.com/icons/" +
-                                        "${info.invite.partialGuild?.id?.value}/${info.guildIcon}.png?size=512"
+                                        "${invite.partialGuild!!.id.value}/" +
+                                        "${invite.partialGuild!!.iconHash}.png?size=512"
                             }
                         }
                     }
@@ -136,29 +139,8 @@ class InviteFilter(bot: ExtensibleBot) : Filter(bot) {
                 message.content
     }
 
-    private suspend fun getGuildInfo(inviteCode: String): GuildInfo? {
+    private suspend fun getInvite(inviteCode: String): Invite {
         val data = bot.kord.rest.invite.getInvite(inviteCode, true)
-
-        if (data.guild == null) {
-            return null
-        }
-
-        val invite = Invite(InviteData.from(data), bot.kord)
-
-        return GuildInfo(
-            invite,
-            data.guild!!.name,
-            data.guild!!.icon ?: "",
-            invite.approximateMemberCount!!,
-            invite.approximatePresenceCount!!
-        )
+        return Invite(InviteData.from(data), bot.kord)
     }
-
-    private data class GuildInfo(
-        val invite: Invite,
-        val guildName: String,
-        val guildIcon: String,
-        val members: Int,
-        val active: Int
-    )
 }

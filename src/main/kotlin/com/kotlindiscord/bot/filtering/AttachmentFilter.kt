@@ -1,11 +1,11 @@
 package com.kotlindiscord.bot.filtering
 
-import com.gitlab.kordlib.core.behavior.channel.createMessage
-import com.gitlab.kordlib.core.entity.Message
-import com.gitlab.kordlib.core.event.message.MessageCreateEvent
-import com.gitlab.kordlib.core.event.message.MessageUpdateEvent
-import com.kotlindiscord.bot.deleteIgnoringNotFound
 import com.kotlindiscord.kord.extensions.ExtensibleBot
+import com.kotlindiscord.kord.extensions.utils.deleteIgnoringNotFound
+import com.kotlindiscord.kord.extensions.utils.respond
+import dev.kord.core.entity.Message
+import dev.kord.core.event.message.MessageCreateEvent
+import dev.kord.core.event.message.MessageUpdateEvent
 
 // TODO: Think about allowing undisplayable extensions in specific channels
 
@@ -58,7 +58,7 @@ class AttachmentFilter(bot: ExtensibleBot) : Filter(bot) {
 
             val forbiddenExtensionsString = forbiddenExtensions.joinToString(", ") { "`$it`" }
 
-            message.channel.createMessage {
+            message.respond {
                 content = message.getAuthorAsMember()!!.mention
 
                 embed {

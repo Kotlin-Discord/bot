@@ -15,7 +15,7 @@ jobs:
       - uses: actions/checkout@v1
 
       - name: Set up Java
-        uses: actions/setup-java@v1.0.0
+        uses: actions/setup-java@v1
 
         with:
           version: 1.11
@@ -29,14 +29,14 @@ jobs:
           mv build/libs/*-*.*.jar build/libs/KDBot-slim.jar
 
       - name: Upload artifact (Slim JAR)
-        uses: actions/upload-artifact@v1.0.0
+        uses: actions/upload-artifact@v2
 
         with:
           name: Slim JAR
           path: build/libs/KDBot-slim.jar
 
       - name: Upload artifact (Production JAR)
-        uses: actions/upload-artifact@v1.0.0
+        uses: actions/upload-artifact@v2
 
         with:
           name: Production JAR

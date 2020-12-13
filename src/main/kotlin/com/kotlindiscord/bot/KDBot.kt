@@ -4,7 +4,6 @@ import com.kotlindiscord.bot.config.buildInfo
 import com.kotlindiscord.bot.config.config
 import com.kotlindiscord.bot.extensions.*
 import com.kotlindiscord.kord.extensions.ExtensibleBot
-import io.sentry.Sentry
 import mu.KotlinLogging
 
 /** The current instance of the bot. **/
@@ -20,15 +19,17 @@ suspend fun main(args: Array<String>) {
     val environment = System.getenv().getOrDefault("SENTRY_ENVIRONMENT", "dev")
 
     if (System.getenv().getOrDefault("SENTRY_DSN", null) != null) {
-        val sentry = Sentry.init()
-        sentry.release = buildInfo.version
+        bot.sentry.init {
+            release = buildInfo.version
+            this.environment = environment
+        }
     }
 
     logger.info { "Starting KDBot version ${buildInfo.version}." }
 
+    bot.addExtension(ActionLogExtension::class)
     bot.addExtension(CleanExtension::class)
     bot.addExtension(FilterExtension::class)
-    bot.addExtension(LoggingExtension::class)
     bot.addExtension(SubscriptionExtension::class)
     bot.addExtension(SyncExtension::class)
     bot.addExtension(VerificationExtension::class)

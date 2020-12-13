@@ -14,8 +14,8 @@ object ChannelsSpec : ConfigSpec() {
     /** Configured alerts channel ID. **/
     val alerts by required<Long>()
 
-    /** Configured action-log channel ID. **/
-    val actionLog by required<Long>()
+    /** Configured action-log category ID. **/
+    val actionLogCategory by required<Long>()
 
     /** Configured moderator-log channel ID. **/
     val moderatorLog by required<Long>()

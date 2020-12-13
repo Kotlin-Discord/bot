@@ -1,18 +1,19 @@
 package com.kotlindiscord.bot.filtering
 
-import com.gitlab.kordlib.core.behavior.channel.createMessage
-import com.gitlab.kordlib.core.entity.Message
-import com.gitlab.kordlib.core.entity.channel.TextChannel
-import com.gitlab.kordlib.core.event.message.MessageCreateEvent
-import com.gitlab.kordlib.core.event.message.MessageUpdateEvent
-import com.gitlab.kordlib.rest.builder.message.MessageCreateBuilder
-import com.gitlab.kordlib.rest.request.RestRequestException
 import com.kotlindiscord.bot.config.config
-import com.kotlindiscord.bot.deleteWithDelay
 import com.kotlindiscord.bot.enums.Channels
 import com.kotlindiscord.bot.enums.Roles
 import com.kotlindiscord.kord.extensions.ExtensibleBot
-import io.ktor.http.HttpStatusCode
+import com.kotlindiscord.kord.extensions.utils.deleteWithDelay
+import com.kotlindiscord.kord.extensions.utils.respond
+import dev.kord.core.behavior.channel.createMessage
+import dev.kord.core.entity.Message
+import dev.kord.core.entity.channel.TextChannel
+import dev.kord.core.event.message.MessageCreateEvent
+import dev.kord.core.event.message.MessageUpdateEvent
+import dev.kord.rest.builder.message.MessageCreateBuilder
+import dev.kord.rest.request.RestRequestException
+import io.ktor.http.*
 
 /** How long to wait before removing notification messages in channels - 10 seconds. **/
 const val DELETE_DELAY = 10_000L
@@ -104,9 +105,8 @@ abstract class Filter(val bot: ExtensibleBot) {
 
             return channel.createMessage(message)
         } catch (e: RestRequestException) {
-            if (e.code == HttpStatusCode.Forbidden.value) {
-                val notificationMessage =
-                    eventMessage.channel.createMessage("${eventMessage.author!!.mention} $message")
+            if (e.status.code == HttpStatusCode.Forbidden.value) {
+                val notificationMessage = eventMessage.respond(message)
 
                 notificationMessage.deleteWithDelay(DELETE_DELAY)
 

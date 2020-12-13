@@ -291,7 +291,7 @@ formatting:
     active: true
     autoCorrect: false
   ParameterListWrapping:
-    active: true
+    active: false
     autoCorrect: false
     indentSize: 4
   SpacingAroundColon:

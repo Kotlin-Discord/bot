@@ -1,20 +1,19 @@
 package com.kotlindiscord.bot.extensions
 
-import com.gitlab.kordlib.core.behavior.channel.createMessage
-import com.gitlab.kordlib.core.entity.channel.GuildMessageChannel
-import com.gitlab.kordlib.core.event.message.MessageCreateEvent
-import com.gitlab.kordlib.rest.request.RestRequestException
 import com.kotlindiscord.bot.config.config
 import com.kotlindiscord.bot.defaultCheck
-import com.kotlindiscord.bot.deleteIgnoringNotFound
-import com.kotlindiscord.bot.deleteWithDelay
 import com.kotlindiscord.bot.enums.Channels
 import com.kotlindiscord.bot.enums.Roles
+import com.kotlindiscord.bot.utils.actionLog
 import com.kotlindiscord.kord.extensions.ExtensibleBot
 import com.kotlindiscord.kord.extensions.checks.inChannel
 import com.kotlindiscord.kord.extensions.checks.notHasRole
 import com.kotlindiscord.kord.extensions.checks.topRoleLower
 import com.kotlindiscord.kord.extensions.extensions.Extension
+import com.kotlindiscord.kord.extensions.utils.deleteIgnoringNotFound
+import com.kotlindiscord.kord.extensions.utils.deleteWithDelay
+import dev.kord.core.event.message.MessageCreateEvent
+import dev.kord.rest.request.RestRequestException
 import kotlinx.coroutines.delay
 import mu.KotlinLogging
 import java.time.Instant
@@ -78,27 +77,24 @@ class VerificationExtension(bot: ExtensibleBot) : Extension(bot) {
                 message.deleteIgnoringNotFound()
 
                 val author = message.getAuthorAsMember()!!
-                val channel = config.getChannel(Channels.ACTION_LOG) as GuildMessageChannel
 
-                channel.createMessage {
-                    embed {
-                        description = """
-                            User ${author.mention} has verified themselves.
-                        """.trimIndent()
+                actionLog {
+                    description = """
+                        User ${author.mention} has verified themselves.
+                    """.trimIndent()
 
-                        timestamp = Instant.now()
-                        title = "User verification"
+                    timestamp = Instant.now()
+                    title = "User verification"
 
-                        field { inline = true; name = "U/N"; value = "`${author.username}`" }
-                        field { inline = true; name = "Discrim"; value = "`${author.discriminator}`" }
+                    field { inline = true; name = "U/N"; value = "`${author.username}`" }
+                    field { inline = true; name = "Discrim"; value = "`${author.discriminator}`" }
 
-                        if (author.nickname != null) {
-                            field { inline = false; name = "Nickname"; value = "`${author.nickname}`" }
-                        }
-
-                        thumbnail { url = author.avatar.url }
-                        footer { this.text = author.id.value }
+                    if (author.nickname != null) {
+                        field { inline = false; name = "Nickname"; value = "`${author.nickname}`" }
                     }
+
+                    thumbnail { url = author.avatar.url }
+                    footer { this.text = author.id.asString }
                 }
 
                 try {
@@ -131,7 +127,7 @@ class VerificationExtension(bot: ExtensibleBot) : Extension(bot) {
             )
 
             action {
-                with(it) {
+                with(this.event) {
                     val lowerMessage = message.content.toLowerCase()
 
                     aliases.forEach { alias ->

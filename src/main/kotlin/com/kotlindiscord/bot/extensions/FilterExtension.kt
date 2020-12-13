@@ -1,7 +1,5 @@
 package com.kotlindiscord.bot.extensions
 
-import com.gitlab.kordlib.core.event.message.MessageCreateEvent
-import com.gitlab.kordlib.core.event.message.MessageUpdateEvent
 import com.kotlindiscord.bot.config.config
 import com.kotlindiscord.bot.defaultCheck
 import com.kotlindiscord.bot.enums.Roles
@@ -9,6 +7,8 @@ import com.kotlindiscord.bot.filtering.*
 import com.kotlindiscord.kord.extensions.ExtensibleBot
 import com.kotlindiscord.kord.extensions.checks.topRoleLower
 import com.kotlindiscord.kord.extensions.extensions.Extension
+import dev.kord.core.event.message.MessageCreateEvent
+import dev.kord.core.event.message.MessageUpdateEvent
 import mu.KotlinLogging
 
 private val logger = KotlinLogging.logger {}
@@ -25,8 +25,7 @@ class FilterExtension(bot: ExtensibleBot) : Extension(bot) {
     override val name: String = "filter"
 
     private val filters: Array<Filter> = arrayOf(
-        InviteFilter(bot),
-        AttachmentFilter(bot),
+//        AttachmentFilter(bot),  // We can re-add this if we need it
         UrlFilter(bot),
 
         // Non-actioning filters come last, in case a message was already removed.
@@ -57,7 +56,7 @@ class FilterExtension(bot: ExtensibleBot) : Extension(bot) {
             )
 
             action {
-                with(it) {
+                with(event) {
                     for (filter in filters) {
                         var matchedConcerns = false
 
@@ -93,7 +92,7 @@ class FilterExtension(bot: ExtensibleBot) : Extension(bot) {
             )
 
             action {
-                with(it) {
+                with(event) {
                     for (filter in filters) {
                         var matchedConcerns = false
 
@@ -113,7 +112,7 @@ class FilterExtension(bot: ExtensibleBot) : Extension(bot) {
 
                         @Suppress("TooGenericExceptionCaught")  // Anything could happen here.
                         try {
-                            if (!filter.checkEdit(this, sanitizeMessage(new.content ?: ""))) break
+                            if (!filter.checkEdit(this, sanitizeMessage(new.content.value ?: ""))) break
                         } catch (e: Exception) {
                             logger.catching(e)
                         }

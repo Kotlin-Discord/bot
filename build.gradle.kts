@@ -17,14 +17,14 @@ plugins {
 
     id("com.github.jakemarsden.git-hooks") version "0.0.1"
     id("com.github.johnrengelman.shadow") version "5.2.0"
-    id("io.gitlab.arturbosch.detekt") version "1.8.0"
+    id("io.gitlab.arturbosch.detekt") version "1.13.1"
 }
 
 group = "com.kotlindiscord.bot"
 version = "1.0-SNAPSHOT"
 
 tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "1.11"
+    kotlinOptions.jvmTarget = "11"
 
     kotlinOptions.freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
 }
@@ -46,13 +46,13 @@ repositories {
 }
 
 dependencies {
-    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.8.0")
+    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.13.1")
 
-    implementation("com.kotlindiscord.api:client:+")
-    implementation("com.kotlindiscord.kord.extensions:kord-extensions:1.1-SNAPSHOT")
+    implementation("com.kotlindiscord.api:client:1.1-SNAPSHOT")
+    implementation("com.kotlindiscord.kord.extensions:kord-extensions:1.4.0-RC1")
 
-    implementation("com.uchuhimo:konf:0.22.1")
-    implementation("com.uchuhimo:konf-toml:0.22.1")
+    implementation("com.uchuhimo:konf:0.23.0")
+    implementation("com.uchuhimo:konf-toml:0.23.0")
 
     implementation("org.apache.commons:commons-text:1.8")
     implementation("org.nibor.autolink:autolink:0.10.0")
@@ -63,8 +63,8 @@ dependencies {
 
     // Logging dependencies
     implementation("ch.qos.logback:logback-classic:1.2.3")
-    implementation("io.github.microutils:kotlin-logging:1.7.9")
-    implementation("io.sentry:sentry-logback:1.7.30")
+    implementation("io.github.microutils:kotlin-logging:2.0.3")
+    implementation("io.sentry:sentry-logback:3.2.0")
     implementation("org.codehaus.groovy:groovy:3.0.4")  // For logback config
 }
 
