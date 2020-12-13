@@ -20,6 +20,7 @@ suspend fun main(args: Array<String>) {
 
     if (System.getenv().getOrDefault("SENTRY_DSN", null) != null) {
         bot.sentry.init {
+            dsn = System.getenv("SENTRY_DSN")
             release = buildInfo.version
             this.environment = environment
         }
