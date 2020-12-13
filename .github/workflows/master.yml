@@ -46,10 +46,7 @@ jobs:
           echo "githubToken=${{ secrets.GITHUB_TOKEN }}" >> ~/.gradle/gradle.properties
 
       - name: Gradle (Build)
-        run: sh gradlew build docs:orchidBuild
-
-      - name: Gradle (Deploy docs)
-        run: sh gradlew docs:orchidDeploy
+        run: sh gradlew build
 
       - name: Rename Artifacts
         run: |
@@ -58,10 +55,6 @@ jobs:
           cp build/libs/* build/artifacts
           mv build/artifacts/*-all.jar build/artifacts/KDBot.jar
           mv build/artifacts/*-*.*.jar build/artifacts/KDBot-slim.jar
-
-      - name: Create Docs Zip
-        run: |
-          zip -r build/docs.zip docs/build/docs/orchid/*
 
       - name: Upload artifact (Slim JAR)
         uses: actions/upload-artifact@v1.0.0
@@ -76,13 +69,6 @@ jobs:
         with:
           name: Production JAR
           path: build/artifacts/KDBot.jar
-
-      - name: Upload artifact (Docs)
-        uses: actions/upload-artifact@v1.0.0
-
-        with:
-          name: Docs Zip
-          path: build/docs.zip
 
       - name: Docker Login
         run: "docker login -u ${{ secrets.MAVEN_USER }} -p ${{ secrets.MAVEN_PASSWORD }} docker.kotlindiscord.com"

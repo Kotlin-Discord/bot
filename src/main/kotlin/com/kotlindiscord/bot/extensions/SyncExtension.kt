@@ -134,10 +134,18 @@ class SyncExtension(bot: ExtensibleBot) : Extension(bot) {
 
     @Suppress("UnusedPrivateMember")
     private suspend fun userUpdated(user: User) {
+        val member = config.getGuild().getMemberOrNull(user.id)
         val dbUser = config.api.getUser(user.id.longValue) ?: return
 
         config.api.upsertUser(
-            UserModel(user.id.longValue, user.username, user.discriminator, user.avatar.url, dbUser.roles, false)
+            UserModel(
+                user.id.longValue,
+                user.username,
+                user.discriminator,
+                user.avatar.url,
+                dbUser.roles,
+                member != null
+            )
         )
     }
 

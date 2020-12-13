@@ -2,10 +2,10 @@ build:
   maxIssues: 0
   excludeCorrectable: false
   weights:
-    # complexity: 2
-    # LongParameterList: 1
-    # style: 1
-    # comments: 1
+  # complexity: 2
+  # LongParameterList: 1
+  # style: 1
+  # comments: 1
 
 config:
   validation: true
@@ -25,11 +25,11 @@ processors:
 console-reports:
   active: true
   exclude:
-     - 'ProjectStatisticsReport'
-     - 'ComplexityReport'
-     - 'NotificationReport'
-  #  - 'FindingsReport'
-     - 'FileBasedFindingsReport'
+    - 'ProjectStatisticsReport'
+    - 'ComplexityReport'
+    - 'NotificationReport'
+    #  - 'FindingsReport'
+    - 'FileBasedFindingsReport'
 
 comments:
   active: true
@@ -175,10 +175,10 @@ exceptions:
   SwallowedException:
     active: false
     ignoredExceptionTypes:
-     - InterruptedException
-     - NumberFormatException
-     - ParseException
-     - MalformedURLException
+      - InterruptedException
+      - NumberFormatException
+      - ParseException
+      - MalformedURLException
     allowedExceptionNameRegex: '^(_|(ignore|expected).*)'
   ThrowingExceptionFromFinally:
     active: true
@@ -187,31 +187,31 @@ exceptions:
   ThrowingExceptionsWithoutMessageOrCause:
     active: true
     exceptions:
-     - IllegalArgumentException
-     - IllegalStateException
-     - IOException'
+      - IllegalArgumentException
+      - IllegalStateException
+      - IOException'
   ThrowingNewInstanceOfSameException:
     active: true
   TooGenericExceptionCaught:
     active: true
     excludes: ['**/test/**', '**/androidTest/**', '**/*.Test.kt', '**/*.Spec.kt', '**/*.Spek.kt']
     exceptionNames:
-     - ArrayIndexOutOfBoundsException
-     - Error
-     - Exception
-     - IllegalMonitorStateException
-     - NullPointerException
-     - IndexOutOfBoundsException
-     - RuntimeException
-     - Throwable
+      - ArrayIndexOutOfBoundsException
+      - Error
+      - Exception
+      - IllegalMonitorStateException
+      - NullPointerException
+      - IndexOutOfBoundsException
+      - RuntimeException
+      - Throwable
     allowedExceptionNameRegex: '^(_|(ignore|expected).*)'
   TooGenericExceptionThrown:
     active: true
     exceptionNames:
-     - Error
-     - Exception
-     - Throwable
-     - RuntimeException
+      - Error
+      - Exception
+      - Throwable
+      - RuntimeException
 
 formatting:
   active: true
@@ -239,7 +239,7 @@ formatting:
     active: false
     autoCorrect: false
   Indentation:
-    active: true
+    active: false
     autoCorrect: false
     indentSize: 4
     continuationIndentSize: 4
@@ -514,7 +514,7 @@ style:
     active: true
   LoopWithTooManyJumpStatements:
     active: true
-    maxJumpCount: 2
+    maxJumpCount: 3
   MagicNumber:
     active: true
     excludes: ['**/test/**', '**/androidTest/**', '**/*.Test.kt', '**/*.Spec.kt', '**/*.Spek.kt']
@@ -549,7 +549,7 @@ style:
   OptionalAbstractKeyword:
     active: true
   OptionalUnit:
-    active: true
+    active: false
   OptionalWhenBraces:
     active: true
   PreferToOverPairSyntax:
@@ -559,7 +559,7 @@ style:
   RedundantExplicitType:
     active: true
   RedundantVisibilityModifierRule:
-    active: true
+    active: false
   ReturnCount:
     active: false
     max: 2
