@@ -50,7 +50,7 @@ suspend fun actionLog(body: suspend EmbedBuilder.() -> Unit): Message {
 
     builder.timestamp = Instant.now()
 
-    val webhook = ensureWebhook(channel, "Fabric Bot") {
+    val webhook = ensureWebhook(channel, "Kotlin") {
         KDConfig::class.java.getResource("/logo.png").readBytes()
     }
 
@@ -72,7 +72,7 @@ suspend fun modLog(body: suspend EmbedBuilder.() -> Unit): Message {
     body.invoke(builder)
     builder.timestamp = Instant.now()
 
-    val webhook = ensureWebhook(config.getChannel(Channels.MODERATOR_LOG) as GuildMessageChannel, "Fabric Bot") {
+    val webhook = ensureWebhook(config.getChannel(Channels.MODERATOR_LOG) as GuildMessageChannel, "Kotlin") {
         KDConfig::class.java.getResource("/logo.png").readBytes()
     }
 
