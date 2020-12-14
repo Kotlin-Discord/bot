@@ -102,7 +102,7 @@ val generateBuildInfo = task("generateBuildInfo") {
 
     doLast {
         File("src/main/resources/build.properties").writeText(
-            "version=$project.version"
+            "version=${project.version}"
         )
     }
 }
