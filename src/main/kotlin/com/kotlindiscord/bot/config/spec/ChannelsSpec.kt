@@ -22,4 +22,10 @@ object ChannelsSpec : ConfigSpec() {
 
     /** Configured verification channel ID. **/
     val verification by required<Long>()
+
+    /** Ignored category IDs. **/
+    val ignoredCategories by required<List<Long>>()
+
+    /** Ignored channel IDs. **/
+    val ignoredChannels by required<List<Long>>()
 }

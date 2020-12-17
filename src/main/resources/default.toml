@@ -9,6 +9,18 @@ botCommands = 705469251754000514
 moderatorLog = 712641196865880066
 verification = 705469273212190771
 
+ignoredCategories = [
+    787655205096521778,  # Action logs
+    712282936979750993,  # Logs
+    788878416329834558,  # Temporary
+    705467822238728283,  # Staff
+    705376765836787763,  # Information
+]
+ignoredChannels = [
+    705469358843101214,  # Dev log
+    715257094906839072,  # Sentry log
+]
+
 [roles]
 admin = 705376826809385090
 announcements = 715138174388797510

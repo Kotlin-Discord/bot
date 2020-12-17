@@ -65,6 +65,12 @@ class KDConfig {
      */
     val guildSnowflake: Snowflake get() = Snowflake(config[BotSpec.guild])
 
+    /** Categories that should be ignored by the logging extension. **/
+    val ignoredCategories: List<Long> get() = config[ChannelsSpec.ignoredCategories]
+
+    /** Channels that should be ignored by the logging extension. **/
+    val ignoredChannels: List<Long> get() = config[ChannelsSpec.ignoredChannels]
+
     /**
      * Given a [Channels] enum value, attempt to retrieve the corresponding Discord [Channel]
      * object.

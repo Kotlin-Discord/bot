@@ -4,6 +4,7 @@ import com.kotlindiscord.bot.config.config
 import com.kotlindiscord.bot.enums.Channels
 import com.kotlindiscord.bot.enums.Roles
 import com.kotlindiscord.kord.extensions.checks.*
+import dev.kord.core.entity.channel.CategorizableChannel
 import dev.kord.core.event.Event
 import mu.KotlinLogging
 
@@ -118,5 +119,34 @@ suspend fun isNotBot(event: Event): Boolean {
             logger.debug { "Passing check." }
             true
         }
+    }
+}
+
+/**
+ * Check that ensures an event didn't happen in an ignored channel.
+ *
+ * This check will pass if the event isn't one that is channel-relevant.
+ */
+suspend fun isNotIgnoredChannel(event: Event): Boolean {
+    val logger = KotlinLogging.logger {}
+    val channel = channelFor(event)
+
+    if (channel == null) {
+        logger.debug { "Passing check: Event is not channel-relevant." }
+        return true
+    }
+
+    return if (channel.id.value in config.ignoredChannels) {
+        logger.debug { "Failing check: Event is in an ignored channel." }
+
+        false
+    } else if (channel is CategorizableChannel && channel.category?.id?.value in config.ignoredCategories) {
+        logger.debug { "Failing check: Event is in an ignored category." }
+
+        false
+    } else {
+        logger.debug { "Failing check: Event is not in an ignored channel." }
+
+        true
     }
 }
