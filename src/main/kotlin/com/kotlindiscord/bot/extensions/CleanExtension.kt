@@ -109,12 +109,12 @@ class CleanExtension(bot: ExtensibleBot) : Extension(bot) {
                         Users: ${users.joinToString(", ") { "${it.username}#${it.discriminator}" }}
                         Regex: ${regexes.joinToString(", ")}
                         Channels: ${
-                            if (channels.isNotEmpty()) {
-                                channels.joinToString(", ") { it.id.asString }
-                            } else {
-                                message.channelId
-                            }
+                        if (channels.isNotEmpty()) {
+                            channels.joinToString(", ") { it.id.asString }
+                        } else {
+                            message.channelId
                         }
+                    }
                         Since: ${since?.id?.asString}
                         Bot-only: $botOnly
                         Count: $count
@@ -122,7 +122,7 @@ class CleanExtension(bot: ExtensibleBot) : Extension(bot) {
                         """.trimIndent()
 
                     val channels = when {
-                        since != null            -> {
+                        since != null -> {
                             if (!channels.isNullOrEmpty()) {
                                 message.respond("Cannot use the `in` and `since` options together.")
                                 return@action
@@ -132,7 +132,7 @@ class CleanExtension(bot: ExtensibleBot) : Extension(bot) {
                         }
 
                         channels.isNullOrEmpty() -> listOf(message.channelId)
-                        else                     -> channels.map { it.id }
+                        else -> channels.map { it.id }
                     }
 
                     val userIds = users.map { it.id }

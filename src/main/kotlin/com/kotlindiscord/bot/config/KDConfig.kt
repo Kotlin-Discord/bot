@@ -83,10 +83,10 @@ class KDConfig {
     suspend fun getChannel(channel: Channels): Channel {
         val snowflake = when (channel) {
             Channels.ACTION_LOG_CATEGORY -> Snowflake(config[ChannelsSpec.actionLogCategory])
-            Channels.ALERTS              -> Snowflake(config[ChannelsSpec.alerts])
-            Channels.BOT_COMMANDS        -> Snowflake(config[ChannelsSpec.botCommands])
-            Channels.MODERATOR_LOG       -> Snowflake(config[ChannelsSpec.moderatorLog])
-            Channels.VERIFICATION        -> Snowflake(config[ChannelsSpec.verification])
+            Channels.ALERTS -> Snowflake(config[ChannelsSpec.alerts])
+            Channels.BOT_COMMANDS -> Snowflake(config[ChannelsSpec.botCommands])
+            Channels.MODERATOR_LOG -> Snowflake(config[ChannelsSpec.moderatorLog])
+            Channels.VERIFICATION -> Snowflake(config[ChannelsSpec.verification])
         }
 
         return bot.kord.getChannel(snowflake) ?: throw MissingChannelException(snowflake.value)
@@ -100,12 +100,12 @@ class KDConfig {
      */
     fun getRoleSnowflake(role: Roles): Snowflake {
         return when (role) {
-            Roles.OWNER         -> Snowflake(config[RolesSpec.owner])
-            Roles.ADMIN         -> Snowflake(config[RolesSpec.admin])
-            Roles.MODERATOR     -> Snowflake(config[RolesSpec.mod])
-            Roles.HELPER        -> Snowflake(config[RolesSpec.helper])
-            Roles.DEVELOPER     -> Snowflake(config[RolesSpec.developer])
-            Roles.MUTED         -> Snowflake(config[RolesSpec.muted])
+            Roles.OWNER -> Snowflake(config[RolesSpec.owner])
+            Roles.ADMIN -> Snowflake(config[RolesSpec.admin])
+            Roles.MODERATOR -> Snowflake(config[RolesSpec.mod])
+            Roles.HELPER -> Snowflake(config[RolesSpec.helper])
+            Roles.DEVELOPER -> Snowflake(config[RolesSpec.developer])
+            Roles.MUTED -> Snowflake(config[RolesSpec.muted])
             Roles.ANNOUNCEMENTS -> Snowflake(config[RolesSpec.announcements])
         }
     }
