@@ -140,12 +140,12 @@ suspend fun isNotIgnoredChannel(event: Event): Boolean {
         logger.debug { "Failing check: Event is in an ignored channel." }
 
         false
-    } else if (channel is CategorizableChannel && channel.category?.id?.value in config.ignoredCategories) {
+    } else if (channel is CategorizableChannel && channel.categoryId?.value in config.ignoredCategories) {
         logger.debug { "Failing check: Event is in an ignored category." }
 
         false
     } else {
-        logger.debug { "Failing check: Event is not in an ignored channel." }
+        logger.debug { "Passing check: Event is not in an ignored channel." }
 
         true
     }

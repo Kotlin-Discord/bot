@@ -16,6 +16,7 @@ ignoredCategories = [
     705467822238728283,  # Staff
     705376765836787763,  # Information
 ]
+
 ignoredChannels = [
     705469358843101214,  # Dev log
     715257094906839072,  # Sentry log
