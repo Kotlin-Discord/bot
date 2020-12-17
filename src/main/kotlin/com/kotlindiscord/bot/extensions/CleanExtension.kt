@@ -110,7 +110,7 @@ class CleanExtension(bot: ExtensibleBot) : Extension(bot) {
                         Regex: ${regexes.joinToString(", ")}
                         Channels: ${
                             if (channels.isNotEmpty()) {
-                                channels.joinToString(", ") { it.id.toString() }
+                                channels.joinToString(", ") { it.id.asString }
                             } else {
                                 message.channelId
                             }

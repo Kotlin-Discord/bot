@@ -341,7 +341,7 @@ class LoggingExtension(bot: ExtensibleBot) : Extension(bot) {
                             field { name = "Created"; value = instantToDisplay(event.messageId.timeStamp)!! }
                         }
 
-                        footer { text = event.messageId.toString() }
+                        footer { text = event.messageId.asString }
                     }
 
                     is MessageUpdateEvent -> if ((event as MessageUpdateEvent).getMessage().author != null) {
@@ -396,7 +396,7 @@ class LoggingExtension(bot: ExtensibleBot) : Extension(bot) {
                                 else -> "**__Message content not edited__**"
                             }
 
-                            footer { text = event.messageId.toString() }
+                            footer { text = event.messageId.asString }
                         }
                     }
 
@@ -449,7 +449,7 @@ class LoggingExtension(bot: ExtensibleBot) : Extension(bot) {
 
                             field { name = "Message"; value = message.getUrl() }
 
-                            footer { text = event.messageId.toString() }
+                            footer { text = event.messageId.asString }
                         }
                     }
 
@@ -470,7 +470,7 @@ class LoggingExtension(bot: ExtensibleBot) : Extension(bot) {
 
                             field { name = "Message"; value = message.getUrl() }
 
-                            footer { text = event.messageId.toString() }
+                            footer { text = event.messageId.asString }
                         }
                     }
 
@@ -499,7 +499,7 @@ class LoggingExtension(bot: ExtensibleBot) : Extension(bot) {
                             field { name = "Name"; value = role.name; inline = true }
                         }
 
-                        footer { text = event.roleId.toString() }
+                        footer { text = event.roleId.asString }
                     }
 
                     is StoreChannelCreateEvent -> modLog {
