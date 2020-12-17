@@ -49,7 +49,7 @@ dependencies {
     detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.13.1")
 
     implementation("com.kotlindiscord.api:client:1.1-SNAPSHOT")
-    implementation("com.kotlindiscord.kord.extensions:kord-extensions:1.4.0-RC1")
+    implementation("com.kotlindiscord.kord.extensions:kord-extensions:1.4.0-RC2")
 
     implementation("com.uchuhimo:konf:0.23.0")
     implementation("com.uchuhimo:konf-toml:0.23.0")
