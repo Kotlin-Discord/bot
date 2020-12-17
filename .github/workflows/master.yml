@@ -81,19 +81,15 @@ jobs:
       - name: Publish Container
         run: "docker push docker.kotlindiscord.com/bot"
 
+      - name: Install SSH key
+        uses: shimataro/ssh-key-action@v2
+
+        with:
+          key: ${{ secrets.SALT_KEY }}
+
       - name: Deploy to production
         run: |
-          export SALTAPI_EAUTH=pam
-          export SALTAPI_PASS=${{ secrets.SALT_PASSWORD  }}
-          export SALTAPI_URL=https://${{ secrets.SALT_DOMAIN  }}
-          export SALTAPI_USER=${{ secrets.SALT_USER }}
-
-          sudo apt-get update -y
-          sudo apt-get install python3-setuptools -y
-          sudo pip3 install wheel aiohttp cached-property
-
-          cd scripts
-          python3 salt.py
+          ssh ${{ SALT_SSH_USER }}@${{ SALT_SSH_ADDRESS }} "sudo salt --state-output=terse '*' state.apply docker/kotdis-bot"
 
       - name: Finalize Sentry
 
