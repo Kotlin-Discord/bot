@@ -6,6 +6,7 @@ import com.kotlindiscord.bot.config.config
 import com.kotlindiscord.bot.defaultCheck
 import com.kotlindiscord.bot.enums.Roles
 import com.kotlindiscord.bot.toModel
+import com.kotlindiscord.bot.utils.actionLog
 import com.kotlindiscord.bot.utils.alert
 import com.kotlindiscord.kord.extensions.ExtensibleBot
 import com.kotlindiscord.kord.extensions.checks.topRoleHigherOrEqual
@@ -92,7 +93,7 @@ class SyncExtension(bot: ExtensibleBot) : Extension(bot) {
             val (rolesUpdated, rolesRemoved) = updateRoles()
             val (usersUpdated, usersScrubbed) = updateUsers()
 
-            alert(false) {
+            actionLog {
                 title = "Sync statistics"
 
                 field {
