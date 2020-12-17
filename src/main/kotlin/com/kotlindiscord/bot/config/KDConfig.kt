@@ -65,6 +65,11 @@ class KDConfig {
      */
     val guildSnowflake: Snowflake get() = Snowflake(config[BotSpec.guild])
 
+    /**
+     * The [Snowflake] object representing the bot's configured emoji guild.
+     */
+    val emojiGuildSnowflake: Snowflake get() = Snowflake(config[BotSpec.emojiGuild])
+
     /** Categories that should be ignored by the logging extension. **/
     val ignoredCategories: List<Long> get() = config[ChannelsSpec.ignoredCategories]
 
@@ -134,6 +139,16 @@ class KDConfig {
     @Throws(MissingGuildException::class)
     suspend fun getGuild(): Guild =
         bot.kord.getGuild(guildSnowflake) ?: throw MissingGuildException(guildSnowflake.value)
+
+    /**
+     * Attempt to retrieve the [Guild] object for the configured emoji guild.
+     *
+     * @return The [Guild] object representing the configured emoji guild.
+     * @throws MissingGuildException Thrown if the configured [Guild] cannot be found.
+     */
+    @Throws(MissingGuildException::class)
+    suspend fun getEmojiGuild(): Guild =
+        bot.kord.getGuild(emojiGuildSnowflake) ?: throw MissingGuildException(emojiGuildSnowflake.value)
 }
 
 /**

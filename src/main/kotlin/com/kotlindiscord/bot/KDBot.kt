@@ -30,10 +30,12 @@ suspend fun main(args: Array<String>) {
 
     bot.addExtension(ActionLogExtension::class)
     bot.addExtension(CleanExtension::class)
+    bot.addExtension(EmojiExtension::class)
     bot.addExtension(FilterExtension::class)
     bot.addExtension(LoggingExtension::class)
     bot.addExtension(SubscriptionExtension::class)
     bot.addExtension(SyncExtension::class)
+    bot.addExtension(UtilsExtension::class)
     bot.addExtension(VerificationExtension::class)
 
     if (environment == "dev") {

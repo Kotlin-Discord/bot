@@ -1,5 +1,7 @@
 [bot]
 guild = 705370076248932402
+emojiGuild = 789115524411162654
+
 prefix = "!"
 
 [channels]
