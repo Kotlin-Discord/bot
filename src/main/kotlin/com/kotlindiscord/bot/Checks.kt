@@ -24,7 +24,7 @@ suspend fun defaultCheck(event: Event): Boolean {
     val message = messageFor(event)?.asMessage()
 
     return when {
-        message == null                                      -> {
+        message == null -> {
             logger.debug { "Failing check: Message for event $event is null. This type of event may not be supported." }
             false
         }
@@ -34,22 +34,22 @@ suspend fun defaultCheck(event: Event): Boolean {
             false
         }
 
-        message.author == null                               -> {
+        message.author == null -> {
             logger.debug { "Failing check: Message sent by a webhook or system message" }
             false
         }
 
-        message.author!!.id == bot.kord.getSelf().id         -> {
+        message.author!!.id == bot.kord.getSelf().id -> {
             logger.debug { "Failing check: We sent this message" }
             false
         }
 
-        message.author!!.isBot == true                       -> {
+        message.author!!.isBot -> {
             logger.debug { "Failing check: This message was sent by another bot" }
             false
         }
 
-        else                                                 -> {
+        else -> {
             logger.debug { "Passing check" }
             true
         }
@@ -67,7 +67,7 @@ suspend fun inBotChannel(event: Event): Boolean {
     val channel = channelFor(event)
 
     return when {
-        channel == null                                           -> {
+        channel == null -> {
             logger.debug { "Failing check: Channel is null" }
             false
         }
@@ -77,7 +77,7 @@ suspend fun inBotChannel(event: Event): Boolean {
             false
         }
 
-        else                                                      -> {
+        else -> {
             logger.debug { "Passing check" }
             true
         }
@@ -105,17 +105,17 @@ suspend fun isNotBot(event: Event): Boolean {
     val user = userFor(event)
 
     return when {
-        user == null                -> {
+        user == null -> {
             logger.debug { "Passing check: User for event $event is null." }
             true
         }
 
-        user.asUser().isBot == true -> {
+        user.asUserOrNull()?.isBot == true -> {
             logger.debug { "Failing check: User $user is a bot." }
             false
         }
 
-        else                        -> {
+        else -> {
             logger.debug { "Passing check." }
             true
         }
@@ -131,22 +131,29 @@ suspend fun isNotIgnoredChannel(event: Event): Boolean {
     val logger = KotlinLogging.logger {}
     val channel = channelFor(event)
 
-    if (channel == null) {
-        logger.debug { "Passing check: Event is not channel-relevant." }
-        return true
-    }
+    return when {
+        channel == null -> {
+            logger.debug { "Passing check: Event is not channel-relevant." }
 
-    return if (channel.id.value in config.ignoredChannels) {
-        logger.debug { "Failing check: Event is in an ignored channel." }
+            true
+        }
 
-        false
-    } else if (channel is CategorizableChannel && channel.categoryId?.value in config.ignoredCategories) {
-        logger.debug { "Failing check: Event is in an ignored category." }
+        channel.id.value in config.ignoredChannels -> {
+            logger.debug { "Failing check: Event is in an ignored channel." }
 
-        false
-    } else {
-        logger.debug { "Passing check: Event is not in an ignored channel." }
+            false
+        }
 
-        true
+        channel is CategorizableChannel && channel.categoryId?.value in config.ignoredCategories -> {
+            logger.debug { "Failing check: Event is in an ignored category." }
+
+            false
+        }
+
+        else -> {
+            logger.debug { "Passing check: Event is not in an ignored channel." }
+
+            true
+        }
     }
 }
