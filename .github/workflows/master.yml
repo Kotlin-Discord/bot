@@ -89,7 +89,7 @@ jobs:
 
       - name: Deploy to production
         run: |
-          ssh ${{ SALT_SSH_USER }}@${{ SALT_SSH_ADDRESS }} "sudo salt --state-output=terse '*' state.apply docker/kotdis-bot"
+          ssh ${{ secrets.SALT_SSH_USER }}@${{ secrets.SALT_SSH_ADDRESS }} "sudo salt --state-output=terse '*' state.apply docker/kotdis-bot"
 
       - name: Finalize Sentry
 
